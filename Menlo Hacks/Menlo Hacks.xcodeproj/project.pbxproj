@@ -14,6 +14,8 @@
 		BE261A0E1C3321A000BB5920 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE261A0C1C3321A000BB5920 /* Main.storyboard */; };
 		BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE261A0F1C3321A000BB5920 /* Assets.xcassets */; };
 		BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */; };
+		BE386FCD1C33234700020989 /* API Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE386FCC1C33234700020989 /* API Keys.plist */; };
+		BE386FD01C33250400020989 /* APIKeyStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FCF1C33250400020989 /* APIKeyStoreController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,9 @@
 		BE261A0F1C3321A000BB5920 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE261A121C3321A000BB5920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE261A141C3321A000BB5920 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE386FCC1C33234700020989 /* API Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "API Keys.plist"; sourceTree = "<group>"; };
+		BE386FCE1C33250400020989 /* APIKeyStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIKeyStoreController.h; sourceTree = "<group>"; };
+		BE386FCF1C33250400020989 /* APIKeyStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIKeyStoreController.m; sourceTree = "<group>"; };
 		CA30B2EA8509E0D8CBEF7A72 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +91,9 @@
 				BE261A071C3321A000BB5920 /* AppDelegate.m */,
 				BE261A091C3321A000BB5920 /* ViewController.h */,
 				BE261A0A1C3321A000BB5920 /* ViewController.m */,
+				BE386FCC1C33234700020989 /* API Keys.plist */,
+				BE386FCE1C33250400020989 /* APIKeyStoreController.h */,
+				BE386FCF1C33250400020989 /* APIKeyStoreController.m */,
 				BE261A0C1C3321A000BB5920 /* Main.storyboard */,
 				BE261A0F1C3321A000BB5920 /* Assets.xcassets */,
 				BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */,
@@ -165,6 +173,7 @@
 			files = (
 				BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */,
 				BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */,
+				BE386FCD1C33234700020989 /* API Keys.plist in Resources */,
 				BE261A0E1C3321A000BB5920 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +235,7 @@
 			files = (
 				BE261A0B1C3321A000BB5920 /* ViewController.m in Sources */,
 				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
+				BE386FD01C33250400020989 /* APIKeyStoreController.m in Sources */,
 				BE261A051C3321A000BB5920 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
