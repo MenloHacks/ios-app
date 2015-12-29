@@ -1,0 +1,4 @@
+target 'Menlo Hacks' do
+pod 'Parse'
+end
+
