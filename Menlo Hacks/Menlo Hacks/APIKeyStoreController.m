@@ -43,6 +43,10 @@
   return self.apiKeyDictionary[@"parse_client_id"];
 }
 
+- (NSString *)getSmoochID {
+  return self.apiKeyDictionary[@"smooch"];
+}
+
 
 
 @end

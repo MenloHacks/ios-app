@@ -59,9 +59,11 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "Smooch/Smooch.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "Smooch/Smooch.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

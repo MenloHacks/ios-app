@@ -9,9 +9,13 @@
 #import "AppDelegate.h"
 
 #import <Parse/Parse.h>
+#import <Smooch/Smooch.h>
 
 #import "APIKeyStoreController.h"
 #import "ScheduleViewController.h"
+#import "AnnouncementsViewController.h"
+#import "MapViewController.h"
+#import "MentorshipViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,12 +30,16 @@
   UITabBarController *tabBarController = [[UITabBarController alloc]init];
   tabBarController.tabBar.translucent = NO;
   UIViewController *vc1 = [[ScheduleViewController alloc]init];
-  UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:vc1];
-  navController.navigationBar.translucent = NO;
-  tabBarController.viewControllers =  @[navController];
+  UIViewController *vc2 = [[AnnouncementsViewController alloc]init];
+  UIViewController *vc3 = [[MapViewController alloc]init];
+  UIViewController *vc4 = [[MentorshipViewController alloc]init];
+  
+  tabBarController.viewControllers =  @[vc1, vc2, vc3, vc4];
   
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  _window.rootViewController = tabBarController;
+    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:tabBarController];
+    navController.navigationBar.translucent = NO;
+  _window.rootViewController = navController;
   [_window makeKeyAndVisible];
   
   return YES;
@@ -67,6 +75,11 @@
   
   [Parse setApplicationId:parseAppID
                 clientKey:parseClientID];
+  
+  NSString *smoochID = [[APIKeyStoreController sharedAPIKeyStoreController]getSmoochID];
+  [Smooch initWithSettings:
+   [SKTSettings settingsWithAppToken:smoochID]];
+  
 }
 
 -(void)registerForPush : (UIApplication *)application {

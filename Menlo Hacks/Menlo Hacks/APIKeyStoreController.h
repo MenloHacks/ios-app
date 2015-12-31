@@ -14,5 +14,5 @@
 
 - (NSString *)getParseAppID;
 - (NSString *)getParseClientID;
-
+- (NSString *)getSmoochID;
 @end

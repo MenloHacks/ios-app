@@ -2,12 +2,15 @@ PODS:
   - Bolts/Tasks (1.5.0)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
+  - Smooch (3.2.3)
 
 DEPENDENCIES:
   - Parse
+  - Smooch
 
 SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
+  Smooch: 78b8a064e4f5baf4f8309e8f9f72601b69f58164
 
 COCOAPODS: 0.39.0.beta.4

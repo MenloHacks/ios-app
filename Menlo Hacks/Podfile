@@ -1,4 +1,5 @@
 target 'Menlo Hacks' do
 pod 'Parse'
+pod 'Smooch'
 end
 
