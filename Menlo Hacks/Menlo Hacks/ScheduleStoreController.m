@@ -25,6 +25,7 @@
 
 - (void)getScheduleItems : (void (^)(NSArray<Event *> * results))completion {
   PFQuery *query = [Event query];
+  [query orderByAscending:@"time"];
   [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
     completion(objects);
   }];

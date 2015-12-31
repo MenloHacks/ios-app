@@ -10,7 +10,7 @@
 
 @interface NSDate (Utilities)
 
-+ (NSString *)formattedTimeUntilDate : (NSDate *)toDateTime fromDate: (NSDate *)fromDateTime;
++ (NSString *)formattedTimeUntilDate : (NSDate *)toDate fromDate: (NSDate *)fromDate;
 + (NSString *)formattedShortTimeFromDate : (NSDate *)date;
 
 @end

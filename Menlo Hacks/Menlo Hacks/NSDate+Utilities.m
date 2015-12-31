@@ -10,17 +10,9 @@
 
 @implementation NSDate (Utilities)
 
-+ (NSString *)formattedTimeUntilDate : (NSDate *)toDateTime fromDate: (NSDate *)fromDateTime {
-  
-  NSDate *fromDate;
-  NSDate *toDate;
++ (NSString *)formattedTimeUntilDate : (NSDate *)toDate fromDate: (NSDate *)fromDate {
 
   NSCalendar *calendar = [NSCalendar currentCalendar];
-  
-  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
-               interval:NULL forDate:fromDateTime];
-  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
-               interval:NULL forDate:toDateTime];
   
   NSDateComponents *difference = [calendar components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute
                                              fromDate:fromDate toDate:toDate options:0];

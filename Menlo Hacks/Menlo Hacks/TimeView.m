@@ -80,9 +80,9 @@
       _coloringWidth.constant = 0;
     }
     else {
-      NSTimeInterval seconds = [currentDate timeIntervalSinceDate:_endDate];
+      NSTimeInterval seconds = [currentDate timeIntervalSinceDate:_startDate];
       NSInteger minutesElapsed = seconds/60;
-      CGFloat ratio = minutesElapsed/_totalEventLengthInMinutes;
+      CGFloat ratio = 1.0f * minutesElapsed/_totalEventLengthInMinutes;
       _coloringWidth.constant = self.frame.size.width * ratio;
     }
  
@@ -102,7 +102,7 @@
     return [NSString stringWithFormat:@"%@ until hacking begins", timeUntil];
   }
   else {
-    NSString *timeUntil = [NSDate formattedTimeUntilDate:_startDate fromDate:currentDate];
+    NSString *timeUntil = [NSDate formattedTimeUntilDate:_endDate fromDate:currentDate];
     return [NSString stringWithFormat:@"%@ until hacking ends", timeUntil];
   }
   
