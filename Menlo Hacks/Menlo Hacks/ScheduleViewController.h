@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ScheduleViewController.h
 //  Menlo Hacks
 //
 //  Created by Jason Scharff on 12/29/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ScheduleViewController : UIViewController
 
 
 @end

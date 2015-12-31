@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 
 #import "APIKeyStoreController.h"
+#import "ScheduleViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,17 @@
 #pragma mark Application State Changes
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [self configureAPIs];
+  UITabBarController *tabBarController = [[UITabBarController alloc]init];
+  tabBarController.tabBar.translucent = NO;
+  UIViewController *vc1 = [[ScheduleViewController alloc]init];
+  UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:vc1];
+  navController.navigationBar.translucent = NO;
+  tabBarController.viewControllers =  @[navController];
+
+  
+  _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  _window.rootViewController = tabBarController;
+  [_window makeKeyAndVisible];
   
   return YES;
 }

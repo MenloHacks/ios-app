@@ -10,12 +10,21 @@
 		2ACC304FF1BE81F0FFF3115E /* libPods-Menlo Hacks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797091ECAB229F087FD5839B /* libPods-Menlo Hacks.a */; };
 		BE261A051C3321A000BB5920 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A041C3321A000BB5920 /* main.m */; };
 		BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A071C3321A000BB5920 /* AppDelegate.m */; };
-		BE261A0B1C3321A000BB5920 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* ViewController.m */; };
-		BE261A0E1C3321A000BB5920 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE261A0C1C3321A000BB5920 /* Main.storyboard */; };
+		BE261A0B1C3321A000BB5920 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* ScheduleViewController.m */; };
 		BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE261A0F1C3321A000BB5920 /* Assets.xcassets */; };
 		BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */; };
 		BE386FCD1C33234700020989 /* API Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE386FCC1C33234700020989 /* API Keys.plist */; };
 		BE386FD01C33250400020989 /* APIKeyStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FCF1C33250400020989 /* APIKeyStoreController.m */; };
+		BE386FD31C334C2800020989 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD21C334C2800020989 /* TimeView.m */; };
+		BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */; };
+		BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD81C33577900020989 /* AutolayoutHelper.m */; };
+		BE386FDC1C33577900020989 /* LinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FDA1C33577900020989 /* LinearLayout.m */; };
+		BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FE71C336D3300020989 /* NSDate+Utilities.m */; };
+		BE386FEB1C34847F00020989 /* MainEventDetailsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FEA1C34847F00020989 /* MainEventDetailsStoreController.m */; };
+		BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */; };
+		BE386FF21C34A52200020989 /* ScheduleStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF11C34A52200020989 /* ScheduleStoreController.m */; };
+		BE386FF51C34A59200020989 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF41C34A59200020989 /* Event.m */; };
+		BE386FF81C34BF1700020989 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF71C34BF1700020989 /* EventTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,15 +34,35 @@
 		BE261A041C3321A000BB5920 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE261A061C3321A000BB5920 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BE261A071C3321A000BB5920 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BE261A091C3321A000BB5920 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BE261A0A1C3321A000BB5920 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		BE261A0D1C3321A000BB5920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE261A091C3321A000BB5920 /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		BE261A0A1C3321A000BB5920 /* ScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		BE261A0F1C3321A000BB5920 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE261A121C3321A000BB5920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE261A141C3321A000BB5920 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE386FCC1C33234700020989 /* API Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "API Keys.plist"; sourceTree = "<group>"; };
 		BE386FCE1C33250400020989 /* APIKeyStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIKeyStoreController.h; sourceTree = "<group>"; };
 		BE386FCF1C33250400020989 /* APIKeyStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIKeyStoreController.m; sourceTree = "<group>"; };
+		BE386FD11C334C2800020989 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
+		BE386FD21C334C2800020989 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
+		BE386FD41C33554A00020989 /* UIFontDescriptor+AvenirNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFontDescriptor+AvenirNext.h"; sourceTree = "<group>"; };
+		BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFontDescriptor+AvenirNext.m"; sourceTree = "<group>"; };
+		BE386FD71C33577900020989 /* AutolayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutolayoutHelper.h; sourceTree = "<group>"; };
+		BE386FD81C33577900020989 /* AutolayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutolayoutHelper.m; sourceTree = "<group>"; };
+		BE386FD91C33577900020989 /* LinearLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearLayout.h; sourceTree = "<group>"; };
+		BE386FDA1C33577900020989 /* LinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearLayout.m; sourceTree = "<group>"; };
+		BE386FE31C336C9600020989 /* Menlo Hacks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Menlo Hacks-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE386FE61C336D3300020989 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		BE386FE71C336D3300020989 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		BE386FE91C34847F00020989 /* MainEventDetailsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainEventDetailsStoreController.h; sourceTree = "<group>"; };
+		BE386FEA1C34847F00020989 /* MainEventDetailsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainEventDetailsStoreController.m; sourceTree = "<group>"; };
+		BE386FEC1C349D7200020989 /* UIColor+ColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorPalette.h"; sourceTree = "<group>"; };
+		BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorPalette.m"; sourceTree = "<group>"; };
+		BE386FF01C34A52200020989 /* ScheduleStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleStoreController.h; sourceTree = "<group>"; };
+		BE386FF11C34A52200020989 /* ScheduleStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleStoreController.m; sourceTree = "<group>"; };
+		BE386FF31C34A59200020989 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		BE386FF41C34A59200020989 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		BE386FF61C34BF1700020989 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
+		BE386FF71C34BF1700020989 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		CA30B2EA8509E0D8CBEF7A72 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,18 +116,21 @@
 		BE261A021C3321A000BB5920 /* Menlo Hacks */ = {
 			isa = PBXGroup;
 			children = (
+				BE386FF31C34A59200020989 /* Event.h */,
+				BE386FF41C34A59200020989 /* Event.m */,
+				BE386FEF1C349D7900020989 /* Categories */,
+				BE386FDF1C33579F00020989 /* Views */,
+				BE386FDE1C33579000020989 /* ViewControllers */,
+				BE386FE11C3357CD00020989 /* Third Party */,
+				BE386FE01C3357B100020989 /* StoreControllers */,
 				BE261A061C3321A000BB5920 /* AppDelegate.h */,
 				BE261A071C3321A000BB5920 /* AppDelegate.m */,
-				BE261A091C3321A000BB5920 /* ViewController.h */,
-				BE261A0A1C3321A000BB5920 /* ViewController.m */,
 				BE386FCC1C33234700020989 /* API Keys.plist */,
-				BE386FCE1C33250400020989 /* APIKeyStoreController.h */,
-				BE386FCF1C33250400020989 /* APIKeyStoreController.m */,
-				BE261A0C1C3321A000BB5920 /* Main.storyboard */,
 				BE261A0F1C3321A000BB5920 /* Assets.xcassets */,
 				BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */,
 				BE261A141C3321A000BB5920 /* Info.plist */,
 				BE261A031C3321A000BB5920 /* Supporting Files */,
+				BE386FE31C336C9600020989 /* Menlo Hacks-Bridging-Header.h */,
 			);
 			path = "Menlo Hacks";
 			sourceTree = "<group>";
@@ -109,6 +141,63 @@
 				BE261A041C3321A000BB5920 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE386FDE1C33579000020989 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE261A091C3321A000BB5920 /* ScheduleViewController.h */,
+				BE261A0A1C3321A000BB5920 /* ScheduleViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BE386FDF1C33579F00020989 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE386FF61C34BF1700020989 /* EventTableViewCell.h */,
+				BE386FF71C34BF1700020989 /* EventTableViewCell.m */,
+				BE386FD11C334C2800020989 /* TimeView.h */,
+				BE386FD21C334C2800020989 /* TimeView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BE386FE01C3357B100020989 /* StoreControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE386FF01C34A52200020989 /* ScheduleStoreController.h */,
+				BE386FF11C34A52200020989 /* ScheduleStoreController.m */,
+				BE386FE91C34847F00020989 /* MainEventDetailsStoreController.h */,
+				BE386FEA1C34847F00020989 /* MainEventDetailsStoreController.m */,
+				BE386FCE1C33250400020989 /* APIKeyStoreController.h */,
+				BE386FCF1C33250400020989 /* APIKeyStoreController.m */,
+			);
+			name = StoreControllers;
+			sourceTree = "<group>";
+		};
+		BE386FE11C3357CD00020989 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				BE386FD71C33577900020989 /* AutolayoutHelper.h */,
+				BE386FD81C33577900020989 /* AutolayoutHelper.m */,
+				BE386FD91C33577900020989 /* LinearLayout.h */,
+				BE386FDA1C33577900020989 /* LinearLayout.m */,
+			);
+			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		BE386FEF1C349D7900020989 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BE386FEC1C349D7200020989 /* UIColor+ColorPalette.h */,
+				BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */,
+				BE386FE61C336D3300020989 /* NSDate+Utilities.h */,
+				BE386FE71C336D3300020989 /* NSDate+Utilities.m */,
+				BE386FD41C33554A00020989 /* UIFontDescriptor+AvenirNext.h */,
+				BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,7 +263,6 @@
 				BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */,
 				BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */,
 				BE386FCD1C33234700020989 /* API Keys.plist in Resources */,
-				BE261A0E1C3321A000BB5920 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,24 +321,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE261A0B1C3321A000BB5920 /* ViewController.m in Sources */,
+				BE261A0B1C3321A000BB5920 /* ScheduleViewController.m in Sources */,
 				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
+				BE386FEB1C34847F00020989 /* MainEventDetailsStoreController.m in Sources */,
+				BE386FF51C34A59200020989 /* Event.m in Sources */,
+				BE386FDC1C33577900020989 /* LinearLayout.m in Sources */,
+				BE386FD31C334C2800020989 /* TimeView.m in Sources */,
+				BE386FF81C34BF1700020989 /* EventTableViewCell.m in Sources */,
+				BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */,
+				BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */,
+				BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */,
 				BE386FD01C33250400020989 /* APIKeyStoreController.m in Sources */,
 				BE261A051C3321A000BB5920 /* main.m in Sources */,
+				BE386FF21C34A52200020989 /* ScheduleStoreController.m in Sources */,
+				BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BE261A0C1C3321A000BB5920 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BE261A0D1C3321A000BB5920 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -347,10 +437,13 @@
 			baseConfigurationReference = 24FB4BFA7F2809A00C27FC0D /* Pods-Menlo Hacks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -359,10 +452,12 @@
 			baseConfigurationReference = CA30B2EA8509E0D8CBEF7A72 /* Pods-Menlo Hacks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
 			};
 			name = Release;
 		};
