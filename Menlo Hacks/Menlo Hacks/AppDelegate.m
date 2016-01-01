@@ -37,8 +37,8 @@
   tabBarController.viewControllers =  @[vc1, vc2, vc3, vc4];
   
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:tabBarController];
-    navController.navigationBar.translucent = NO;
+  UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:tabBarController];
+  navController.navigationBar.translucent = NO;
   _window.rootViewController = navController;
   [_window makeKeyAndVisible];
   

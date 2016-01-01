@@ -1,12 +1,12 @@
 //
-//  EventTableViewCell.m
+//  InfoTableViewCell.m
 //  Menlo Hacks
 //
 //  Created by Jason Scharff on 12/30/15.
 //  Copyright © 2015 MenloHacks. All rights reserved.
 //
 
-#import "EventTableViewCell.h"
+#import "InfoTableViewCell.h"
 
 #import "AutolayoutHelper.h"
 #import "UIFontDescriptor+AvenirNext.h"
@@ -14,8 +14,9 @@
 #import "NSDate+Utilities.h"
 
 #import "Event.h"
+#import "Announcement.h"
 
-@interface EventTableViewCell()
+@interface InfoTableViewCell()
 
 @property (nonatomic, strong) UILabel *descriptionLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -23,7 +24,7 @@
 
 @end
 
-@implementation EventTableViewCell
+@implementation InfoTableViewCell
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -47,6 +48,7 @@
   UIFont *font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleBody]size:0];
   _descriptionLabel = [UILabel new];
   _descriptionLabel.font = font;
+  _descriptionLabel.numberOfLines = 0;
   _descriptionLabel.textColor = [UIColor menloBlue];
   
   _timeLabel = [UILabel new];
@@ -71,6 +73,12 @@
   _descriptionLabel.text = event.eventDescription;
   _locationLabel.text = event.location;
   _timeLabel.text = [NSDate formattedShortTimeFromDate:event.time];
+}
+
+-(void)configureWithAnnouncement:(Announcement *)announcement {
+  _descriptionLabel.text = announcement.messageContents;
+  _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.fireTime];
+  _locationLabel.text = @"";
 }
 
 @end

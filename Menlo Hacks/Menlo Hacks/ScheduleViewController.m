@@ -16,7 +16,7 @@
 #import "TimeView.h"
 #import "Event.h"
 #import "ScheduleStoreController.h"
-#import "EventTableViewCell.h"
+#import "InfoTableViewCell.h"
 
 @interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -27,7 +27,6 @@
 
 @end
 
-static int timeViewHeight = 50;
 static NSString *reuseIdentifier = @"com.menlohacks.event";
 
 @implementation ScheduleViewController
@@ -39,9 +38,10 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  self.tableView.tableFooterView = [UIView new];
   self.tableView.estimatedRowHeight = 40;
-//  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-  [_tableView registerClass:[EventTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+  [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
   
   [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
@@ -52,7 +52,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
     timeView.endDate = date;
   }];
   
-  NSNumber *timeViewHeightNum = @(timeViewHeight);
+  NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
 
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_tableView, timeView)
                           metrics:VarBindings(timeViewHeightNum)
@@ -70,6 +70,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
     _events = results;
     [_loadingView stopAnimating];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _loadingView.hidden = YES;
     [_tableView reloadData];
   }];
@@ -78,7 +79,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  EventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   [cell configureWithEvent:_events[indexPath.row]];
   return cell;
 }

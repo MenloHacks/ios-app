@@ -24,12 +24,14 @@
 		BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */; };
 		BE386FF21C34A52200020989 /* ScheduleStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF11C34A52200020989 /* ScheduleStoreController.m */; };
 		BE386FF51C34A59200020989 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF41C34A59200020989 /* Event.m */; };
-		BE386FF81C34BF1700020989 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF71C34BF1700020989 /* EventTableViewCell.m */; };
+		BE386FF81C34BF1700020989 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF71C34BF1700020989 /* InfoTableViewCell.m */; };
 		BE386FFB1C35C6D300020989 /* MentorshipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FFA1C35C6D300020989 /* MentorshipViewController.m */; };
 		BE386FFE1C35C6EC00020989 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FFD1C35C6EC00020989 /* AnnouncementsViewController.m */; };
 		BE3870011C35C6FE00020989 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870001C35C6FE00020989 /* MapViewController.m */; };
 		BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870031C35CD3200020989 /* UIViewController+Extensions.m */; };
 		BE38700D1C35D07000020989 /* SmoochLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE38700F1C35D07000020989 /* SmoochLocalizable.strings */; };
+		BED5EC731C3703A0002B5385 /* Announcement.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC721C3703A0002B5385 /* Announcement.m */; };
+		BED5EC771C370474002B5385 /* AnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,8 +68,8 @@
 		BE386FF11C34A52200020989 /* ScheduleStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleStoreController.m; sourceTree = "<group>"; };
 		BE386FF31C34A59200020989 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		BE386FF41C34A59200020989 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		BE386FF61C34BF1700020989 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
-		BE386FF71C34BF1700020989 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
+		BE386FF61C34BF1700020989 /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		BE386FF71C34BF1700020989 /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
 		BE386FF91C35C6D300020989 /* MentorshipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MentorshipViewController.h; sourceTree = "<group>"; };
 		BE386FFA1C35C6D300020989 /* MentorshipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MentorshipViewController.m; sourceTree = "<group>"; };
 		BE386FFC1C35C6EC00020989 /* AnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsViewController.h; sourceTree = "<group>"; };
@@ -77,6 +79,10 @@
 		BE3870021C35CD3200020989 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
 		BE3870031C35CD3200020989 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		BE38700E1C35D07000020989 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/SmoochLocalizable.strings; sourceTree = "<group>"; };
+		BED5EC711C3703A0002B5385 /* Announcement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Announcement.h; sourceTree = "<group>"; };
+		BED5EC721C3703A0002B5385 /* Announcement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Announcement.m; sourceTree = "<group>"; };
+		BED5EC751C370474002B5385 /* AnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsStoreController.h; sourceTree = "<group>"; };
+		BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsStoreController.m; sourceTree = "<group>"; };
 		CA30B2EA8509E0D8CBEF7A72 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,8 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				BE38700F1C35D07000020989 /* SmoochLocalizable.strings */,
-				BE386FF31C34A59200020989 /* Event.h */,
-				BE386FF41C34A59200020989 /* Event.m */,
+				BED5EC741C37045A002B5385 /* Parse Classes */,
 				BE386FEF1C349D7900020989 /* Categories */,
 				BE386FDF1C33579F00020989 /* Views */,
 				BE386FDE1C33579000020989 /* ViewControllers */,
@@ -176,8 +181,8 @@
 		BE386FDF1C33579F00020989 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BE386FF61C34BF1700020989 /* EventTableViewCell.h */,
-				BE386FF71C34BF1700020989 /* EventTableViewCell.m */,
+				BE386FF61C34BF1700020989 /* InfoTableViewCell.h */,
+				BE386FF71C34BF1700020989 /* InfoTableViewCell.m */,
 				BE386FD11C334C2800020989 /* TimeView.h */,
 				BE386FD21C334C2800020989 /* TimeView.m */,
 			);
@@ -189,6 +194,8 @@
 			children = (
 				BE386FF01C34A52200020989 /* ScheduleStoreController.h */,
 				BE386FF11C34A52200020989 /* ScheduleStoreController.m */,
+				BED5EC751C370474002B5385 /* AnnouncementsStoreController.h */,
+				BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */,
 				BE386FE91C34847F00020989 /* MainEventDetailsStoreController.h */,
 				BE386FEA1C34847F00020989 /* MainEventDetailsStoreController.m */,
 				BE386FCE1C33250400020989 /* APIKeyStoreController.h */,
@@ -221,6 +228,17 @@
 				BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		BED5EC741C37045A002B5385 /* Parse Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BED5EC711C3703A0002B5385 /* Announcement.h */,
+				BED5EC721C3703A0002B5385 /* Announcement.m */,
+				BE386FF31C34A59200020989 /* Event.h */,
+				BE386FF41C34A59200020989 /* Event.m */,
+			);
+			name = "Parse Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED5EC771C370474002B5385 /* AnnouncementsStoreController.m in Sources */,
 				BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */,
 				BE261A0B1C3321A000BB5920 /* ScheduleViewController.m in Sources */,
 				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
@@ -353,12 +372,13 @@
 				BE386FDC1C33577900020989 /* LinearLayout.m in Sources */,
 				BE386FFE1C35C6EC00020989 /* AnnouncementsViewController.m in Sources */,
 				BE386FD31C334C2800020989 /* TimeView.m in Sources */,
-				BE386FF81C34BF1700020989 /* EventTableViewCell.m in Sources */,
+				BE386FF81C34BF1700020989 /* InfoTableViewCell.m in Sources */,
 				BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */,
 				BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */,
 				BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */,
 				BE386FD01C33250400020989 /* APIKeyStoreController.m in Sources */,
 				BE261A051C3321A000BB5920 /* main.m in Sources */,
+				BED5EC731C3703A0002B5385 /* Announcement.m in Sources */,
 				BE386FFB1C35C6D300020989 /* MentorshipViewController.m in Sources */,
 				BE386FF21C34A52200020989 /* ScheduleStoreController.m in Sources */,
 				BE3870011C35C6FE00020989 /* MapViewController.m in Sources */,

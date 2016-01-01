@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static int standardTimeViewHeight = 50;
+
 @interface TimeView : UIView
 
 @property (nonatomic, strong) NSDate *startDate;
