@@ -40,6 +40,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
+  self.tableView.allowsSelection = NO;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.estimatedRowHeight = 40;
    self.tableView.tableFooterView = [UIView new];

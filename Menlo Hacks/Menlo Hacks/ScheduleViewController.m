@@ -38,6 +38,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
+  self.tableView.allowsSelection = NO;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.tableFooterView = [UIView new];
   self.tableView.estimatedRowHeight = 40;
