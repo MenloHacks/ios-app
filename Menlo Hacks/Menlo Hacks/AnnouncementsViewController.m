@@ -10,6 +10,7 @@
 
 #import "AutolayoutHelper.h"
 #import "UIColor+ColorPalette.h"
+#import "UIFontDescriptor+AvenirNext.h"
 
 #import "Announcement.h"
 #import "InfoTableViewCell.h"
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic) int numberOfEntriesInSchedule;
 @property (nonatomic, strong) NSArray<Announcement *> *annoucements;
+@property (nonatomic, strong) UILabel *noAnnouncementsLabel;
 
 @end
 
@@ -60,6 +62,15 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
                                     @"H:|[_tableView]|",
                                     @"H:|[timeView]|"]];
   
+  _noAnnouncementsLabel = [UILabel new];
+  _noAnnouncementsLabel.textColor = [UIColor lightGrayColor];
+  _noAnnouncementsLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
+  _noAnnouncementsLabel.numberOfLines = 0;
+  
+  [AutolayoutHelper configureView:self.view subViews:VarBindings(_noAnnouncementsLabel)
+                      constraints: @[@"H:|-[_noAnnouncementsLabel]-|",
+                                     @"X:_noAnnouncementsLabel.centerY == superview.centerY"]];
+  
   _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
   _loadingView.color = [UIColor menloBlue];
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
@@ -86,6 +97,12 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  if([_annoucements count] > 0) {
+    _noAnnouncementsLabel.text = @"";
+  }
+  else if (_loadingView.hidden == YES) /*checking to make sure the loading view is hidden avoids the message from showing on launch*/ {
+    _noAnnouncementsLabel.text = @"No announcements have been made so far. You'll recieve a notification when we have something to say";
+  }
   return [_annoucements count];
 }
 @end

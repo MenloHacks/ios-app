@@ -36,8 +36,24 @@
   
   tabBarController.viewControllers =  @[vc1, vc2, vc3, vc4];
   
+  UIImage *schedule = [UIImage imageNamed:@"schedule"];
+  UIImage *announcements = [UIImage imageNamed:@"announcements"];
+  UIImage *map = [UIImage imageNamed:@"map"];
+  UIImage *mentor = [UIImage imageNamed:@"request_mentor"];
+  
+  UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"Schedule" image:schedule selectedImage:schedule];
+  UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"Announcements" image:announcements selectedImage:announcements];
+  UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"Map" image:map selectedImage:map];
+  UITabBarItem *item4 = [[UITabBarItem alloc]initWithTitle:@"Mentor" image:mentor selectedImage:mentor];
+  
+  vc1.tabBarItem = item1;
+  vc2.tabBarItem = item2;
+  vc3.tabBarItem = item3;
+  vc4.tabBarItem = item4;
+  
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:tabBarController];
+  navController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
   navController.navigationBar.translucent = NO;
   _window.rootViewController = navController;
   [_window makeKeyAndVisible];
