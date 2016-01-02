@@ -74,9 +74,21 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _loadingView.hidden = YES;
     [_tableView reloadData];
+    [self scrollToNextEvent];
   }];
   
   
+}
+/* Precondition: Based on the sort order the scheduled events should be sorted. */
+-(void)scrollToNextEvent {
+  NSDate *currentDate = [NSDate date];
+  for (int i = 0; i < [_events count]; i++){
+    NSDate *contender = _events[i].time;
+    if([contender compare:currentDate] == NSOrderedDescending) {
+      [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+      return;
+    }
+  }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
