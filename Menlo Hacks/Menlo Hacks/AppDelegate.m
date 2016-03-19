@@ -16,6 +16,7 @@
 #import "AnnouncementsViewController.h"
 #import "MapViewController.h"
 #import "MentorshipViewController.h"
+#import "UIColor+ColorPalette.h"
 
 @interface AppDelegate ()
 
@@ -50,6 +51,8 @@
   vc2.tabBarItem = item2;
   vc3.tabBarItem = item3;
   vc4.tabBarItem = item4;
+  
+   [[UITabBar appearance] setTintColor:[UIColor menloBlue]];
   
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:tabBarController];

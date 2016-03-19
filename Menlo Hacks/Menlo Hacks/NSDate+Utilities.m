@@ -16,7 +16,6 @@
   
   NSDateComponents *difference = [calendar components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute
                                              fromDate:fromDate toDate:toDate options:0];
-  
   if ([difference day] > 1) {
     return [NSString stringWithFormat:@"%li days", (long)[difference day]];
   }
@@ -38,7 +37,7 @@
     return [NSString stringWithFormat:@"%li minute", [difference minute]];
   }
   else {
-    return @"";
+    return @"1 minute";
   }
 }
 

@@ -10,6 +10,7 @@
 
 #import "AutolayoutHelper.h"
 #import "NSDate+Utilities.h"
+#import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
 @interface TimeView()
@@ -36,12 +37,17 @@
 }
 
 -(void)commonInit {
-  UIColor *progressColor = [UIColor blueColor];
-  self.backgroundColor = [UIColor redColor];
+  UIColor *progressColor = [UIColor colorWithRed:46.f/255.f green:204.f/255.f blue:133.f/255.f alpha:1];
+  self.backgroundColor = [UIColor whiteColor];
   UIView *progressView = [UIView new];
   progressView.backgroundColor = progressColor;
-  [AutolayoutHelper configureView:self subViews:VarBindings(progressView) constraints:
-                                                                          @[@"V:|[progressView]|"]];
+  UIView *border = [UIView new];
+  border.backgroundColor = [UIColor lightGrayColor];
+  NSNumber *onePixel = @(1/[UIScreen mainScreen].scale);
+  [AutolayoutHelper configureView:self subViews:VarBindings(progressView, border)
+                          metrics:VarBindings(onePixel)
+                          constraints:@[@"V:|[progressView][border(onePixel)]|",
+                          @"H:|[border]|"]];
   
   self.coloringWidth = [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeWidth
                                                     relatedBy:NSLayoutRelationEqual
@@ -52,8 +58,7 @@
   [self addConstraint:_coloringWidth];
   
   _timeLeftLabel = [UILabel new];
-  _timeLeftLabel.textColor = [UIColor whiteColor];
-//  _timeLeftLabel.backgroundColor = [UIColor greenColor];
+  _timeLeftLabel.textColor = [UIColor blackColor];
   _timeLeftLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
                          
   [AutolayoutHelper configureView:self subViews:VarBindings(_timeLeftLabel)
@@ -94,24 +99,30 @@
   if(!_startDate || !_endDate) {
     return @"Loading...";
   }
-  if([currentDate compare:_endDate] == NSOrderedDescending) {
+  if([currentDate compare:_endDate] == NSOrderedDescending || [currentDate compare:_endDate] == NSOrderedSame) {
     return @"Hacking is over.";
   }
   else if([currentDate compare: _startDate] == NSOrderedAscending) {
     NSString *timeUntil = [NSDate formattedTimeUntilDate:_startDate fromDate:currentDate];
-    return [NSString stringWithFormat:@"%@ until hacking begins", timeUntil];
+    if(timeUntil) {
+      return [NSString stringWithFormat:@"%@ until hacking begins", timeUntil];
+    }
   }
-  else {
     NSString *timeUntil = [NSDate formattedTimeUntilDate:_endDate fromDate:currentDate];
     return [NSString stringWithFormat:@"%@ until hacking ends", timeUntil];
-  }
   
 }
 
 -(void)setupTimer {
   NSDateComponents *components = [[NSCalendar currentCalendar] components: NSCalendarUnitSecond fromDate:[NSDate date]];
   NSInteger second = [components second];
-  NSInteger tillNextMinute = (60 - second);
+  NSInteger tillNextMinute;
+  if (second == 0) {
+    tillNextMinute = 0;
+  } else {
+    tillNextMinute = (60 - second);
+  }
+  [self updateView:nil];
   [self performSelector:@selector(startTimer:) withObject:nil afterDelay:tillNextMinute];
 }
 
