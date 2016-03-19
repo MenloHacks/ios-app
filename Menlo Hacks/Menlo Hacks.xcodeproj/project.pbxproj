@@ -32,6 +32,9 @@
 		BE38700D1C35D07000020989 /* SmoochLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE38700F1C35D07000020989 /* SmoochLocalizable.strings */; };
 		BED5EC731C3703A0002B5385 /* Announcement.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC721C3703A0002B5385 /* Announcement.m */; };
 		BED5EC771C370474002B5385 /* AnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */; };
+		BED5EC7D1C3884F0002B5385 /* MapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MapStoreController.m */; };
+		BED5EC801C388526002B5385 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7F1C388526002B5385 /* Map.m */; };
+		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +86,12 @@
 		BED5EC721C3703A0002B5385 /* Announcement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Announcement.m; sourceTree = "<group>"; };
 		BED5EC751C370474002B5385 /* AnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsStoreController.h; sourceTree = "<group>"; };
 		BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsStoreController.m; sourceTree = "<group>"; };
+		BED5EC7B1C3884F0002B5385 /* MapStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapStoreController.h; sourceTree = "<group>"; };
+		BED5EC7C1C3884F0002B5385 /* MapStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapStoreController.m; sourceTree = "<group>"; };
+		BED5EC7E1C388526002B5385 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		BED5EC7F1C388526002B5385 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
+		BED5EC811C39AE56002B5385 /* SingleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleMapViewController.h; sourceTree = "<group>"; };
+		BED5EC821C39AE56002B5385 /* SingleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleMapViewController.m; sourceTree = "<group>"; };
 		CA30B2EA8509E0D8CBEF7A72 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +175,8 @@
 		BE386FDE1C33579000020989 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BED5EC811C39AE56002B5385 /* SingleMapViewController.h */,
+				BED5EC821C39AE56002B5385 /* SingleMapViewController.m */,
 				BE386FF91C35C6D300020989 /* MentorshipViewController.h */,
 				BE386FFA1C35C6D300020989 /* MentorshipViewController.m */,
 				BE386FFC1C35C6EC00020989 /* AnnouncementsViewController.h */,
@@ -192,6 +203,8 @@
 		BE386FE01C3357B100020989 /* StoreControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BED5EC7B1C3884F0002B5385 /* MapStoreController.h */,
+				BED5EC7C1C3884F0002B5385 /* MapStoreController.m */,
 				BE386FF01C34A52200020989 /* ScheduleStoreController.h */,
 				BE386FF11C34A52200020989 /* ScheduleStoreController.m */,
 				BED5EC751C370474002B5385 /* AnnouncementsStoreController.h */,
@@ -237,6 +250,8 @@
 				BED5EC721C3703A0002B5385 /* Announcement.m */,
 				BE386FF31C34A59200020989 /* Event.h */,
 				BE386FF41C34A59200020989 /* Event.m */,
+				BED5EC7E1C388526002B5385 /* Map.h */,
+				BED5EC7F1C388526002B5385 /* Map.m */,
 			);
 			name = "Parse Classes";
 			sourceTree = "<group>";
@@ -363,8 +378,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED5EC801C388526002B5385 /* Map.m in Sources */,
 				BED5EC771C370474002B5385 /* AnnouncementsStoreController.m in Sources */,
 				BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */,
+				BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */,
 				BE261A0B1C3321A000BB5920 /* ScheduleViewController.m in Sources */,
 				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
 				BE386FEB1C34847F00020989 /* MainEventDetailsStoreController.m in Sources */,
@@ -381,6 +398,7 @@
 				BED5EC731C3703A0002B5385 /* Announcement.m in Sources */,
 				BE386FFB1C35C6D300020989 /* MentorshipViewController.m in Sources */,
 				BE386FF21C34A52200020989 /* ScheduleStoreController.m in Sources */,
+				BED5EC7D1C3884F0002B5385 /* MapStoreController.m in Sources */,
 				BE3870011C35C6FE00020989 /* MapViewController.m in Sources */,
 				BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */,
 			);

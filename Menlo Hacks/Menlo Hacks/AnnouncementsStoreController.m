@@ -27,6 +27,7 @@
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fireTime <= %@ AND armed == %@", [NSDate date],
                             [NSNumber numberWithBool:YES]];
   PFQuery *query = [Announcement queryWithPredicate:predicate];
+  query.cachePolicy = kPFCachePolicyNetworkElseCache;
   [query orderByDescending:@"fireTime"];
   [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
     completion(objects);

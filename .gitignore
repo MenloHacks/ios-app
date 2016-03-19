@@ -26,3 +26,11 @@ DerivedData
 #Pods/
 
 Menlo Hacks/Menlo Hacks/API Keys.plist
+
+Cloud/.parse.local
+
+Cloud/.parse.project
+
+Cloud/cloud/main.js
+
+Cloud/public/index.html

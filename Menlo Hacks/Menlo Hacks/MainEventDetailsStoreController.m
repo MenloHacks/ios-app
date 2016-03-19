@@ -36,6 +36,7 @@
 
 - (void)getDateDetailsFromServer : (void (^)())completion {
   PFQuery *query = [PFQuery queryWithClassName:@"MasterTiming"];
+  query.cachePolicy = kPFCachePolicyNetworkElseCache;
   [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
     _dateDetails = object;
     completion();
