@@ -38,6 +38,7 @@
   scrollView.delegate = self;
   scrollView.maximumZoomScale = 3.0;
   scrollView.minimumZoomScale = 1.0;
+  scrollView.scrollEnabled = NO;
   
   UIView *parent = [UIView new];
   

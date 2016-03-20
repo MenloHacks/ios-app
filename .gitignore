@@ -34,3 +34,7 @@ Cloud/.parse.project
 Cloud/cloud/main.js
 
 Cloud/public/index.html
+
+*.pbxproj
+
+Menlo Hacks/Menlo Hacks.xcodeproj/project.pbxproj
