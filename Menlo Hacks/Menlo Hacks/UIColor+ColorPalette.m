@@ -24,4 +24,11 @@
                       alpha:1.f];
 }
 
++ (instancetype)emeraldGreen {
+  return [self colorWithRed:46.f/255.f
+                      green:204.f/255.f
+                       blue:133.f/255.f
+                      alpha:1];
+}
+
 @end

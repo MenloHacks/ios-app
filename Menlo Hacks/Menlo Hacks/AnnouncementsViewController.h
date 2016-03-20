@@ -10,6 +10,6 @@
 
 @interface AnnouncementsViewController : UIViewController
 
-
+- (void)forceRefresh;
 
 @end

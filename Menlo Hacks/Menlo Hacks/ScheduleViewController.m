@@ -66,19 +66,53 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
-  [_loadingView startAnimating];
   
+  UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+  refresh.tintColor = [UIColor menloBlue];
+  [refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+  [self.tableView addSubview:refresh];
+  
+  [self refresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self refresh];
+}
+
+- (void)refresh : (UIRefreshControl *)sender {
   [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
     _events = results;
-    [_loadingView stopAnimating];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _loadingView.hidden = YES;
-    [_tableView reloadData];
-    [self scrollToNextEvent];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [CATransaction begin];
+      [CATransaction setCompletionBlock:^{
+        // reload tableView after refresh control finish refresh animation
+          [self.tableView reloadData];
+          [self scrollToNextEvent];
+      }];
+      [sender endRefreshing];
+      [CATransaction commit];
+      
+    });
   }];
-  
-  
 }
+
+- (void)refresh {
+  _tableView.hidden = YES;
+  [_loadingView startAnimating];
+  [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
+    _events = results;
+     dispatch_async(dispatch_get_main_queue(), ^{
+       [_loadingView stopAnimating];
+       _tableView.hidden = NO;
+       self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+       _loadingView.hidden = YES;
+       [_tableView reloadData];
+       [self scrollToNextEvent];
+     });
+  }];
+}
+
 /* Precondition: Based on the sort order the scheduled events should be sorted. */
 -(void)scrollToNextEvent {
   NSDate *currentDate = [NSDate date];

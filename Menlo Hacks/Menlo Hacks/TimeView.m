@@ -8,7 +8,9 @@
 
 #import "TimeView.h"
 
+#import "AppDelegate.h"
 #import "AutolayoutHelper.h"
+#import "LargeTimeViewController.h"
 #import "NSDate+Utilities.h"
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
@@ -37,7 +39,7 @@
 }
 
 -(void)commonInit {
-  UIColor *progressColor = [UIColor colorWithRed:46.f/255.f green:204.f/255.f blue:133.f/255.f alpha:1];
+  UIColor *progressColor = [UIColor emeraldGreen];
   self.backgroundColor = [UIColor whiteColor];
   UIView *progressView = [UIView new];
   progressView.backgroundColor = progressColor;
@@ -65,6 +67,10 @@
                       constraints:@[@"X:_timeLeftLabel.centerX == superview.centerX",
                                     @"X:_timeLeftLabel.centerY == superview.centerY"]];
   [self setupTimer];
+  
+  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]init];
+  [tapGestureRecognizer addTarget:self action:@selector(launchLargeView:)];
+  [self addGestureRecognizer:tapGestureRecognizer];
 
 }
 
@@ -152,4 +158,10 @@
     [self updateView:nil];
   }
 }
+
+-(void)launchLargeView : (UITapGestureRecognizer *)recognizer {
+ [(AppDelegate *)[[UIApplication sharedApplication] delegate]switchToCountdown];
+}
+
+
 @end

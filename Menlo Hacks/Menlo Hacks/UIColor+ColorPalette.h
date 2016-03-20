@@ -13,5 +13,6 @@
 
 + (instancetype)menloBlue;
 + (instancetype)menloGold;
++ (instancetype)emeraldGreen;
 
 @end

@@ -10,6 +10,7 @@
 
 @interface ScheduleViewController : UIViewController
 
+- (void)refresh;
 
 @end
 

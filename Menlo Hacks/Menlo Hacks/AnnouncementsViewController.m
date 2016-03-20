@@ -26,6 +26,7 @@
 @property (nonatomic) int numberOfEntriesInSchedule;
 @property (nonatomic, strong) NSArray<Announcement *> *annoucements;
 @property (nonatomic, strong) UILabel *noAnnouncementsLabel;
+@property (nonatomic, strong) UIRefreshControl *refresh;
 
 @end
 
@@ -77,18 +78,47 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
+  [self forceRefresh];
+  
+}
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self forceRefresh];
+}
+
+- (void)forceRefresh {
   [_loadingView startAnimating];
-  
-  
+  _tableView.hidden = YES;
   [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
     _annoucements = results;
     [_loadingView stopAnimating];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _loadingView.hidden = YES;
+    _tableView.hidden = NO;
     [_tableView reloadData];
   }];
-  
-  
+}
+
+-(void)addRefreshView {
+  _refresh = [[UIRefreshControl alloc] init];
+  _refresh.tintColor = [UIColor menloBlue];
+  [_refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+  [self.tableView addSubview:_refresh];
+}
+
+- (void)refresh : (UIRefreshControl *)sender {
+  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
+    _annoucements = results;
+    dispatch_async(dispatch_get_main_queue(), ^{
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+      // reload tableView after refresh control finish refresh animation
+      [self.tableView reloadData];
+    }];
+    [sender endRefreshing];
+    [CATransaction commit];
+    });
+  }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,9 +130,15 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   if([_annoucements count] > 0) {
     _noAnnouncementsLabel.text = @"";
+    if(!_refresh.superview) {
+         [self addRefreshView]; 
+    }
   }
   else if (_loadingView.hidden == YES) /*checking to make sure the loading view is hidden avoids the message from showing on launch*/ {
     _noAnnouncementsLabel.text = @"No announcements have been made so far. You'll recieve a notification when we have something to say";
+    if(_refresh.superview) {
+      [_refresh removeFromSuperview];
+    }
   }
   return [_annoucements count];
 }

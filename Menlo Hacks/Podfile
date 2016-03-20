@@ -2,5 +2,6 @@ target 'Menlo Hacks' do
 pod 'Parse'
 pod 'ParseUI'
 pod 'Smooch'
+pod 'MBCircularProgressBar'
 end
 

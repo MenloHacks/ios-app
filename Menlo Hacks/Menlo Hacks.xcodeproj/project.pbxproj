@@ -30,6 +30,7 @@
 		BE3870011C35C6FE00020989 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870001C35C6FE00020989 /* MapViewController.m */; };
 		BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870031C35CD3200020989 /* UIViewController+Extensions.m */; };
 		BE38700D1C35D07000020989 /* SmoochLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE38700F1C35D07000020989 /* SmoochLocalizable.strings */; };
+		BE9391461C9E1A83003602F8 /* LargeTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9391451C9E1A83003602F8 /* LargeTimeViewController.m */; };
 		BED5EC731C3703A0002B5385 /* Announcement.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC721C3703A0002B5385 /* Announcement.m */; };
 		BED5EC771C370474002B5385 /* AnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* AnnouncementsStoreController.m */; };
 		BED5EC7D1C3884F0002B5385 /* MapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MapStoreController.m */; };
@@ -82,6 +83,8 @@
 		BE3870021C35CD3200020989 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
 		BE3870031C35CD3200020989 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		BE38700E1C35D07000020989 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/SmoochLocalizable.strings; sourceTree = "<group>"; };
+		BE9391441C9E1A83003602F8 /* LargeTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeTimeViewController.h; sourceTree = "<group>"; };
+		BE9391451C9E1A83003602F8 /* LargeTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeTimeViewController.m; sourceTree = "<group>"; };
 		BED5EC711C3703A0002B5385 /* Announcement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Announcement.h; sourceTree = "<group>"; };
 		BED5EC721C3703A0002B5385 /* Announcement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Announcement.m; sourceTree = "<group>"; };
 		BED5EC751C370474002B5385 /* AnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsStoreController.h; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 		BE386FDE1C33579000020989 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE9391441C9E1A83003602F8 /* LargeTimeViewController.h */,
+				BE9391451C9E1A83003602F8 /* LargeTimeViewController.m */,
 				BED5EC811C39AE56002B5385 /* SingleMapViewController.h */,
 				BED5EC821C39AE56002B5385 /* SingleMapViewController.m */,
 				BE386FF91C35C6D300020989 /* MentorshipViewController.h */,
@@ -383,6 +388,7 @@
 				BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */,
 				BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */,
 				BE261A0B1C3321A000BB5920 /* ScheduleViewController.m in Sources */,
+				BE9391461C9E1A83003602F8 /* LargeTimeViewController.m in Sources */,
 				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
 				BE386FEB1C34847F00020989 /* MainEventDetailsStoreController.m in Sources */,
 				BE386FF51C34A59200020989 /* Event.m in Sources */,
