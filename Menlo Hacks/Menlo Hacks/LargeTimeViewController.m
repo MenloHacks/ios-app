@@ -36,9 +36,22 @@
   _progressView.progressColor = [UIColor emeraldGreen];
   _progressView.progressStrokeColor = [UIColor emeraldGreen];
   
-  [AutolayoutHelper configureView:self.view subViews:NSDictionaryOfVariableBindings(_progressView)
-                      constraints:@[@"V:|-[_progressView]-|",
-                                    @"H:|-[_progressView]-|"]];
+  
+  UIView *spacerOne = [UIView new]; UIView *spacerTwo = [UIView new];
+  
+  [AutolayoutHelper configureView:self.view subViews:NSDictionaryOfVariableBindings(_progressView, spacerOne, spacerTwo)
+                      constraints:@[@"X:_progressView.centerX == superview.centerX",
+                                    @"X:_progressView.centerY == superview.centerY",
+                                    @"H:|-(20@500)-[_progressView]-(20@500)-|",
+                                    @"V:|-(20@500)-[_progressView]-(20@500)-|",
+                                    @"H:|-(>=20@650)-[_progressView]-(>=20@650)-|",
+                                    @"V:|-(>=20@650)-[_progressView]-(>=20@650)-|",
+]];
+  
+  NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:_progressView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_progressView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+  ratio.priority = UILayoutPriorityRequired;
+
+  [self.view addConstraint:ratio];
   
   _progressLabel = [UILabel new];
   _progressLabel.numberOfLines = 2;
@@ -59,6 +72,7 @@
   }
   
 }
+
 
 -(void)updateView : (NSTimer *)timer {
   dispatch_async(dispatch_get_main_queue(), ^{

@@ -52,9 +52,24 @@
   
   [AutolayoutHelper configureView:self.view fillWithSubView:parent];
   
-  NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:_imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:scrollView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-  [self.view addConstraint:constraint];
-   
+  NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                     toItem:scrollView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     multiplier:1
+                                                                      constant:0];
+  
+  NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                        toItem:scrollView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                    multiplier:1
+                                                                      constant:0];
+  
+  [self.view addConstraint:widthConstraint];
+  [self.view addConstraint:heightConstraint];
   
   
   if (_map) {
