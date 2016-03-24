@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) NSArray<Map *> *maps;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
-@property (nonatomic, strong) NSArray <SingleMapViewController *> *mapVCs;
+@property (nonatomic, strong) SingleMapViewController *singleMapVC;
 
 @end
 
@@ -39,44 +39,56 @@
                                      @"X:_loadingView.centerY == superview.centerY"]];
   [_loadingView startAnimating];
 
-  
-  [[MapStoreController sharedMapStoreController]getMaps:^(NSArray<Map *> *results) {
-    _maps = results;
-    [self configurePageView];
-  }];
-  
-  
+  [self setupView];
   
 }
 
--(void)configurePageView {
-  UIPageControl *pageControl = [UIPageControl appearance];
-  pageControl.pageIndicatorTintColor = [UIColor blackColor];
-  pageControl.currentPageIndicatorTintColor = [UIColor menloBlue];
-  
-  _mapVCs = [self getMapVCs];
-  _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-  self.pageViewController.view.frame = self.view.frame;
-  _pageViewController.dataSource = self;
-  _pageViewController.delegate = self;
-  NSArray *viewControllers = [NSArray arrayWithObject:_mapVCs[0]];
-  [_pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-  [self addChildViewController:_pageViewController];
-  [self.view addSubview:_pageViewController.view];
-  [_pageViewController didMoveToParentViewController:self];
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+}
+
+- (void)setupView {
+  [[MapStoreController sharedMapStoreController]getMaps:^(NSArray<Map *> *results) {
+    _maps = results;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if(_maps.count > 1){
+        [self configurePageView];
+      }
+      else {
+        [self configureSingleMap];
+      }
+    });
+  }];
+}
+
+
+-(void)configureSingleMap {
+  _singleMapVC = [self viewControllerAtIndex:0];
+  [self addChildViewController:_singleMapVC];
+  [AutolayoutHelper configureView:self.view fillWithSubView:_singleMapVC.view];
+  [_singleMapVC didMoveToParentViewController:self];
   [_loadingView stopAnimating];
   _loadingView.hidden = YES;
 }
 
--(NSArray *)getMapVCs {
-  NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:_maps.count];
-  for (Map *map in _maps) {
-    SingleMapViewController *vc = [[SingleMapViewController alloc]init];
-    [vc configureFromMap:map];
-    [array addObject:vc];
-  }
-  return array;
+-(void)configurePageView {
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor menloBlue];
+  
+    _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageViewController.view.frame = self.view.frame;
+    _pageViewController.delegate = self;
+    _pageViewController.dataSource = self;
+    NSArray *viewControllers = [NSArray arrayWithObject:[self viewControllerAtIndex:0]];
+    [_pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self addChildViewController:_pageViewController];
+    [self.view addSubview:_pageViewController.view];
+    [_pageViewController didMoveToParentViewController:self];
+    [_loadingView stopAnimating];
+    _loadingView.hidden = YES;
 }
+
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -107,7 +119,7 @@
   return nil;
 }
 
-- (UIViewController *)viewControllerAtIndex: (NSUInteger)index {
+- (SingleMapViewController *)viewControllerAtIndex: (NSUInteger)index {
   SingleMapViewController *vc = [[SingleMapViewController alloc]init];
   vc.index = index;
   [vc configureFromMap:_maps[index]];
@@ -116,7 +128,7 @@
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
   // The number of items reflected in the page indicator.
-  return _mapVCs.count;
+  return _maps.count;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
