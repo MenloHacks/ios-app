@@ -13,10 +13,10 @@
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "Announcement.h"
-#import "InfoTableViewCell.h"
-#import "TimeView.h"
-#import "MainEventDetailsStoreController.h"
 #import "AnnouncementsStoreController.h"
+#import "InfoTableViewCell.h"
+#import "MainEventDetailsStoreController.h"
+#import "TimeView.h"
 
 
 @interface AnnouncementsViewController () <UITableViewDataSource, UITableViewDelegate>

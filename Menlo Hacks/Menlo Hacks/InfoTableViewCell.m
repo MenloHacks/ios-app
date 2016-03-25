@@ -14,6 +14,7 @@
 #import "NSDate+Utilities.h"
 
 #import "Event.h"
+#import "EventLocation.h"
 #import "Announcement.h"
 
 @interface InfoTableViewCell()
@@ -70,9 +71,9 @@
 }
 
 -(void)configureWithEvent : (Event *)event{
-  _descriptionLabel.text = event.eventDescription;
-  _locationLabel.text = event.location;
-  _timeLabel.text = [NSDate formattedShortTimeFromDate:event.time];
+  _descriptionLabel.text = event.short_description;
+  _locationLabel.text = event.location.location_name;
+  _timeLabel.text = [NSDate formattedShortTimeFromDate:event.start_time];
 }
 
 -(void)configureWithAnnouncement:(Announcement *)announcement {

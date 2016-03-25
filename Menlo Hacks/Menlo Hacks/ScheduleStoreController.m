@@ -27,8 +27,9 @@
   PFQuery *query = [Event query];
   query.cachePolicy = kPFCachePolicyNetworkElseCache;
   [query orderByAscending:@"time"];
+  [query includeKey:@"location"];
   [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-    completion(objects);
+      completion(objects);
   }];
 }
 

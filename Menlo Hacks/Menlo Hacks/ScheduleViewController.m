@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import "UIColor+ColorPalette.h"
 
+#import "EventDetailViewController.h"
 #import "MainEventDetailsStoreController.h"
 #import "TimeView.h"
 #import "Event.h"
@@ -38,7 +39,6 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   self.tableView.rowHeight = UITableViewAutomaticDimension;
-  self.tableView.allowsSelection = NO;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.tableFooterView = [UIView new];
   self.tableView.estimatedRowHeight = 40;
@@ -77,7 +77,6 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self refresh];
 }
 
 - (void)refresh : (UIRefreshControl *)sender {
@@ -113,11 +112,12 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   }];
 }
 
+
 /* Precondition: Based on the sort order the scheduled events should be sorted. */
 -(void)scrollToNextEvent {
   NSDate *currentDate = [NSDate date];
   for (int i = 0; i < [_events count]; i++){
-    NSDate *contender = _events[i].time;
+    NSDate *contender = _events[i].start_time;
     if([contender compare:currentDate] == NSOrderedDescending) {
       [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
       return;
@@ -129,6 +129,14 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   [cell configureWithEvent:_events[indexPath.row]];
   return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  EventDetailViewController *vc = [[EventDetailViewController alloc]init];
+  vc.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
+  vc.event = self.events[indexPath.row];
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

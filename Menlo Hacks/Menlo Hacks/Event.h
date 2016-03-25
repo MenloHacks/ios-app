@@ -9,12 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
+#import "EventLocation.h"
+
 @interface Event : PFObject<PFSubclassing>
 
 + (NSString *)parseClassName;
 
-@property (retain) NSString *eventDescription;
-@property (retain) NSString *location;
-@property (retain) NSDate *time;
+@property (retain) EventLocation *location;
+@property (retain) NSDate *start_time;
+@property (retain) NSDate *end_time;
+@property (retain) NSString *long_description;
+@property (retain) NSString *short_description;
 
 @end

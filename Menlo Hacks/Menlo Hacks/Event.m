@@ -10,9 +10,12 @@
 
 @implementation Event
 
-@dynamic time;
+@dynamic start_time;
+@dynamic end_time;
+@dynamic short_description;
+@dynamic long_description;
 @dynamic location;
-@dynamic eventDescription;
+
 
 + (NSString *)parseClassName {
   return @"Event";
