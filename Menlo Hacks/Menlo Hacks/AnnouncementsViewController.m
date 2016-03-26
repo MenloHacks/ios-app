@@ -83,6 +83,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 }
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  _noAnnouncementsLabel.text = @"";
   [self forceRefresh];
 }
 
