@@ -26,7 +26,7 @@
 - (void)getScheduleItems : (void (^)(NSArray<Event *> * results))completion {
   PFQuery *query = [Event query];
   query.cachePolicy = kPFCachePolicyNetworkElseCache;
-  [query orderByAscending:@"time"];
+  [query orderByAscending:@"start_time"];
   [query includeKey:@"location"];
   [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
       completion(objects);

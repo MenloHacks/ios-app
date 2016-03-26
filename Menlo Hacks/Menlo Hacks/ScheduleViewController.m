@@ -9,8 +9,10 @@
 #import "ScheduleViewController.h"
 
 #import "AutolayoutHelper.h"
+#import "NSDate+Utilities.h"
 #import <Parse/Parse.h>
 #import "UIColor+ColorPalette.h"
+#import "UIFontDescriptor+AvenirNext.h"
 
 #import "EventDetailViewController.h"
 #import "MainEventDetailsStoreController.h"
@@ -24,7 +26,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic) int numberOfEntriesInSchedule;
-@property (nonatomic, strong) NSArray<Event *> *events;
+@property (nonatomic, strong) NSArray <NSArray<Event *> *> *events;
 
 @end
 
@@ -81,7 +83,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 
 - (void)refresh : (UIRefreshControl *)sender {
   [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
-    _events = results;
+    [self convertEventsIntoSegmentedArray:results];
     dispatch_async(dispatch_get_main_queue(), ^{
       [CATransaction begin];
       [CATransaction setCompletionBlock:^{
@@ -100,7 +102,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   _tableView.hidden = YES;
   [_loadingView startAnimating];
   [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
-    _events = results;
+    [self convertEventsIntoSegmentedArray:results];
      dispatch_async(dispatch_get_main_queue(), ^{
        [_loadingView stopAnimating];
        _tableView.hidden = NO;
@@ -116,31 +118,89 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 /* Precondition: Based on the sort order the scheduled events should be sorted. */
 -(void)scrollToNextEvent {
   NSDate *currentDate = [NSDate date];
-  for (int i = 0; i < [_events count]; i++){
-    NSDate *contender = _events[i].start_time;
-    if([contender compare:currentDate] == NSOrderedDescending) {
-      [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-      return;
+  for (int i = 0; i < [_events count]; i++) {
+    for (int j = 0; j < _events[i].count; j++) {
+      NSDate *contender = _events[i][j].start_time;
+      if([contender compare:currentDate] == NSOrderedDescending) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:j inSection:i] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        return;
+      }
+    }
+    
+
+  }
+}
+
+/*Precondition: Events array is sorted */
+-(void)convertEventsIntoSegmentedArray : (NSArray <Event *> *)events {
+  NSMutableArray <NSMutableArray<Event *> *> * segmentedEvents = [[NSMutableArray alloc]init];
+  if(events.count > 0) {
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int i = 0;
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    [segmentedEvents addObject:array];
+    NSDateComponents *statusQuo = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:events[0].start_time];
+    for (Event *event in events) {
+      NSDateComponents *contender = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:event.start_time];
+      if(contender.day != statusQuo.day || contender.month != statusQuo.month || contender.year != statusQuo.year) {
+        statusQuo = contender;
+        i++;
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        [array addObject:event];
+        [segmentedEvents addObject:array];
+      }
+      else {
+        NSMutableArray *array = segmentedEvents[i];
+        [array addObject:event];
+        segmentedEvents[i] = array;
+      }
     }
   }
+  _events = segmentedEvents;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  UILabel *label = [UILabel new];
+  label.font = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
+  label.text = [self tableView:tableView titleForHeaderInSection:section];
+  UIView *parentView = [UIView new];
+  parentView.backgroundColor = [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0f];
+  [AutolayoutHelper configureView:parentView
+                      subViews:NSDictionaryOfVariableBindings(label)
+                      constraints:@[@"H:|-[label]",
+                                    @"X:label.centerY == superview.centerY"]];
+  return parentView;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-  [cell configureWithEvent:_events[indexPath.row]];
+  [cell configureWithEvent:_events[indexPath.section][indexPath.row]];
   return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   EventDetailViewController *vc = [[EventDetailViewController alloc]init];
   vc.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
-  vc.event = self.events[indexPath.row];
+  vc.event = self.events[indexPath.section][indexPath.row];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   [self.navigationController pushViewController:vc animated:YES];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [_events count];
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  if(section >= _events.count) {
+    return @"";
+  }
+  return [NSDate formattedDayOftheWeekFromDate:_events[section][0].start_time];
 }
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return _events[section].count;
+  
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return _events.count;
+}
+
 
 @end

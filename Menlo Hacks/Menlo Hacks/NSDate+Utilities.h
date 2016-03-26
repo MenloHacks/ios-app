@@ -12,5 +12,6 @@
 
 + (NSString *)formattedTimeUntilDate : (NSDate *)toDate fromDate: (NSDate *)fromDate;
 + (NSString *)formattedShortTimeFromDate : (NSDate *)date;
++ (NSString *)formattedDayOftheWeekFromDate : (NSDate *)date;
 
 @end

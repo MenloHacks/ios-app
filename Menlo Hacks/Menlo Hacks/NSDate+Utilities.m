@@ -53,4 +53,16 @@
   return [_sharedInstance stringFromDate:date];
 }
 
++ (NSString *)formattedDayOftheWeekFromDate : (NSDate *)date {
+  static dispatch_once_t once;
+  static NSDateFormatter *_sharedInstance;
+  dispatch_once(&once, ^{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE"];
+    _sharedInstance = dateFormatter;
+  });
+  
+  return [_sharedInstance stringFromDate:date];
+}
+
 @end
