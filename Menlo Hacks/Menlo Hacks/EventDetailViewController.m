@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UILabel *descriptionLabel;
 @property (nonatomic, strong) UIButton * addToCalendarButton;
 @property (nonatomic, strong) UIScrollView *mapImageViewScrollView;
+@property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 
 @end
 
@@ -65,6 +66,8 @@
   self.mapImageViewScrollView.minimumZoomScale = 1.0;
   
 
+  _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  _loadingView.color = [UIColor menloBlue];
   
   [AutolayoutHelper configureView:self.view
                          subViews:NSDictionaryOfVariableBindings(_mapImageViewScrollView, _timeLabel, _descriptionTextView, _descriptionLabel, _addToCalendarButton, _locationLabel)
@@ -77,9 +80,11 @@
                                         @"H:|-[_descriptionTextView]-|"]];
   
   [AutolayoutHelper configureView:_mapImageViewScrollView
-                         subViews:NSDictionaryOfVariableBindings(_mapImageView)
+                         subViews:NSDictionaryOfVariableBindings(_mapImageView, _loadingView)
                          constraints:@[@"H:|[_mapImageView]|",
-                                       @"X:_mapImageView.centerY == superview.centerY"]];
+                                       @"X:_mapImageView.centerY == superview.centerY",
+                                       @"X:_loadingView.centerX == superview.centerX",
+                                       @"X:_loadingView.centerY == superview.centerY"]];
   
   NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_mapImageView
                                                                      attribute:NSLayoutAttributeWidth
@@ -126,7 +131,12 @@
   _event = event;
   EventLocation *location = event.location;
   self.mapImageView.file = location.map_image;
-  [self.mapImageView loadInBackground];
+  _loadingView.hidden = NO;
+  [_loadingView startAnimating];
+  [self.mapImageView loadInBackground:^(UIImage * _Nullable image, NSError * _Nullable error) {
+    [_loadingView stopAnimating];
+    _loadingView.hidden = YES;
+  }];
   NSString *timeText;
   if(event.end_time) {
     self.addToCalendarButton.hidden = NO;
