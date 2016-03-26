@@ -180,7 +180,9 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   EventDetailViewController *vc = [[EventDetailViewController alloc]init];
-  vc.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
+  vc.navigationItem.titleView = [[UIImageView alloc]initWithImage:
+                                 [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
+  
   vc.event = self.events[indexPath.section][indexPath.row];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   [self.navigationController pushViewController:vc animated:YES];
