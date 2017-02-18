@@ -11,7 +11,7 @@
 
 @interface UIColor(ColorPalette)
 
-+ (instancetype)menloBlue;
++ (instancetype)menloHacksPurple;
 + (instancetype)menloGold;
 + (instancetype)emeraldGreen;
 

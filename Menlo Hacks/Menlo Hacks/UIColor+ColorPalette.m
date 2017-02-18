@@ -10,10 +10,10 @@
 
 @implementation UIColor(ColorPalette)
 
-+ (instancetype)menloBlue {
-  return [self colorWithRed:11.f   / 255.0f
-                      green:61.0f / 255.0f
-                       blue:145.0f / 255.0f
++ (instancetype)menloHacksPurple {
+  return [self colorWithRed:125.f   / 255.0f
+                      green:91.0f / 255.0f
+                       blue:166.0f / 255.0f
                       alpha:1.f];
 }
 
