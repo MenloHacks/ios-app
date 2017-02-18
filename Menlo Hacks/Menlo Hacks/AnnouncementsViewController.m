@@ -74,7 +74,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
                                      @"X:_noAnnouncementsLabel.centerY == superview.centerY"]];
   
   _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  _loadingView.color = [UIColor menloBlue];
+  _loadingView.color = [UIColor menloHacksPurple];
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
@@ -102,7 +102,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 
 -(void)addRefreshView {
   _refresh = [[UIRefreshControl alloc] init];
-  _refresh.tintColor = [UIColor menloBlue];
+  _refresh.tintColor = [UIColor menloHacksPurple];
   [_refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
   [self.tableView addSubview:_refresh];
 }

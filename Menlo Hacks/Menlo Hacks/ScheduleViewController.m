@@ -64,13 +64,13 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
                                     @"H:|[timeView]|"]];
   
   _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  _loadingView.color = [UIColor menloBlue];
+  _loadingView.color = [UIColor menloHacksPurple];
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
   
   UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-  refresh.tintColor = [UIColor menloBlue];
+  refresh.tintColor = [UIColor menloHacksPurple];
   [refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
   [self.tableView addSubview:refresh];
   

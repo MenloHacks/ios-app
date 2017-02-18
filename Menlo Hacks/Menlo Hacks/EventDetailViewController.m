@@ -47,7 +47,7 @@
   self.descriptionTextView.textColor = [UIColor blackColor];
   self.descriptionTextView.editable = NO;
   self.descriptionLabel = [UILabel new];
-  self.descriptionLabel.textColor = [UIColor menloBlue];
+  self.descriptionLabel.textColor = [UIColor menloHacksPurple];
   self.descriptionLabel.font = standardTitleFont;
   self.locationLabel = [UILabel new];
   self.locationLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];
@@ -55,7 +55,7 @@
   
   [self.addToCalendarButton setTitle:@"Add Event to Calendar" forState:UIControlStateNormal];
   self.addToCalendarButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];
-  [self.addToCalendarButton setTitleColor:[UIColor menloBlue] forState:UIControlStateNormal];
+  [self.addToCalendarButton setTitleColor:[UIColor menloHacksPurple] forState:UIControlStateNormal];
   [self.addToCalendarButton addTarget:self
                                action:@selector(addToCalendar:)
                             forControlEvents:UIControlEventTouchDown];
@@ -67,7 +67,7 @@
   
 
   _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  _loadingView.color = [UIColor menloBlue];
+  _loadingView.color = [UIColor menloHacksPurple];
   
   [AutolayoutHelper configureView:self.view
                          subViews:NSDictionaryOfVariableBindings(_mapImageViewScrollView, _timeLabel, _descriptionTextView, _descriptionLabel, _addToCalendarButton, _locationLabel)

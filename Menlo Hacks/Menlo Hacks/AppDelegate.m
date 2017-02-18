@@ -67,11 +67,11 @@ static NSString *kMHNotificationTypeEvent = @"event";
   vc4.tabBarItem = item4;
   vc5.tabBarItem = item5;
   
-   [[UITabBar appearance] setTintColor:[UIColor menloBlue]];
+   [[UITabBar appearance] setTintColor:[UIColor menloHacksPurple]];
   
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:_tabBarController];
-  navController.navigationBar.tintColor = [UIColor menloBlue];
+  navController.navigationBar.tintColor = [UIColor menloHacksPurple];
   navController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:
                                                    [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
   navController.navigationBar.translucent = NO;

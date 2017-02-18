@@ -50,7 +50,7 @@
   _descriptionLabel = [UILabel new];
   _descriptionLabel.font = font;
   _descriptionLabel.numberOfLines = 0;
-  _descriptionLabel.textColor = [UIColor menloBlue];
+  _descriptionLabel.textColor = [UIColor menloHacksPurple];
   
   _timeLabel = [UILabel new];
   _timeLabel.font = font;

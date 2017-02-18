@@ -33,7 +33,7 @@
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor whiteColor];
   _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  _loadingView.color = [UIColor menloBlue];
+  _loadingView.color = [UIColor menloHacksPurple];
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
@@ -74,7 +74,7 @@
 -(void)configurePageView {
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor blackColor];
-    pageControl.currentPageIndicatorTintColor = [UIColor menloBlue];
+    pageControl.currentPageIndicatorTintColor = [UIColor menloHacksPurple];
   
     _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.view.frame = self.view.frame;
