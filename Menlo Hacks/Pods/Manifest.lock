@@ -6,12 +6,16 @@ PODS:
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
+  - Realm (2.1.2):
+    - Realm/Headers (= 2.1.2)
+  - Realm/Headers (2.1.2)
   - Smooch (4.0.3)
 
 DEPENDENCIES:
   - MBCircularProgressBar
   - Parse
   - ParseUI
+  - Realm
   - Smooch
 
 SPEC CHECKSUMS:
@@ -19,8 +23,9 @@ SPEC CHECKSUMS:
   MBCircularProgressBar: ff3b8e2f441214d9ee122a24ba0d4d00cc7de881
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
+  Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   Smooch: b423ce0b64c247c1ad8ae262c5a777300d9eafdd
 
-PODFILE CHECKSUM: bf4a86e055442496d0f29face839b02589b72aaa
+PODFILE CHECKSUM: 5f54619be59fbda11f49baea98b5793e5a437a3a
 
 COCOAPODS: 1.1.1
