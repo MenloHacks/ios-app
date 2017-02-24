@@ -1,6 +1,5 @@
 target 'Menlo Hacks' do
-pod 'Parse'
-pod 'ParseUI'
+pod 'Bolts'
 pod 'Smooch'
 pod 'MBCircularProgressBar'
 pod 'Realm'
