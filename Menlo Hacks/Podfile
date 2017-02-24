@@ -2,6 +2,7 @@ target 'Menlo Hacks' do
 pod 'Bolts'
 pod 'AFNetworking'
 pod 'Smooch'
+pod 'JNKeychain'
 pod 'MBCircularProgressBar'
 pod 'Realm'
 

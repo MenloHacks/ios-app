@@ -50,7 +50,7 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 
 - (void)setAuthorizationHeader {
  //   NSString *authToken = [JNKeychain loadValueForKey:ENTKeychainAuthTokenKey];
-    [self.requestSerializer setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
+ //   [self.requestSerializer setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
 }
 
 #pragma mark networking requests with Bolts

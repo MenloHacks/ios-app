@@ -20,6 +20,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - JNKeychain (0.1.4)
   - MBCircularProgressBar (0.3.4)
   - Realm (2.1.2):
     - Realm/Headers (= 2.1.2)
@@ -29,6 +30,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Bolts
+  - JNKeychain
   - MBCircularProgressBar
   - Realm
   - Smooch
@@ -36,10 +38,11 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
   MBCircularProgressBar: ff3b8e2f441214d9ee122a24ba0d4d00cc7de881
   Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   Smooch: b423ce0b64c247c1ad8ae262c5a777300d9eafdd
 
-PODFILE CHECKSUM: 807cc19737c3937964899a16e1ebc2d6b307c48e
+PODFILE CHECKSUM: 917e1f37d78aab20093517eac2502996d4d656f8
 
 COCOAPODS: 1.1.1
