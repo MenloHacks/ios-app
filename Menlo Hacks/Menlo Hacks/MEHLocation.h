@@ -6,13 +6,13 @@
 //  Copyright © 2016 MenloHacks. All rights reserved.
 //
 
-#import <Parse/Parse.h>
+#import <Realm/Realm.h>
 
-@interface EventLocation : PFObject<PFSubclassing>
+@interface MEHLocation : RLMObject
 
 + (NSString *)parseClassName;
 
-@property (retain) NSString *location_name;
-@property (retain) PFFile *map_image;
+@property (retain) NSString *locationName;
+@property (retain) NSString *mapURL;
 
 @end
