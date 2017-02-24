@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class Event;
 
-@interface ScheduleStoreController : NSObject
+@interface MEHScheduleStoreController : NSObject
 
 + (instancetype)sharedScheduleStoreController;
 
