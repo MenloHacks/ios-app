@@ -47,15 +47,18 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
   self.tableView.estimatedRowHeight = 40;
   [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:KMEHEventReuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
+    
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingStartTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        timeView.startDate = t.result;
+        return nil;
+    }];
+    
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingEndTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        timeView.endDate = t.result;
+        return nil;
+    }];
   
-//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-//    timeView.startDate = date;
-//  }];
-//  
-//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-//    timeView.endDate = date;
-//  }];
-  
+
   NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
 
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_tableView, timeView)

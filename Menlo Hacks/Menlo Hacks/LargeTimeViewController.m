@@ -8,8 +8,10 @@
 
 #import "LargeTimeViewController.h"
 
+#import <Bolts/Bolts.h>
+
 #import "AutolayoutHelper.h"
-//#import "MainEventDetailsStoreController.h"
+#import "MEHEventTimingStoreController.h"
 #import "MBCircularProgressBarView.h"
 #import "NSDate+Utilities.h"
 #import "UIColor+ColorPalette.h"
@@ -60,16 +62,18 @@
                                     @"X:_progressLabel.centerY == superview.centerY"]];
   [self setupTimer];
   
-//  if(!_startDate) {
-//    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-//      self.startDate = date;
-//    }];
-//  }
-//  if(!_endDate) {
-//    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-//      self.endDate = date;
-//    }];
-//  }
+    
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingStartTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        self.startDate = t.result;
+        return nil;
+    }];
+    
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingEndTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        self.endDate = t.result;
+        return nil;
+    }];
+    
+
   
 }
 
