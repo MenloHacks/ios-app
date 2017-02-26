@@ -61,7 +61,7 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
     self.eventStartTimeDate = [standardDefalts objectForKey:kMEHEventStartTimeKey];
     self.eventEndTimeDate = [standardDefalts objectForKey:kMEHEventEndTimeKey];
     
-    self.hackingStartTimeDate = [standardDefalts objectForKey:kMEHHackingEndTimeKey];
+    self.hackingStartTimeDate = [standardDefalts objectForKey:kMEHHackingStartTimeKey];
     self.hackingEndTimeDate = [standardDefalts objectForKey:kMEHHackingEndTimeKey];
 }
 
