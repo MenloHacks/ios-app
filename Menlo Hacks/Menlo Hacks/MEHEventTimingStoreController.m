@@ -67,11 +67,11 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
 
 - (BFTask *)eventStartTime {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
-    if(self.fetchInProgress) {
-        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
-    }
+//    if(self.fetchInProgress) {
+//        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
+//    }
     if(self.eventStartTimeDate) {
-        [completionSource setResult:self.eventStartTime];
+        [completionSource setResult:self.eventStartTimeDate];
     } else {
         [[self fetchTimesFromServer]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
             if(t.error) {
@@ -89,9 +89,9 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
 
 - (BFTask *)eventEndTime {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
-    if(self.fetchInProgress) {
-        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
-    }
+//    if(self.fetchInProgress) {
+//        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
+//    }
     if(self.eventEndTimeDate) {
         [completionSource setResult:self.eventEndTimeDate];
     } else {
@@ -111,9 +111,9 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
 
 - (BFTask *)hackingStartTime {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
-    if(self.fetchInProgress) {
-        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
-    }
+//    if(self.fetchInProgress) {
+//        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
+//    }
     if(self.hackingStartTimeDate) {
         [completionSource setResult:self.hackingStartTimeDate];
     } else {
@@ -133,9 +133,9 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
 
 - (BFTask *)hackingEndTime {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
-    if(self.fetchInProgress) {
-        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
-    }
+//    if(self.fetchInProgress) {
+//        dispatch_semaphore_wait(_fetchSemaphore, DISPATCH_TIME_FOREVER);
+//    }
     if(self.hackingEndTimeDate) {
         [completionSource setResult:self.hackingEndTimeDate];
     } else {

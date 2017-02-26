@@ -16,8 +16,7 @@
 + (instancetype)sharedScheduleStoreController;
 
 - (BFTask *)fetchScheduleItems;
-
-@property (nonatomic) NSArray * events;
+- (BFTask *)events;
 
 
 

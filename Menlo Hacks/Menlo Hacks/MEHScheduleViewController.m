@@ -85,18 +85,24 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 - (void)refresh : (UIRefreshControl *)sender {
     
     [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [CATransaction begin];
-            [CATransaction setCompletionBlock:^{
+        return [[[MEHScheduleStoreController sharedScheduleStoreController]events]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+            self.events = t.result;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [CATransaction begin];
+                [CATransaction setCompletionBlock:^{
                 // reload tableView after refresh control finish refresh animation
                 [self.tableView reloadData];
                 [self scrollToNextEvent];
             }];
             [sender endRefreshing];
             [CATransaction commit];
+                        
+            });
             
-        });
-        return nil;
+            return nil;
+        }];
+        
+
     }];
     
 
@@ -106,15 +112,20 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
   _tableView.hidden = YES;
   [_loadingView startAnimating];
   [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-          [_loadingView stopAnimating];
-          _tableView.hidden = NO;
-          self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-          _loadingView.hidden = YES;
-          [_tableView reloadData];
-          [self scrollToNextEvent];
-      });
-      return nil;
+      return [[[MEHScheduleStoreController sharedScheduleStoreController]events]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+          self.events = t.result;
+          dispatch_async(dispatch_get_main_queue(), ^{
+              [_loadingView stopAnimating];
+              _tableView.hidden = NO;
+              self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+              _loadingView.hidden = YES;
+              [_tableView reloadData];
+              [self scrollToNextEvent];
+          });
+           return nil;
+      }];
+
+     
   }];
     
     
@@ -172,7 +183,12 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
   if(section >= _events.count) {
     return @"";
   }
-  return [NSDate formattedDayOftheWeekFromDate:_events[section][0].startTime];
+    if (_events[section].count > 0) {
+        return [NSDate formattedDayOftheWeekFromDate:_events[section][0].startTime];
+    } else {
+        return @"";
+    }
+  
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
