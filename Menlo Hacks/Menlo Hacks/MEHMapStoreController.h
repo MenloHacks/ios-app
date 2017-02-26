@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class Map;
+@class BFTask, RLMResults;
 
-@interface MapStoreController : NSObject
+@interface MEHMapStoreController : NSObject
 
 + (instancetype)sharedMapStoreController;
-- (void)getMaps : (void (^)(NSArray<Map *> * results))completion;
+
+- (BFTask *)fetchMaps;
+- (RLMResults *)maps;
+
 
 
 @end

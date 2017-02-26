@@ -9,15 +9,17 @@
 #import "SingleMapViewController.h"
 
 #import "AutolayoutHelper.h"
+#import "UIImageView+AFNetworking.h"
 #import "UIFontDescriptor+AvenirNext.h"
+
 
 #import "MEHLocation.h"
 
 @interface SingleMapViewController () <UIScrollViewDelegate>
 
-//@property (nonatomic, strong) PFImageView *imageView;
-//@property (nonatomic, strong) UILabel *captionLabel;
-//@property (nonatomic, strong) Map *map;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *captionLabel;
+@property (nonatomic, strong) MEHLocation *map;
 
 
 @end
@@ -27,66 +29,64 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-//  _imageView = [[PFImageView alloc]init];
-//  _imageView.contentMode = UIViewContentModeScaleAspectFit;
-//  _captionLabel = [[UILabel alloc]init];
-//  _captionLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
-//  _captionLabel.textAlignment = NSTextAlignmentCenter;
-//  _captionLabel.textColor = [UIColor blackColor];
-//  UIScrollView *scrollView = [[UIScrollView alloc]init];
-//  scrollView.delegate = self;
-//  scrollView.maximumZoomScale = 3.0;
-//  scrollView.minimumZoomScale = 1.0;
-//  
-//  UIView *parent = [UIView new];
-//  
-//  [AutolayoutHelper configureView:parent subViews:VarBindings(scrollView, _captionLabel)
-//                      constraints:@[@"H:|-[scrollView]-|",
-//                                    @"H:|-[_captionLabel]-|",
-//                                    @"V:|-42-[_captionLabel]-12-[scrollView]|"]];
-//  [AutolayoutHelper configureView:scrollView subViews:NSDictionaryOfVariableBindings(_imageView)
-//                                              constraints:@[@"H:|[_imageView]|",
-//                                                            @"X:_imageView.centerY == superview.centerY"]];
-//  
-//  [AutolayoutHelper configureView:self.view fillWithSubView:parent];
-//  
-//  NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-//                                                                     attribute:NSLayoutAttributeWidth
-//                                                                     relatedBy:NSLayoutRelationEqual
-//                                                                     toItem:scrollView
-//                                                                     attribute:NSLayoutAttributeWidth
-//                                                                     multiplier:1
-//                                                                      constant:0];
-//  
-//  NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-//                                                                     attribute:NSLayoutAttributeHeight
-//                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                                        toItem:scrollView
-//                                                                     attribute:NSLayoutAttributeHeight
-//                                                                    multiplier:1
-//                                                                      constant:0];
-//  
-//  [self.view addConstraint:widthConstraint];
-//  [self.view addConstraint:heightConstraint];
-//  
-//  
-//  if (_map) {
-//    [self configureFromMap:_map];
-//  }
+  _imageView = [[UIImageView alloc]init];
+  _imageView.contentMode = UIViewContentModeScaleAspectFit;
+  _captionLabel = [[UILabel alloc]init];
+  _captionLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
+  _captionLabel.textAlignment = NSTextAlignmentCenter;
+  _captionLabel.textColor = [UIColor blackColor];
+  UIScrollView *scrollView = [[UIScrollView alloc]init];
+  scrollView.delegate = self;
+  scrollView.maximumZoomScale = 3.0;
+  scrollView.minimumZoomScale = 1.0;
+  
+  UIView *parent = [UIView new];
+  
+  [AutolayoutHelper configureView:parent subViews:VarBindings(scrollView, _captionLabel)
+                      constraints:@[@"H:|-[scrollView]-|",
+                                    @"H:|-[_captionLabel]-|",
+                                    @"V:|-42-[_captionLabel]-12-[scrollView]|"]];
+  [AutolayoutHelper configureView:scrollView subViews:NSDictionaryOfVariableBindings(_imageView)
+                                              constraints:@[@"H:|[_imageView]|",
+                                                            @"X:_imageView.centerY == superview.centerY"]];
+  
+  [AutolayoutHelper configureView:self.view fillWithSubView:parent];
+  
+  NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                     toItem:scrollView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     multiplier:1
+                                                                      constant:0];
+  
+  NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                        toItem:scrollView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                    multiplier:1
+                                                                      constant:0];
+  
+  [self.view addConstraint:widthConstraint];
+  [self.view addConstraint:heightConstraint];
+  
+  
+  if (_map) {
+    [self configureFromMap:_map];
+  }
 }
 
--(void)configureFromMap:(Map *)map {
-//  if(_imageView) {
-//    _imageView.file = map.image;
-//    _captionLabel.text = map.caption;
-//    [_imageView loadInBackground];
-//  }
-//  _map = map;
+-(void)configureFromMap:(MEHLocation *)map {
+  if(_imageView) {
+      _captionLabel.text = map.locationName;
+      [_imageView setImageWithURL:[NSURL URLWithString:map.mapURL]];
+  }
+  _map = map;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-//  return _imageView;
-    return nil;
+    return _imageView;
 }
 
 

@@ -16,5 +16,7 @@
 @property NSString *locationName;
 @property NSString *mapURL;
 @property NSString *serverID;
+@property BOOL isPrimary;
+@property NSInteger rank;
 
 @end

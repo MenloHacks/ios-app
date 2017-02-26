@@ -6,27 +6,29 @@
 //  Copyright © 2015 MenloHacks. All rights reserved.
 //
 
-#import "MapViewController.h"
+#import "MEHMapViewController.h"
 
 #import "AutolayoutHelper.h"
+#import <Bolts/Bolts.h>
 #import "UIColor+ColorPalette.h"
 
-#import "MapStoreController.h"
+#import "MEHMapStoreController.h"
+#import "MEHLocation.h"
 #import "SingleMapViewController.h"
-//#import "Map.h"
+#import "RLMRealm+MenloHacks.h"
 
 #define DEFAULT_OFFSET ((CGFloat) 20)
 
-@interface MapViewController()<UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface MEHMapViewController()<UIScrollViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
-@property (nonatomic, strong) NSArray<Map *> *maps;
+@property (nonatomic, strong) RLMResults<MEHLocation *> *maps;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) SingleMapViewController *singleMapVC;
 
 @end
 
-@implementation MapViewController
+@implementation MEHMapViewController
 
 -(void)viewDidLoad {
   [super viewDidLoad];
@@ -47,17 +49,20 @@
 }
 
 - (void)setupView {
-  [[MapStoreController sharedMapStoreController]getMaps:^(NSArray<Map *> *results) {
-    _maps = results;
-    dispatch_async(dispatch_get_main_queue(), ^{
-      if(_maps.count > 1){
-        [self configurePageView];
-      }
-      else {
-        [self configureSingleMap];
-      }
-    });
-  }];
+    
+    [[[MEHMapStoreController sharedMapStoreController]fetchMaps]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        _maps= [[MEHMapStoreController sharedMapStoreController]maps];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_maps.count > 1){
+                [self configurePageView];
+            }
+            else {
+                [self configureSingleMap];
+            }
+        });
+        return nil;
+    }];
+    
 }
 
 

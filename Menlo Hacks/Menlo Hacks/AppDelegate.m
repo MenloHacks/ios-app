@@ -13,7 +13,7 @@
 #import "MEHScheduleViewController.h"
 #import "AnnouncementsViewController.h"
 #import "LargeTimeViewController.h"
-#import "MapViewController.h"
+#import "MEHMapViewController.h"
 #import "MentorshipViewController.h"
 #import "UIColor+ColorPalette.h"
 
@@ -39,7 +39,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
   MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
   AnnouncementsViewController *vc2 = [[AnnouncementsViewController alloc]init];
   LargeTimeViewController *vc3 = [[LargeTimeViewController alloc]init];
-  MapViewController *vc4 = [[MapViewController alloc]init];
+  MEHMapViewController *vc4 = [[MEHMapViewController alloc]init];
   MentorshipViewController *vc5 = [[MentorshipViewController alloc]init];
   
   _announcementsVC = vc2;

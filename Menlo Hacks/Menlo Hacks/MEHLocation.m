@@ -20,6 +20,11 @@
     location.locationName = dictionary[@"name"];
     location.mapURL = dictionary[@"map"];
     
+    location.isPrimary = [dictionary[@"is_primary"]boolValue];
+    if (dictionary[@"rank"]) {
+        location.rank = [dictionary[@"rank"]integerValue];
+    }
+    
     return location;
     
 }
