@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class BFTask, RLMResults, MEHEvent;
 
 @interface MEHScheduleStoreController : NSObject
 
+
 + (instancetype)sharedScheduleStoreController;
 
-- (void)getScheduleItems : (void (^)(NSArray<Event *> * results))completion;
+- (BFTask *)fetchScheduleItems;
+
+@property (nonatomic) NSArray * events;
+
+
 
 @end

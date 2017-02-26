@@ -8,8 +8,7 @@
 
 #import "AnnouncementsStoreController.h"
 
-#import <Parse/Parse.h>
-#import "Announcement.h"
+#import "MEHAnnouncement.h"
 
 @implementation AnnouncementsStoreController
 
@@ -24,14 +23,14 @@
 }
 
 - (void)getAnnouncements : (void (^)(NSArray<Announcement *> * results))completion {
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fireTime <= %@ AND armed == %@", [NSDate date],
-                            [NSNumber numberWithBool:YES]];
-  PFQuery *query = [Announcement queryWithPredicate:predicate];
-  query.cachePolicy = kPFCachePolicyNetworkElseCache;
-  [query orderByDescending:@"fireTime"];
-  [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-    completion(objects);
-  }];
+//  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fireTime <= %@ AND armed == %@", [NSDate date],
+//                            [NSNumber numberWithBool:YES]];
+//  PFQuery *query = [Announcement queryWithPredicate:predicate];
+//  query.cachePolicy = kPFCachePolicyNetworkElseCache;
+//  [query orderByDescending:@"fireTime"];
+//  [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+//    completion(objects);
+//  }];
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import "MapStoreController.h"
 
-#import "Map.h"
 
 @implementation MapStoreController
 
@@ -23,12 +22,12 @@
 }
 
 - (void)getMaps : (void (^)(NSArray<Map *> * results))completion {
-  PFQuery *query = [Map query];
-  query.cachePolicy = kPFCachePolicyNetworkElseCache;
-  [query orderByAscending:@"order"];
-  [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-    completion(objects);
-  }];
+//  PFQuery *query = [Map query];
+//  query.cachePolicy = kPFCachePolicyNetworkElseCache;
+//  [query orderByAscending:@"order"];
+//  [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+//    completion(objects);
+//  }];
 }
 
 

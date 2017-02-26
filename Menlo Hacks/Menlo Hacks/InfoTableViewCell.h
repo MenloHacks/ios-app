@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Event, Announcement;
+@class MEHEvent, Announcement;
 
 @interface InfoTableViewCell : UITableViewCell
 
-- (void)configureWithEvent : (Event *)event;
+- (void)configureWithEvent : (MEHEvent *)event;
 - (void)configureWithAnnouncement : (Announcement *)announcement;
 
 @end

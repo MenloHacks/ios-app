@@ -9,12 +9,11 @@
 #import "MapViewController.h"
 
 #import "AutolayoutHelper.h"
-#import <ParseUI/ParseUI.h>
 #import "UIColor+ColorPalette.h"
 
 #import "MapStoreController.h"
 #import "SingleMapViewController.h"
-#import "Map.h"
+//#import "Map.h"
 
 #define DEFAULT_OFFSET ((CGFloat) 20)
 

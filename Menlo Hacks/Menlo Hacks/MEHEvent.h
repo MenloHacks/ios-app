@@ -13,12 +13,16 @@
 @interface MEHEvent: RLMObject
 
 
-@property (retain) MEHLocation *location;
+@property MEHLocation *location;
 
-@property (retain) NSDate *startTime;
-@property (retain) NSDate *endTime;
+@property NSDate *startTime;
+@property NSDate *endTime;
 
-@property (retain) NSString *longDescription;
-@property (retain) NSString *shortDescription;
+@property NSString *longDescription;
+@property NSString *shortDescription;
+
+@property NSString *serverID;
+
++ (instancetype)eventFromDictionary: (NSDictionary *)dictionary;
 
 @end

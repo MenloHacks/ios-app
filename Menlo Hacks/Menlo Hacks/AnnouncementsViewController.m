@@ -12,10 +12,10 @@
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
-#import "Announcement.h"
+#import "MEHAnnouncement.h"
 #import "AnnouncementsStoreController.h"
 #import "InfoTableViewCell.h"
-#import "MainEventDetailsStoreController.h"
+//#import "MainEventDetailsStoreController.h"
 #import "TimeView.h"
 
 
@@ -48,13 +48,13 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
   
-  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-    timeView.startDate = date;
-  }];
-  
-  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-    timeView.endDate = date;
-  }];
+//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
+//    timeView.startDate = date;
+//  }];
+//  
+//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
+//    timeView.endDate = date;
+//  }];
   
   NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
   

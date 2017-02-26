@@ -6,33 +6,34 @@
 //  Copyright © 2015 MenloHacks. All rights reserved.
 //
 
-#import "ScheduleViewController.h"
+#import "MEHScheduleViewController.h"
+
+#import <Bolts/Bolts.h>
 
 #import "AutolayoutHelper.h"
 #import "NSDate+Utilities.h"
-#import <Parse/Parse.h>
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "EventDetailViewController.h"
-#import "MainEventDetailsStoreController.h"
+#import "MEHEventTimingStoreController.h"
 #import "TimeView.h"
-#import "Event.h"
-#import "ScheduleStoreController.h"
+#import "MEHEvent.h"
+#import "MEHScheduleStoreController.h"
 #import "InfoTableViewCell.h"
 
-@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MEHScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
-@property (nonatomic) int numberOfEntriesInSchedule;
-@property (nonatomic, strong) NSArray <NSArray<Event *> *> *events;
+@property (nonatomic, strong) NSArray<RLMResults<MEHEvent *> *>*events;
 
 @end
 
-static NSString *reuseIdentifier = @"com.menlohacks.event";
+static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 
-@implementation ScheduleViewController
+
+@implementation MEHScheduleViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -44,16 +45,16 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.tableFooterView = [UIView new];
   self.tableView.estimatedRowHeight = 40;
-  [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+  [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:KMEHEventReuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
   
-  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-    timeView.startDate = date;
-  }];
-  
-  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-    timeView.endDate = date;
-  }];
+//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
+//    timeView.startDate = date;
+//  }];
+//  
+//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
+//    timeView.endDate = date;
+//  }];
   
   NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
 
@@ -82,36 +83,41 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 }
 
 - (void)refresh : (UIRefreshControl *)sender {
-  [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
-    [self convertEventsIntoSegmentedArray:results];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [CATransaction begin];
-      [CATransaction setCompletionBlock:^{
-        // reload tableView after refresh control finish refresh animation
-          [self.tableView reloadData];
-          [self scrollToNextEvent];
-      }];
-      [sender endRefreshing];
-      [CATransaction commit];
-      
-    });
-  }];
+    
+    [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CATransaction begin];
+            [CATransaction setCompletionBlock:^{
+                // reload tableView after refresh control finish refresh animation
+                [self.tableView reloadData];
+                [self scrollToNextEvent];
+            }];
+            [sender endRefreshing];
+            [CATransaction commit];
+            
+        });
+        return nil;
+    }];
+    
+
 }
 
 - (void)refresh {
   _tableView.hidden = YES;
   [_loadingView startAnimating];
-  [[ScheduleStoreController sharedScheduleStoreController]getScheduleItems:^(NSArray<Event *> *results) {
-    [self convertEventsIntoSegmentedArray:results];
-     dispatch_async(dispatch_get_main_queue(), ^{
-       [_loadingView stopAnimating];
-       _tableView.hidden = NO;
-       self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-       _loadingView.hidden = YES;
-       [_tableView reloadData];
-       [self scrollToNextEvent];
-     });
+  [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+          [_loadingView stopAnimating];
+          _tableView.hidden = NO;
+          self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+          _loadingView.hidden = YES;
+          [_tableView reloadData];
+          [self scrollToNextEvent];
+      });
+      return nil;
   }];
+    
+    
 }
 
 
@@ -120,7 +126,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   NSDate *currentDate = [NSDate date];
   for (int i = 0; i < [_events count]; i++) {
     for (int j = 0; j < _events[i].count; j++) {
-      NSDate *contender = _events[i][j].start_time;
+      NSDate *contender = _events[i][j].startTime;
       if([contender compare:currentDate] == NSOrderedDescending) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:j inSection:i] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         return;
@@ -131,33 +137,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   }
 }
 
-/*Precondition: Events array is sorted */
--(void)convertEventsIntoSegmentedArray : (NSArray <Event *> *)events {
-  NSMutableArray <NSMutableArray<Event *> *> * segmentedEvents = [[NSMutableArray alloc]init];
-  if(events.count > 0) {
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    int i = 0;
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    [segmentedEvents addObject:array];
-    NSDateComponents *statusQuo = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:events[0].start_time];
-    for (Event *event in events) {
-      NSDateComponents *contender = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:event.start_time];
-      if(contender.day != statusQuo.day || contender.month != statusQuo.month || contender.year != statusQuo.year) {
-        statusQuo = contender;
-        i++;
-        NSMutableArray *array = [[NSMutableArray alloc]init];
-        [array addObject:event];
-        [segmentedEvents addObject:array];
-      }
-      else {
-        NSMutableArray *array = segmentedEvents[i];
-        [array addObject:event];
-        segmentedEvents[i] = array;
-      }
-    }
-  }
-  _events = segmentedEvents;
-}
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
   UILabel *label = [UILabel new];
@@ -173,7 +153,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:KMEHEventReuseIdentifier];
   [cell configureWithEvent:_events[indexPath.section][indexPath.row]];
   return cell;
 }
@@ -183,7 +163,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   vc.navigationItem.titleView = [[UIImageView alloc]initWithImage:
                                  [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
   
-  vc.event = self.events[indexPath.section][indexPath.row];
+ // vc.event = self.events[indexPath.section][indexPath.row];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   [self.navigationController pushViewController:vc animated:YES];
 }
@@ -192,7 +172,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.event";
   if(section >= _events.count) {
     return @"";
   }
-  return [NSDate formattedDayOftheWeekFromDate:_events[section][0].start_time];
+  return [NSDate formattedDayOftheWeekFromDate:_events[section][0].startTime];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

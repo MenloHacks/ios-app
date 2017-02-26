@@ -10,9 +10,11 @@
 
 @interface MEHLocation : RLMObject
 
-+ (NSString *)parseClassName;
 
-@property (retain) NSString *locationName;
-@property (retain) NSString *mapURL;
++ (instancetype)locationFromDictionary : (NSDictionary *)dictionary;
+
+@property NSString *locationName;
+@property NSString *mapURL;
+@property NSString *serverID;
 
 @end

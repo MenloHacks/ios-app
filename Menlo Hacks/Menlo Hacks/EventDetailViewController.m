@@ -10,18 +10,17 @@
 
 #import "AutolayoutHelper.h"
 #import "NSDate+Utilities.h"
-#import <ParseUI/ParseUI.h>
 #import "UIColor+ColorPalette.h"
 
-#import "Event.h"
-#import "EventLocation.h"
+#import "MEHEvent.h"
+#import "MEHLocation.h"
 
 @import EventKit;
 @import EventKitUI;
 
 @interface EventDetailViewController () <UIScrollViewDelegate, EKEventEditViewDelegate>
 
-@property (nonatomic, strong) PFImageView *mapImageView;
+@property (nonatomic, strong) UIImageView *mapImageView;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UILabel *locationLabel;
@@ -38,7 +37,7 @@
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor whiteColor];
   UIFont *standardTitleFont = [UIFont fontWithName:@"AvenirNext" size:18.0f];
-  self.mapImageView = [[PFImageView alloc]init];
+  self.mapImageView = [[UIImageView alloc]init];
   self.mapImageView.contentMode = UIViewContentModeScaleAspectFit;
   self.timeLabel = [UILabel new];
   self.timeLabel.font = standardTitleFont;
@@ -127,28 +126,28 @@
 }
 
 -(void)setEvent:(Event *)event {
-  _event = event;
-  EventLocation *location = event.location;
-  self.mapImageView.file = location.map_image;
-  _loadingView.hidden = NO;
-  [_loadingView startAnimating];
-  [self.mapImageView loadInBackground:^(UIImage * _Nullable image, NSError * _Nullable error) {
-    [_loadingView stopAnimating];
-    _loadingView.hidden = YES;
-  }];
-  NSString *timeText;
-  if(event.end_time) {
-    self.addToCalendarButton.hidden = NO;
-    timeText = [NSString stringWithFormat:@"%@ - %@", [NSDate formattedShortTimeFromDate:event.start_time], [NSDate formattedShortTimeFromDate:event.end_time]];
-  }
-  else {
-    timeText = [NSDate formattedShortTimeFromDate:event.start_time];
-    self.addToCalendarButton.hidden = YES;
-  }
-  self.timeLabel.text = timeText;
-  self.locationLabel.text = [NSString stringWithFormat:@"Location: %@", event.location.location_name];
-  self.descriptionTextView.text = event.long_description;
-  self.descriptionLabel.text = event.short_description;
+//  _event = event;
+//  EventLocation *location = event.location;
+//  self.mapImageView.file = location.map_image;
+//  _loadingView.hidden = NO;
+//  [_loadingView startAnimating];
+//  [self.mapImageView loadInBackground:^(UIImage * _Nullable image, NSError * _Nullable error) {
+//    [_loadingView stopAnimating];
+//    _loadingView.hidden = YES;
+//  }];
+//  NSString *timeText;
+//  if(event.end_time) {
+//    self.addToCalendarButton.hidden = NO;
+//    timeText = [NSString stringWithFormat:@"%@ - %@", [NSDate formattedShortTimeFromDate:event.start_time], [NSDate formattedShortTimeFromDate:event.end_time]];
+//  }
+//  else {
+//    timeText = [NSDate formattedShortTimeFromDate:event.start_time];
+//    self.addToCalendarButton.hidden = YES;
+//  }
+//  self.timeLabel.text = timeText;
+//  self.locationLabel.text = [NSString stringWithFormat:@"Location: %@", event.location.location_name];
+//  self.descriptionTextView.text = event.long_description;
+//  self.descriptionLabel.text = event.short_description;
 
 }
 
@@ -157,28 +156,28 @@
 }
 
 -(void)addToCalendar: (UIButton *)sender {
-  EKEventStore * eventStore = [[EKEventStore alloc] init];
-  [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
-    if(granted) {
-      EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-      event.title = self.event.short_description;
-      
-      event.location = self.event.location.location_name;
-      event.startDate = self.event.start_time;
-      event.endDate = self.event.end_time;
-      
-      [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-      
-      EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
-      eventViewController.event = event;
-      eventViewController.eventStore = eventStore;
-      eventViewController.editViewDelegate = self;
-      [self presentViewController:eventViewController animated:YES completion:nil];
-    }
-    else {
-      
-    }
-  }];
+//  EKEventStore * eventStore = [[EKEventStore alloc] init];
+//  [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
+//    if(granted) {
+//      EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+//      event.title = self.event.short_description;
+//      
+//      event.location = self.event.location.location_name;
+//      event.startDate = self.event.start_time;
+//      event.endDate = self.event.end_time;
+//      
+//      [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+//      
+//      EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
+//      eventViewController.event = event;
+//      eventViewController.eventStore = eventStore;
+//      eventViewController.editViewDelegate = self;
+//      [self presentViewController:eventViewController animated:YES completion:nil];
+//    }
+//    else {
+//      
+//    }
+//  }];
   
 }
 

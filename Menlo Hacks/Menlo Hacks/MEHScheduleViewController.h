@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ScheduleViewController : UIViewController
+@interface MEHScheduleViewController : UIViewController
 
 - (void)refresh;
 

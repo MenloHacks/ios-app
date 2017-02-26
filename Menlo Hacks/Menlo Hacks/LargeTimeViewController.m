@@ -9,7 +9,7 @@
 #import "LargeTimeViewController.h"
 
 #import "AutolayoutHelper.h"
-#import "MainEventDetailsStoreController.h"
+//#import "MainEventDetailsStoreController.h"
 #import "MBCircularProgressBarView.h"
 #import "NSDate+Utilities.h"
 #import "UIColor+ColorPalette.h"
@@ -60,16 +60,16 @@
                                     @"X:_progressLabel.centerY == superview.centerY"]];
   [self setupTimer];
   
-  if(!_startDate) {
-    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-      self.startDate = date;
-    }];
-  }
-  if(!_endDate) {
-    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-      self.endDate = date;
-    }];
-  }
+//  if(!_startDate) {
+//    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
+//      self.startDate = date;
+//    }];
+//  }
+//  if(!_endDate) {
+//    [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
+//      self.endDate = date;
+//    }];
+//  }
   
 }
 

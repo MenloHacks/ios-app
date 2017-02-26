@@ -13,9 +13,10 @@
 #import "UIColor+ColorPalette.h"
 #import "NSDate+Utilities.h"
 
-#import "Event.h"
-#import "EventLocation.h"
-#import "Announcement.h"
+#import "MEHEvent.h"
+#import "MEHLocation.h"
+//#import "EventLocation.h"
+//#import "Announcement.h"
 
 @interface InfoTableViewCell()
 
@@ -70,16 +71,16 @@
   
 }
 
--(void)configureWithEvent : (Event *)event{
-  _descriptionLabel.text = event.short_description;
-  _locationLabel.text = event.location.location_name;
-  _timeLabel.text = [NSDate formattedShortTimeFromDate:event.start_time];
+-(void)configureWithEvent : (MEHEvent *)event{
+    _descriptionLabel.text = event.shortDescription;
+    _locationLabel.text = event.location.locationName;
+    _timeLabel.text = [NSDate formattedShortTimeFromDate:event.startTime];
 }
 
 -(void)configureWithAnnouncement:(Announcement *)announcement {
-  _descriptionLabel.text = announcement.messageContents;
-  _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.fireTime];
-  _locationLabel.text = @"";
+//  _descriptionLabel.text = announcement.messageContents;
+//  _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.fireTime];
+//  _locationLabel.text = @"";
 }
 
 @end

@@ -8,11 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import <Parse/Parse.h>
-#import <Smooch/Smooch.h>
 
 #import "APIKeyStoreController.h"
-#import "ScheduleViewController.h"
+#import "MEHScheduleViewController.h"
 #import "AnnouncementsViewController.h"
 #import "LargeTimeViewController.h"
 #import "MapViewController.h"
@@ -23,7 +21,7 @@
 
 @property (nonatomic, strong) UITabBarController *tabBarController;
 @property (nonatomic, strong) AnnouncementsViewController *announcementsVC;
-@property (nonatomic, strong) ScheduleViewController *scheduleVC;
+@property (nonatomic, strong) MEHScheduleViewController *scheduleVC;
 
 @end
 
@@ -38,7 +36,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
   [self registerForPush:application];
   _tabBarController = [[UITabBarController alloc]init];
   _tabBarController.tabBar.translucent = NO;
-  ScheduleViewController *vc1 = [[ScheduleViewController alloc]init];
+  MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
   AnnouncementsViewController *vc2 = [[AnnouncementsViewController alloc]init];
   LargeTimeViewController *vc3 = [[LargeTimeViewController alloc]init];
   MapViewController *vc4 = [[MapViewController alloc]init];
@@ -110,15 +108,8 @@ static NSString *kMHNotificationTypeEvent = @"event";
 
 #pragma mark Helper Methods
 -(void)configureAPIs {
-  NSString *parseAppID = [[APIKeyStoreController sharedAPIKeyStoreController]getParseAppID];
-  NSString *parseClientID = [[APIKeyStoreController sharedAPIKeyStoreController]getParseClientID];
   
-  [Parse setApplicationId:parseAppID
-                clientKey:parseClientID];
-  
-  NSString *smoochID = [[APIKeyStoreController sharedAPIKeyStoreController]getSmoochID];
-  [Smooch initWithSettings:
-   [SKTSettings settingsWithAppToken:smoochID]];
+
   
 }
 
@@ -131,21 +122,18 @@ static NSString *kMHNotificationTypeEvent = @"event";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  // Store the deviceToken in the current Installation and save it to Parse
-  PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-  [currentInstallation setDeviceTokenFromData:deviceToken];
-  [currentInstallation saveInBackground];
+
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
   //Deal with any push notification stuff
-  NSString *type = userInfo[@"type"];
-  if([type isEqualToString:kMHNotificationTypeEvent]) {
-    [_scheduleVC refresh];
-  }
-  else if ([type isEqualToString:kMHNotificationTypeAnnouncement]){
-    [_announcementsVC forceRefresh];
-  }
+//  NSString *type = userInfo[@"type"];
+//  if([type isEqualToString:kMHNotificationTypeEvent]) {
+//    [_scheduleVC refresh];
+//  }
+//  else if ([type isEqualToString:kMHNotificationTypeAnnouncement]){
+//    [_announcementsVC forceRefresh];
+//  }
 }
 
 

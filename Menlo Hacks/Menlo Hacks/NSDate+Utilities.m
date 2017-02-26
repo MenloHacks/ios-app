@@ -65,4 +65,26 @@
   return [_sharedInstance stringFromDate:date];
 }
 
++ (NSDate*)dateFromISOString : (NSString *)string {
+    static dispatch_once_t once;
+    static NSDateFormatter *_sharedInstance;
+    dispatch_once(&once, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.S";
+        _sharedInstance = dateFormatter;
+    });
+    
+    return [_sharedInstance dateFromString:string];
+}
+
++ (NSInteger)numberOfDaysBetween:(NSDate *)firstDate and:(NSDate *)secondDate {
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay fromDate:firstDate toDate:secondDate options:0];
+    return [components day]+1;
+}
+
+- (NSDate *)add24Hours {
+    return [self dateByAddingTimeInterval:60*60*24];
+}
+
 @end
