@@ -15,7 +15,7 @@
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
-#import "EventDetailViewController.h"
+#import "MEHEventDetailViewController.h"
 #import "MEHEventTimingStoreController.h"
 #import "TimeView.h"
 #import "MEHEvent.h"
@@ -173,11 +173,11 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  EventDetailViewController *vc = [[EventDetailViewController alloc]init];
+  MEHEventDetailViewController *vc = [[MEHEventDetailViewController alloc]init];
   vc.navigationItem.titleView = [[UIImageView alloc]initWithImage:
                                  [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
   
- // vc.event = self.events[indexPath.section][indexPath.row];
+  vc.event = self.events[indexPath.section][indexPath.row];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   [self.navigationController pushViewController:vc animated:YES];
 }

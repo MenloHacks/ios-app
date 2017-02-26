@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Event;
+@class MEHEvent;
 
-@interface EventDetailViewController : UIViewController
+@interface MEHEventDetailViewController : UIViewController
 
-@property (nonatomic, strong) Event *event;
+@property (nonatomic, strong) MEHEvent *event;
 
 @end

@@ -30,6 +30,8 @@
     NSDictionary *locationDictionary = dictionary[@"location"];
     MEHLocation *location = [MEHLocation locationFromDictionary:locationDictionary];
     
+    event.location = location;
+    
     return event;
 }
 

@@ -35,5 +35,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>MenloHacks uses your calendar information in order to add MenloHacks related events to your calendar.</string>
 </dict>
 </plist>
