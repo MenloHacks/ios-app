@@ -178,7 +178,7 @@ static NSString * kMEHHackingEndTimeKey = @"com.menlohacks.hackingEndTime";
             dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
                 [standardDefaults setObject:self.eventStartTimeDate forKey:kMEHEventStartTimeKey];
-                [standardDefaults setObject:self.eventEndTimeDate forKey:kMEHEventStartTimeKey];
+                [standardDefaults setObject:self.eventEndTimeDate forKey:kMEHEventEndTimeKey];
                 [standardDefaults setObject:self.hackingStartTimeDate forKey:kMEHHackingStartTimeKey];
                 [standardDefaults setObject:self.hackingEndTimeDate forKey:kMEHHackingEndTimeKey];
                 [standardDefaults synchronize];

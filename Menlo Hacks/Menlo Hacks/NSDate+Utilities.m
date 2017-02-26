@@ -46,7 +46,6 @@
   static NSDateFormatter *_sharedInstance;
   dispatch_once(&once, ^{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [dateFormatter setDateFormat:@"h:mm a"];
     _sharedInstance = dateFormatter;
   });
@@ -59,7 +58,6 @@
   static NSDateFormatter *_sharedInstance;
   dispatch_once(&once, ^{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [dateFormatter setDateFormat:@"EEEE"];
     _sharedInstance = dateFormatter;
   });
@@ -85,6 +83,8 @@
     NSDateComponents *components = [calendar components:NSCalendarUnitDay fromDate:firstDate toDate:secondDate options:0];
     return [components day]+1;
 }
+
+
 
 - (NSDate *)add24Hours {
     return [self dateByAddingTimeInterval:60*60*24];

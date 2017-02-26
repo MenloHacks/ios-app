@@ -65,11 +65,12 @@
             
             
             NSCalendar *calendar = [NSCalendar currentCalendar];
+            [calendar setTimeZone:[NSTimeZone systemTimeZone]];
             NSDate *currentDate = [calendar dateFromComponents:startComponents];
             
             for (int i = 0; i < numberOfDays; i++) {
                 NSDate *tomorrow = [currentDate add24Hours];
-                RLMResults *results = [MEHEvent objectsWhere:@"startTime > %@ AND startTime < %@", currentDate, tomorrow];
+                RLMResults *results = [[MEHEvent objectsWhere:@"startTime > %@ AND startTime < %@", currentDate, tomorrow]sortedResultsUsingProperty:@"startTime" ascending:YES];
                 [eventsArray addObject:results];
                 currentDate = tomorrow;
             }
