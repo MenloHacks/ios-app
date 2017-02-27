@@ -15,8 +15,7 @@
 
 #import "MEHEvent.h"
 #import "MEHLocation.h"
-//#import "EventLocation.h"
-//#import "Announcement.h"
+#import "MEHAnnouncement.h"
 
 @interface InfoTableViewCell()
 
@@ -77,10 +76,10 @@
     _timeLabel.text = [NSDate formattedShortTimeFromDate:event.startTime];
 }
 
--(void)configureWithAnnouncement:(Announcement *)announcement {
-//  _descriptionLabel.text = announcement.messageContents;
-//  _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.fireTime];
-//  _locationLabel.text = @"";
+-(void)configureWithAnnouncement:(MEHAnnouncement *)announcement {
+    _descriptionLabel.text = announcement.message;
+    _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.time];
+    _locationLabel.text = @"";
 }
 
 @end

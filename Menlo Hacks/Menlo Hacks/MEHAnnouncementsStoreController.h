@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class RLMResults, MEHAnnouncement;
+@class BFTask, RLMResults;
 
 @interface MEHAnnouncementsStoreController : NSObject
 
 + (instancetype)sharedAnnouncementsStoreController;
+- (BFTask *)fetchAnnouncementsWithStart : (NSInteger)start andCount : (NSInteger)count;
 - (RLMResults *)announcements;
 
 

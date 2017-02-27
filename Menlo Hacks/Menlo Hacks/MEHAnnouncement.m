@@ -27,4 +27,8 @@
     return announcement;
 }
 
++ (NSString *)primaryKey {
+    return @"serverID";
+}
+
 @end

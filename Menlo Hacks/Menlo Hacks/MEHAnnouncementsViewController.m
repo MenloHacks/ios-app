@@ -25,13 +25,17 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic) int numberOfEntriesInSchedule;
-@property (nonatomic, strong) NSArray<Announcement *> *annoucements;
+@property (nonatomic, strong) RLMResults *announcements;
 @property (nonatomic, strong) UILabel *noAnnouncementsLabel;
 @property (nonatomic, strong) UIRefreshControl *refresh;
+
+@property (nonatomic) NSInteger nextIndex;
+@property (nonatomic) BOOL isLoading;
 
 @end
 
 static NSString *reuseIdentifier = @"com.menlohacks.announcement";
+static NSInteger kMEHPageSize = 25;
 
 @implementation MEHAnnouncementsViewController
 
@@ -91,16 +95,22 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 }
 
 - (void)forceRefresh {
-  [_loadingView startAnimating];
-  _tableView.hidden = YES;
-//  [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
-//    _annoucements = results;
-//    [_loadingView stopAnimating];
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    _loadingView.hidden = YES;
-//    _tableView.hidden = NO;
-//    [_tableView reloadData];
-//  }];
+    [_loadingView startAnimating];
+    _tableView.hidden = YES;
+    self.nextIndex = 0;
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncementsWithStart:self.nextIndex andCount:kMEHPageSize]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_loadingView stopAnimating];
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            _loadingView.hidden = YES;
+            _tableView.hidden = NO;
+            [_tableView reloadData];
+        });
+        return nil;
+    }];
+    
 }
 
 -(void)addRefreshView {
@@ -111,6 +121,8 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 }
 
 - (void)refresh : (UIRefreshControl *)sender {
+    
+    
 //  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
 //    _annoucements = results;
 //    dispatch_async(dispatch_get_main_queue(), ^{
@@ -127,12 +139,12 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-  [cell configureWithAnnouncement:_annoucements[indexPath.row]];
+  [cell configureWithAnnouncement:_announcements[indexPath.row]];
   return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  if([_annoucements count] > 0) {
+  if(_announcements.count > 0) {
     _noAnnouncementsLabel.text = @"";
     if(!_refresh.superview) {
          [self addRefreshView]; 
@@ -144,6 +156,6 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
       [_refresh removeFromSuperview];
     }
   }
-  return [_annoucements count];
+    return _announcements.count;
 }
 @end
