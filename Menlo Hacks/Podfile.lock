@@ -21,28 +21,46 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - JNKeychain (0.1.4)
+  - libPusher (1.6.1):
+    - libPusher/Core (= 1.6.1)
+  - libPusher/Core (1.6.1):
+    - SocketRocket (= 0.5.1)
   - MBCircularProgressBar (0.3.4)
   - Realm (2.1.2):
     - Realm/Headers (= 2.1.2)
   - Realm/Headers (2.1.2)
   - Smooch (4.0.3)
+  - SocketRocket (0.5.1)
 
 DEPENDENCIES:
   - AFNetworking
   - Bolts
   - JNKeychain
+  - libPusher (from `https://github.com/pusher/libPusher.git`, branch `push-notifications`)
   - MBCircularProgressBar
   - Realm
   - Smooch
+
+EXTERNAL SOURCES:
+  libPusher:
+    :branch: push-notifications
+    :git: https://github.com/pusher/libPusher.git
+
+CHECKOUT OPTIONS:
+  libPusher:
+    :commit: 46aff21de81003c00fa34155472b91d74a5c6db4
+    :git: https://github.com/pusher/libPusher.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
+  libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
   MBCircularProgressBar: ff3b8e2f441214d9ee122a24ba0d4d00cc7de881
   Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   Smooch: b423ce0b64c247c1ad8ae262c5a777300d9eafdd
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: 917e1f37d78aab20093517eac2502996d4d656f8
+PODFILE CHECKSUM: a82b80948f13b1add655b1fbdfd7f540c5bfae78
 
 COCOAPODS: 1.1.1
