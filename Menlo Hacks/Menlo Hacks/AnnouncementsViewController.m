@@ -13,9 +13,8 @@
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "MEHAnnouncement.h"
-#import "AnnouncementsStoreController.h"
+#import "MEHAnnouncementsStoreController.h"
 #import "InfoTableViewCell.h"
-//#import "MainEventDetailsStoreController.h"
 #import "TimeView.h"
 
 
@@ -90,14 +89,14 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 - (void)forceRefresh {
   [_loadingView startAnimating];
   _tableView.hidden = YES;
-  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
-    _annoucements = results;
-    [_loadingView stopAnimating];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _loadingView.hidden = YES;
-    _tableView.hidden = NO;
-    [_tableView reloadData];
-  }];
+//  [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
+//    _annoucements = results;
+//    [_loadingView stopAnimating];
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    _loadingView.hidden = YES;
+//    _tableView.hidden = NO;
+//    [_tableView reloadData];
+//  }];
 }
 
 -(void)addRefreshView {
@@ -108,18 +107,18 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 }
 
 - (void)refresh : (UIRefreshControl *)sender {
-  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
-    _annoucements = results;
-    dispatch_async(dispatch_get_main_queue(), ^{
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-      // reload tableView after refresh control finish refresh animation
-      [self.tableView reloadData];
-    }];
-    [sender endRefreshing];
-    [CATransaction commit];
-    });
-  }];
+//  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
+//    _annoucements = results;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//    [CATransaction begin];
+//    [CATransaction setCompletionBlock:^{
+//      // reload tableView after refresh control finish refresh animation
+//      [self.tableView reloadData];
+//    }];
+//    [sender endRefreshing];
+//    [CATransaction commit];
+//    });
+//  }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class Announcement;
 
-@interface AnnouncementsStoreController : NSObject
+@interface MEHAnnouncementsStoreController : NSObject
 
 + (instancetype)sharedAnnouncementsStoreController;
 
-- (void)getAnnouncements : (void (^)(NSArray<Announcement *> * results))completion;
 
 @end
