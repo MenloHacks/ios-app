@@ -11,7 +11,7 @@
 
 #import "APIKeyStoreController.h"
 #import "MEHScheduleViewController.h"
-#import "AnnouncementsViewController.h"
+#import "MEHAnnouncementsViewController.h"
 #import "LargeTimeViewController.h"
 #import "MEHMapViewController.h"
 #import "MentorshipViewController.h"
@@ -20,7 +20,7 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UITabBarController *tabBarController;
-@property (nonatomic, strong) AnnouncementsViewController *announcementsVC;
+@property (nonatomic, strong) MEHAnnouncementsViewController *announcementsVC;
 @property (nonatomic, strong) MEHScheduleViewController *scheduleVC;
 
 @end
@@ -37,7 +37,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
   _tabBarController = [[UITabBarController alloc]init];
   _tabBarController.tabBar.translucent = NO;
   MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
-  AnnouncementsViewController *vc2 = [[AnnouncementsViewController alloc]init];
+  MEHAnnouncementsViewController *vc2 = [[MEHAnnouncementsViewController alloc]init];
   LargeTimeViewController *vc3 = [[LargeTimeViewController alloc]init];
   MEHMapViewController *vc4 = [[MEHMapViewController alloc]init];
   MentorshipViewController *vc5 = [[MentorshipViewController alloc]init];

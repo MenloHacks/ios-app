@@ -6,19 +6,21 @@
 //  Copyright © 2015 MenloHacks. All rights reserved.
 //
 
-#import "AnnouncementsViewController.h"
+#import "MEHAnnouncementsViewController.h"
 
 #import "AutolayoutHelper.h"
+#import <Bolts/Bolts.h>
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "MEHAnnouncement.h"
 #import "MEHAnnouncementsStoreController.h"
+#import "MEHEventTimingStoreController.h"
 #import "InfoTableViewCell.h"
 #import "TimeView.h"
 
 
-@interface AnnouncementsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MEHAnnouncementsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
@@ -31,7 +33,7 @@
 
 static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 
-@implementation AnnouncementsViewController
+@implementation MEHAnnouncementsViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -47,13 +49,15 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
   
-//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventStartTimeWithCompletion:^(NSDate *date) {
-//    timeView.startDate = date;
-//  }];
-//  
-//  [[MainEventDetailsStoreController sharedMainEventDetailsStoreController]getEventEndTimeWithCompletion:^(NSDate *date) {
-//    timeView.endDate = date;
-//  }];
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingStartTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        timeView.startDate = t.result;
+        return nil;
+    }];
+    
+    [[[MEHEventTimingStoreController sharedTimingStoreController]hackingEndTime]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        timeView.endDate = t.result;
+        return nil;
+    }];
   
   NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
   

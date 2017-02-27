@@ -10,9 +10,12 @@
 
 @interface MEHAnnouncement : RLMObject
 
-@property NSString *title;
-@property NSString *contents;
-@property NSDate *fireTime;
+@property NSDate *time;
+@property NSString *message;
+@property NSString *serverID;
+
+
++ (instancetype)announcementFromDictionary: (NSDictionary *)dictionary;
 
 @end
 

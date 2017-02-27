@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class RLMResults, MEHAnnouncement;
 
 @interface MEHAnnouncementsStoreController : NSObject
 
 + (instancetype)sharedAnnouncementsStoreController;
+- (RLMResults *)announcements;
 
 
 @end

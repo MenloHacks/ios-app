@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AnnouncementsViewController : UIViewController
+@interface MEHAnnouncementsViewController : UIViewController
 
 - (void)forceRefresh;
 
