@@ -50,15 +50,15 @@
   _descriptionLabel = [UILabel new];
   _descriptionLabel.font = font;
   _descriptionLabel.numberOfLines = 0;
-  _descriptionLabel.textColor = [UIColor menloHacksPurple];
+    _descriptionLabel.textColor = [UIColor menloHacksGray];
   
   _timeLabel = [UILabel new];
   _timeLabel.font = font;
-  _timeLabel.textColor = [UIColor menloGold];
+    _timeLabel.textColor = [UIColor menloHacksPurple];
   
   _locationLabel = [UILabel new];
   _locationLabel.font = font;
-  _locationLabel.textColor = [UIColor lightGrayColor];
+  _locationLabel.textColor = [UIColor menloHacksGray];
   _locationLabel.textAlignment = NSTextAlignmentRight;
   
   [AutolayoutHelper configureView:self subViews:VarBindings(_locationLabel, _timeLabel, _descriptionLabel)

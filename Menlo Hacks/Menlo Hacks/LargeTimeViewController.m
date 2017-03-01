@@ -35,8 +35,9 @@
   [_progressView setProgressAngle:80];
   _progressView.showUnitString = NO;
   _progressView.showValueString = NO;
-  _progressView.progressColor = [UIColor emeraldGreen];
-  _progressView.progressStrokeColor = [UIColor emeraldGreen];
+  _progressView.emptyLineColor = [UIColor menloHacksGray];
+  _progressView.progressColor = [UIColor menloHacksPurple];
+  _progressView.progressStrokeColor = [UIColor menloHacksPurple];
   
   
   UIView *spacerOne = [UIView new]; UIView *spacerTwo = [UIView new];
@@ -56,6 +57,7 @@
   [self.view addConstraint:ratio];
   
   _progressLabel = [UILabel new];
+  _progressLabel.textColor = [UIColor menloHacksGray];
   _progressLabel.numberOfLines = 2;
   [AutolayoutHelper configureView:self.progressView subViews:NSDictionaryOfVariableBindings(_progressLabel)
                       constraints:@[@"X:_progressLabel.centerX == superview.centerX",

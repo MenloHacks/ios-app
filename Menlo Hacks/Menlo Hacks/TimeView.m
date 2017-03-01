@@ -39,7 +39,7 @@
 }
 
 -(void)commonInit {
-  UIColor *progressColor = [UIColor emeraldGreen];
+  UIColor *progressColor = [UIColor menloHacksPurple];
   self.backgroundColor = [UIColor whiteColor];
   UIView *progressView = [UIView new];
   progressView.backgroundColor = progressColor;

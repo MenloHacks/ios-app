@@ -41,15 +41,17 @@
   self.mapImageView = [[UIImageView alloc]init];
   self.mapImageView.contentMode = UIViewContentModeScaleAspectFit;
   self.timeLabel = [UILabel new];
+  self.timeLabel.textColor = [UIColor menloHacksGray];
   self.timeLabel.font = standardTitleFont;
   self.descriptionTextView = [[UITextView alloc]init];
   self.descriptionTextView.font = [UIFont fontWithName:@"AvenirNext" size:14.0f];
-  self.descriptionTextView.textColor = [UIColor blackColor];
+  self.descriptionTextView.textColor = [UIColor menloHacksGray];
   self.descriptionTextView.editable = NO;
   self.descriptionLabel = [UILabel new];
   self.descriptionLabel.textColor = [UIColor menloHacksPurple];
   self.descriptionLabel.font = standardTitleFont;
   self.locationLabel = [UILabel new];
+  self.locationLabel.textColor = [UIColor menloHacksGray];
   self.locationLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];
   self.addToCalendarButton = [[UIButton alloc]init];
   
