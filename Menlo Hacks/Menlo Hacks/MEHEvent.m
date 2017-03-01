@@ -21,16 +21,35 @@
         event.serverID = dictionary[@"id"];
     }
     
-    event.shortDescription = dictionary[@"short_description"];
-    event.longDescription = dictionary[@"long_description"];
+    if(![event.shortDescription isEqualToString:dictionary[@"short_description"]]) {
+        event.shortDescription = dictionary[@"short_description"];
+    }
+    if(![event.longDescription isEqualToString:dictionary[@"long_description"]]) {
+        event.longDescription = dictionary[@"long_description"];
+    }
+    NSDate *startTime = [NSDate dateFromISOString:dictionary[@"start_time"]];
     
-    event.startTime = [NSDate dateFromISOString:dictionary[@"start_time"]];
-    event.endTime = [NSDate dateFromISOString:dictionary[@"end_time"]];
+    if(![event.startTime isEqualToDate:startTime]) {
+        event.startTime = startTime;
+    }
     
+    NSDate *endTime = [NSDate dateFromISOString:dictionary[@"end_time"]];
+    if(![event.endTime isEqualToDate:endTime]) {
+        event.endTime = endTime;
+    }
+    
+
     NSDictionary *locationDictionary = dictionary[@"location"];
     MEHLocation *location = [MEHLocation locationFromDictionary:locationDictionary];
+    if(event.location && location && ![location.serverID isEqualToString:event.location.serverID]) {
+        event.location = location;
+    } else if (!event.location && location) {
+        event.location = location;
+    }
+        
     
-    event.location = location;
+    
+
     
     return event;
 }

@@ -198,4 +198,10 @@ static NSInteger kMEHPageSize = 25;
     }];
 }
 
+- (void)dealloc {
+    if(self.notificationToken) {
+        [self.notificationToken stop];
+    }
+}
+
 @end

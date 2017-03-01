@@ -65,7 +65,7 @@
   return [_sharedInstance stringFromDate:date];
 }
 
-+ (NSDate*)dateFromISOString : (NSString *)string {
++ (NSDate*)dateFromISOStringWithoutSeconds : (NSString *)string {
     static dispatch_once_t once;
     static NSDateFormatter *_sharedInstance;
     dispatch_once(&once, ^{
@@ -77,6 +77,30 @@
     
     return [_sharedInstance dateFromString:string];
 }
+
++ (NSDate *)dateFromISOString:(NSString *)string {
+    //For some reason python is sometimes including the seconds and sometimes not. I'll accomodate for both.
+    NSDate *date = [self dateFromISOStringWithoutSeconds:string];
+    if(!date) {
+        date = [self dateFromISOStringWithSeconds:string];
+    }
+    return date;
+}
+
++ (NSDate*)dateFromISOStringWithSeconds : (NSString *)string {
+    static dispatch_once_t once;
+    static NSDateFormatter *_sharedInstance;
+    dispatch_once(&once, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.S";
+        _sharedInstance = dateFormatter;
+    });
+    
+    return [_sharedInstance dateFromString:string];
+}
+
+
 
 + (NSInteger)numberOfDaysBetween:(NSDate *)firstDate and:(NSDate *)secondDate {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

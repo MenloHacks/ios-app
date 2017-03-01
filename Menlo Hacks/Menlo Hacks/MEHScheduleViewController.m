@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) NSArray<RLMResults<MEHEvent *> *>*events;
+@property (nonatomic, strong) NSArray <RLMNotificationToken *>*notificationTokens;
 
 @end
 
@@ -201,6 +202,63 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return _events.count;
+}
+
+- (void)setEvents:(NSArray<RLMResults<MEHEvent *> *> *)events {
+    _events = events;
+    NSMutableArray *tokens = [NSMutableArray arrayWithCapacity:_events.count];
+    int i = 0;
+    __weak typeof(self) weakSelf = self;
+    for (RLMResults *results in events) {
+        tokens[i] = [results addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
+            int section = i;
+            if (error) {
+                NSLog(@"Failed to open Realm on background worker: %@", error);
+                return;
+            }
+            
+            UITableView *tableView = weakSelf.tableView;
+            
+            // Initial run of the query will pass nil for the change information
+            if (!changes) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tableView reloadData];
+                });
+                return;
+            }
+            
+            // Query results have changed, so apply them to the UITableView
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(changes.insertions.count == 0 &&
+                       changes.deletions.count == 0 &&
+                       changes.modifications.count == [tableView numberOfRowsInSection:section]) {
+                        //We seem to have a problem where realm triggers changes for all things at certain points.
+                        //A refresh force reloads and we'll never batch send notifs so this fixes the issue.
+                        //hacky, yes––but it works.
+                        return;
+                    }
+                    [tableView beginUpdates];
+                    [tableView insertRowsAtIndexPaths:[changes insertionsInSection:section]
+                                         withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView deleteRowsAtIndexPaths:[changes deletionsInSection:section]
+                                         withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView reloadRowsAtIndexPaths:[changes modificationsInSection:section]
+                                         withRowAnimation:UITableViewRowAnimationAutomatic];
+                        
+                    [tableView endUpdates];
+                });
+
+            
+        }];
+        i++;
+    }
+    self.notificationTokens = [NSArray arrayWithArray:tokens];
+}
+
+- (void)dealloc {
+    for (RLMNotificationToken *token in self.notificationTokens) {
+        [token stop];
+    }
 }
 
 

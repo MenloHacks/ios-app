@@ -21,8 +21,14 @@
         announcement.serverID = dictionary[@"id"];
     }
     
-    announcement.message = dictionary[@"message"];
-    announcement.time = [NSDate dateFromISOString:dictionary[@"time"]];
+    if(![announcement.message isEqualToString:dictionary[@"message"]]) {
+        announcement.message = dictionary[@"message"];
+    }
+    NSDate *time =[NSDate dateFromISOString:dictionary[@"time"]];
+    if(![time isEqualToDate:announcement.time]) {
+        announcement.time = time;
+    }
+    
     
     return announcement;
 }

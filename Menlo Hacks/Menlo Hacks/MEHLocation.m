@@ -17,11 +17,20 @@
         location = [[MEHLocation alloc]init];
         location.serverID = serverID;
     }
-    location.locationName = dictionary[@"name"];
-    location.mapURL = dictionary[@"map"];
+    if(![location.locationName isEqualToString:dictionary[@"name"]]) {
+        location.locationName = dictionary[@"name"];
+    }
     
-    location.isPrimary = [dictionary[@"is_primary"]boolValue];
-    if (dictionary[@"rank"]) {
+    if(![location.mapURL isEqualToString:dictionary[@"map"]]) {
+       location.mapURL = dictionary[@"map"];
+    }
+    
+    if(location.isPrimary != [dictionary[@"is_primary"]boolValue]) {
+        
+    }location.isPrimary = [dictionary[@"is_primary"]boolValue];
+    
+    
+    if (dictionary[@"rank"] && location.rank != [dictionary[@"rank"]integerValue]) {
         location.rank = [dictionary[@"rank"]integerValue];
     }
     

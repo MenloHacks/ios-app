@@ -35,24 +35,32 @@
         NSArray *announcements = t.result[@"data"];
         RLMRealm *realm = [RLMRealm defaultRealm];
         NSMutableArray *announcementIDs = [NSMutableArray arrayWithCapacity:announcements.count];
-        __block NSDate *firstEventDate;
-        __block NSDate *lastEventDate;
+        __block NSDate *firstAnnouncementDate;
+        __block NSDate *lastAnnouncementDate;
         return [[realm meh_TransactionWithBlock:^{
             int i = 0;
             for (NSDictionary *announcementDictionary in announcements) {
                 MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:announcementDictionary];
                 [announcementIDs addObject:announcement.serverID];
                 if (i==0) {
-                    firstEventDate = announcement.time;
+                    firstAnnouncementDate = announcement.time;
                 } else if (i==announcements.count - 1) {
-                    lastEventDate = announcement.time;
+                    lastAnnouncementDate = announcement.time;
                 }
                 i++;
                 [realm addOrUpdateObject:announcement];
             }
         }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
             //Note still a bug with first and last objects.
-            RLMResults *objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@) AND time > %@ AND time < %@", announcementIDs, lastEventDate, firstEventDate];
+            RLMResults *objectsToDelete;
+            if(start == 0) {
+                objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@) AND time > %@", announcementIDs, lastAnnouncementDate];
+            } else if (announcements.count < count) {
+                objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@) AND time < %@", announcementIDs, firstAnnouncementDate];
+            } else {
+                objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@) AND time > %@ AND time < %@", announcementIDs, lastAnnouncementDate, firstAnnouncementDate];
+            }
+
             return [realm meh_TransactionWithBlock:^{
                 [realm deleteObjects:objectsToDelete];
             }];
