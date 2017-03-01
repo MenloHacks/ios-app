@@ -175,7 +175,7 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   MEHEventDetailViewController *vc = [[MEHEventDetailViewController alloc]init];
   vc.navigationItem.titleView = [[UIImageView alloc]initWithImage:
-                                 [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
+                                 [UIImage imageNamed:@"menlohacks_nav"]];
   
   vc.event = self.events[indexPath.section][indexPath.row];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];

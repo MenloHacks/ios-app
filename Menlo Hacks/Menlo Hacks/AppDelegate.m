@@ -74,7 +74,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
   UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:_tabBarController];
   navController.navigationBar.tintColor = [UIColor menloHacksPurple];
   navController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:
-                                                   [UIImage imageNamed:@"menlo_hacks_logo_blue_nav"]];
+                                                   [UIImage imageNamed:@"menlohacks_nav"]];
   navController.navigationBar.translucent = NO;
   _window.rootViewController = navController;
   [_window makeKeyAndVisible];
