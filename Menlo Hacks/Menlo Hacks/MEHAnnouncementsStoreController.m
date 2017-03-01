@@ -34,12 +34,29 @@
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"announcements" parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         NSArray *announcements = t.result[@"data"];
         RLMRealm *realm = [RLMRealm defaultRealm];
-        return [realm meh_TransactionWithBlock:^{
+        NSMutableArray *announcementIDs = [NSMutableArray arrayWithCapacity:announcements.count];
+        __block NSDate *firstEventDate;
+        __block NSDate *lastEventDate;
+        return [[realm meh_TransactionWithBlock:^{
+            int i = 0;
             for (NSDictionary *announcementDictionary in announcements) {
                 MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:announcementDictionary];
+                [announcementIDs addObject:announcement.serverID];
+                if (i==0) {
+                    firstEventDate = announcement.time;
+                } else if (i==announcements.count - 1) {
+                    lastEventDate = announcement.time;
+                }
+                i++;
                 [realm addOrUpdateObject:announcement];
             }
-        }];
+        }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+            //Note still a bug with first and last objects.
+            RLMResults *objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@) AND time > %@ AND time < %@", announcementIDs, lastEventDate, firstEventDate];
+            return [realm meh_TransactionWithBlock:^{
+                [realm deleteObjects:objectsToDelete];
+            }];
+        }];;
         
 
     }];
