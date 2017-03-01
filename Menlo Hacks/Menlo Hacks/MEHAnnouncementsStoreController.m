@@ -14,6 +14,7 @@
 #import "MEHAnnouncement.h"
 #import "MEHHTTPSessionManager.h"
 
+
 @implementation MEHAnnouncementsStoreController
 
 + (instancetype)sharedAnnouncementsStoreController {
@@ -43,6 +44,17 @@
 
     }];
     
+}
+
+- (BFTask *)didReceiveNotification: (NSDictionary *)notificationBody {
+    if (notificationBody) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:notificationBody];
+            [realm addOrUpdateObject:announcement];
+        }];
+    }
+    return nil;
 }
 
 - (RLMResults *)announcements {

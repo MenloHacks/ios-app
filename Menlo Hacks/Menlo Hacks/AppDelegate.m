@@ -9,12 +9,12 @@
 #import "AppDelegate.h"
 
 
-#import "APIKeyStoreController.h"
 #import "MEHScheduleViewController.h"
 #import "MEHAnnouncementsViewController.h"
 #import "LargeTimeViewController.h"
 #import "MEHMapViewController.h"
 #import "MentorshipViewController.h"
+#import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
 
 @interface AppDelegate ()
@@ -46,6 +46,9 @@ static NSString *kMHNotificationTypeEvent = @"event";
   _scheduleVC = vc1;
   
   _tabBarController.viewControllers =  @[vc1, vc2, vc3, vc4, vc5];
+    
+  [MEHNotificationHandler sharedNotificationHandler];
+    
   
   UIImage *schedule = [UIImage imageNamed:@"schedule"];
   UIImage *announcements = [UIImage imageNamed:@"announcements"];
@@ -122,7 +125,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-
+    [[MEHNotificationHandler sharedNotificationHandler]registerDeviceToken:deviceToken];
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

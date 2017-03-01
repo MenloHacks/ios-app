@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UILabel *noAnnouncementsLabel;
 @property (nonatomic, strong) UIRefreshControl *refresh;
 
+@property (nonatomic, strong) RLMNotificationToken *notificationToken;
+
 @property (nonatomic) NSInteger nextIndex;
 @property (nonatomic) BOOL isLoading;
 
@@ -62,6 +64,8 @@ static NSInteger kMEHPageSize = 25;
         timeView.endDate = t.result;
         return nil;
     }];
+    
+    
   
   NSNumber *timeViewHeightNum = @(standardTimeViewHeight);
   
@@ -122,19 +126,21 @@ static NSInteger kMEHPageSize = 25;
 
 - (void)refresh : (UIRefreshControl *)sender {
     
-    
-//  [[AnnouncementsStoreController sharedAnnouncementsStoreController]getAnnouncements:^(NSArray<Announcement *> *results) {
-//    _annoucements = results;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//    [CATransaction begin];
-//    [CATransaction setCompletionBlock:^{
-//      // reload tableView after refresh control finish refresh animation
-//      [self.tableView reloadData];
-//    }];
-//    [sender endRefreshing];
-//    [CATransaction commit];
-//    });
-//  }];
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncementsWithStart:self.nextIndex andCount:kMEHPageSize]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CATransaction begin];
+            [CATransaction setCompletionBlock:^{
+                // reload tableView after refresh control finish refresh animation
+                [self.tableView reloadData];
+            }];
+            [sender endRefreshing];
+            [CATransaction commit];
+        });
+        return nil;
+    }];
+
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -158,4 +164,38 @@ static NSInteger kMEHPageSize = 25;
   }
     return _announcements.count;
 }
+
+- (void)setAnnouncements:(RLMResults *)announcements {
+    _announcements = announcements;
+    __weak typeof(self) weakSelf = self;
+    self.notificationToken = [_announcements addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
+        if (error) {
+            NSLog(@"Failed to open Realm on background worker: %@", error);
+            return;
+        }
+        
+        UITableView *tableView = weakSelf.tableView;
+        // Initial run of the query will pass nil for the change information
+        if (!changes) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableView reloadData];
+            });
+            return;
+        }
+        
+        // Query results have changed, so apply them to the UITableView
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:[changes deletionsInSection:0]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView insertRowsAtIndexPaths:[changes insertionsInSection:0]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView reloadRowsAtIndexPaths:[changes modificationsInSection:0]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView endUpdates];
+        });
+
+    }];
+}
+
 @end

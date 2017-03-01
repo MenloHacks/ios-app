@@ -15,6 +15,8 @@
 
 + (instancetype)sharedScheduleStoreController;
 
+- (BFTask *)didReceiveNotification: (NSDictionary*)notification;
+
 - (BFTask *)fetchScheduleItems;
 - (BFTask *)events;
 

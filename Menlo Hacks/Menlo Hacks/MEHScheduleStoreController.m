@@ -47,6 +47,17 @@
     }];
     
 }
+- (BFTask *)didReceiveNotification: (NSDictionary*)notification {
+    if(notification) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            MEHEvent *event = [MEHEvent eventFromDictionary:notification];
+            [realm addOrUpdateObject:event];
+        }];
+    }
+    return nil;
+
+}
 
 - (BFTask *)events {
     __block NSDate *eventStartTime;

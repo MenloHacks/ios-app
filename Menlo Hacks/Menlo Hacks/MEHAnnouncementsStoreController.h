@@ -13,8 +13,10 @@
 @interface MEHAnnouncementsStoreController : NSObject
 
 + (instancetype)sharedAnnouncementsStoreController;
+
 - (BFTask *)fetchAnnouncementsWithStart : (NSInteger)start andCount : (NSInteger)count;
 - (RLMResults *)announcements;
+- (BFTask *)didReceiveNotification: (NSDictionary *)notificationBody;
 
 
 @end
