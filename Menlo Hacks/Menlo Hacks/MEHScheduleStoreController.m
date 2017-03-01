@@ -33,13 +33,21 @@
         if(t.result) {
             NSArray *data = t.result[@"data"];
             RLMRealm *realm = [RLMRealm defaultRealm];
+            __block NSMutableArray *eventIDs = [NSMutableArray arrayWithCapacity:data.count];
+            __block NSDate *lastEventDate;
+            //Precondition: server sorted by start time––>which is true.
             return [[realm meh_TransactionWithBlock:^{
                 for (NSDictionary *eventDictionary in data) {
                     MEHEvent *event = [MEHEvent eventFromDictionary:eventDictionary];
+                    [eventIDs addObject:event.serverID];
+                    lastEventDate = event.startTime;
                     [realm addOrUpdateObject:event];
                 }
             }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                return nil;
+                RLMResults *objectsToDelete = [MEHEvent objectsWhere:@"NOT (serverID IN %@) AND startTime < %@", eventIDs, lastEventDate];
+                return [realm meh_TransactionWithBlock:^{
+                    [realm deleteObjects:objectsToDelete];
+                }];
             }];
 
         }
