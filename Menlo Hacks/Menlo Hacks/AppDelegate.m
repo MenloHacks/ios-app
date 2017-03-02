@@ -8,12 +8,13 @@
 
 #import "AppDelegate.h"
 
+#import "UIViewController+Extensions.h"
 
 #import "MEHScheduleViewController.h"
 #import "MEHAnnouncementsViewController.h"
-#import "LargeTimeViewController.h"
 #import "MEHMapViewController.h"
 #import "MentorshipViewController.h"
+#import "MEHCheckInViewController.h"
 #import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
 
@@ -25,8 +26,6 @@
 
 @end
 
-static NSString *kMHNotificationTypeAnnouncement = @"announcement";
-static NSString *kMHNotificationTypeEvent = @"event";
 
 @implementation AppDelegate
 
@@ -38,9 +37,11 @@ static NSString *kMHNotificationTypeEvent = @"event";
   _tabBarController.tabBar.translucent = NO;
   MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
   MEHAnnouncementsViewController *vc2 = [[MEHAnnouncementsViewController alloc]init];
-  LargeTimeViewController *vc3 = [[LargeTimeViewController alloc]init];
+  MEHCheckInViewController *vc3 = [[MEHCheckInViewController alloc]init];
   MEHMapViewController *vc4 = [[MEHMapViewController alloc]init];
   MentorshipViewController *vc5 = [[MentorshipViewController alloc]init];
+    
+    
   
   _announcementsVC = vc2;
   _scheduleVC = vc1;
@@ -54,11 +55,11 @@ static NSString *kMHNotificationTypeEvent = @"event";
   UIImage *announcements = [UIImage imageNamed:@"announcements"];
   UIImage *map = [UIImage imageNamed:@"map"];
   UIImage *mentor = [UIImage imageNamed:@"request_mentor"];
-  UIImage *countdown = [UIImage imageNamed:@"countdown"];
+  UIImage *checkIn = [UIImage imageNamed:@"profile"];
   
   UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"Schedule" image:schedule selectedImage:schedule];
   UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"Announcements" image:announcements selectedImage:announcements];
-  UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"Countdown" image:countdown selectedImage:countdown];
+  UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"Check-In" image:checkIn selectedImage:checkIn];
   UITabBarItem *item4 = [[UITabBarItem alloc]initWithTitle:@"Map" image:map selectedImage:map];
   UITabBarItem *item5 = [[UITabBarItem alloc]initWithTitle:@"Mentor" image:mentor selectedImage:mentor];
   
@@ -105,9 +106,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
   
 }
 
-- (void)switchToCountdown {
-  [self.tabBarController setSelectedIndex:2];
-}
+
 
 #pragma mark Helper Methods
 -(void)configureAPIs {
@@ -129,14 +128,7 @@ static NSString *kMHNotificationTypeEvent = @"event";
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-  //Deal with any push notification stuff
-//  NSString *type = userInfo[@"type"];
-//  if([type isEqualToString:kMHNotificationTypeEvent]) {
-//    [_scheduleVC refresh];
-//  }
-//  else if ([type isEqualToString:kMHNotificationTypeAnnouncement]){
-//    [_announcementsVC forceRefresh];
-//  }
+
 }
 
 

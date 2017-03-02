@@ -8,15 +8,12 @@
 
 #import "MentorshipViewController.h"
 
-#import <Smooch/Smooch.h>
 #import "UIViewController+Extensions.h"
 
 @implementation MentorshipViewController
 
 -(void)viewDidLoad {
-  UIViewController *smoochVC = [Smooch newConversationViewController];
-  
-  [self displayContentController:smoochVC];
+ 
 }
 
 

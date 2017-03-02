@@ -1,9 +1,7 @@
 target 'Menlo Hacks' do
 pod 'Bolts'
 pod 'AFNetworking'
-pod 'Smooch'
 pod 'JNKeychain'
-pod 'MBCircularProgressBar'
 pod 'Realm'
 pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
 
