@@ -87,6 +87,19 @@
     return date;
 }
 
++ (NSString *)ISOStringFromDate : (NSDate *)date {
+    static dispatch_once_t once;
+    static NSDateFormatter *_sharedInstance;
+    dispatch_once(&once, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+        _sharedInstance = dateFormatter;
+    });
+    
+    return [_sharedInstance stringFromDate:date];
+}
+
 + (NSDate*)dateFromISOStringWithSeconds : (NSString *)string {
     static dispatch_once_t once;
     static NSDateFormatter *_sharedInstance;

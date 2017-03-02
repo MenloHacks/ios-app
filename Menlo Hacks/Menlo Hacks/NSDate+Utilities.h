@@ -16,5 +16,6 @@
 + (NSDate *)dateFromISOString : (NSString *)string;
 + (NSInteger)numberOfDaysBetween : (NSDate *)firstDate and: (NSDate *)secondDate;
 - (NSDate *)add24Hours;
++ (NSString *)ISOStringFromDate : (NSDate *)date;
 
 @end

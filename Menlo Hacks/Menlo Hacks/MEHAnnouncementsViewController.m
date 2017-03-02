@@ -31,13 +31,10 @@
 
 @property (nonatomic, strong) RLMNotificationToken *notificationToken;
 
-@property (nonatomic) NSInteger nextIndex;
-@property (nonatomic) BOOL isLoading;
 
 @end
 
 static NSString *reuseIdentifier = @"com.menlohacks.announcement";
-static NSInteger kMEHPageSize = 25;
 
 @implementation MEHAnnouncementsViewController
 
@@ -101,8 +98,7 @@ static NSInteger kMEHPageSize = 25;
 - (void)forceRefresh {
     [_loadingView startAnimating];
     _tableView.hidden = YES;
-    self.nextIndex = 0;
-    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncementsWithStart:self.nextIndex andCount:kMEHPageSize]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -126,7 +122,7 @@ static NSInteger kMEHPageSize = 25;
 
 - (void)refresh : (UIRefreshControl *)sender {
     
-    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncementsWithStart:self.nextIndex andCount:kMEHPageSize]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
         
         dispatch_async(dispatch_get_main_queue(), ^{

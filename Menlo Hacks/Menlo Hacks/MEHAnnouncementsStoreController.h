@@ -14,7 +14,7 @@
 
 + (instancetype)sharedAnnouncementsStoreController;
 
-- (BFTask *)fetchAnnouncementsWithStart : (NSInteger)start andCount : (NSInteger)count;
+- (BFTask *)fetchAnnouncements;
 - (RLMResults *)announcements;
 - (BFTask *)didReceiveNotification: (NSDictionary *)notificationBody;
 
