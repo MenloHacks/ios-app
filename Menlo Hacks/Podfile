@@ -1,6 +1,7 @@
 target 'Menlo Hacks' do
 pod 'Bolts'
 pod 'AFNetworking'
+pod 'FCAlertView'
 pod 'JNKeychain'
 pod 'Realm'
 pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
