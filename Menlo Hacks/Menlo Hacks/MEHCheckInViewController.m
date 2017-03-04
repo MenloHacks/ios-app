@@ -9,6 +9,10 @@
 #import "MEHCheckInViewController.h"
 
 #import "UIColor+ColorPalette.h"
+#import "UIViewController+Extensions.h"
+
+#import "MEHLoginViewController.h"
+#import "MEHUserStoreController.h"
 
 @interface MEHCheckInViewController ()
 
@@ -19,6 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor menloHacksPurple];
+    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
+        [self displayContentController:loginVC];
+    }
     // Do any additional setup after loading the view.
 }
 
