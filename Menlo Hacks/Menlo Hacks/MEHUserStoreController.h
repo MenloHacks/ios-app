@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class BFTask;
+
 @interface MEHUserStoreController : NSObject
 
 + (instancetype)sharedUserStoreController;
+- (BFTask *)loginWithUsername : (NSString *)username password : (NSString *)password;
 
 - (BOOL)isUserLoggedIn;
+- (NSString *)authToken;
 
 @end

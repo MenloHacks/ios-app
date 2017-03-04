@@ -11,9 +11,10 @@
 #import <Bolts/Bolts.h>
 #import "JNKeychain.h"
 
+#import "MEHUserStoreController.h"
+
 
 static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
-static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
 
 @implementation MEHHTTPSessionManager
 
@@ -51,7 +52,7 @@ static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
 }
 
 - (void)setAuthorizationHeader {
-    NSString *authToken = [JNKeychain loadValueForKey:kMEHAuthorizationHeaderField];
+    NSString *authToken = [[MEHUserStoreController sharedUserStoreController]authToken];
     [self.requestSerializer setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
 }
 

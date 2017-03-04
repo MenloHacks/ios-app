@@ -11,8 +11,11 @@
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "AutolayoutHelper.h"
+#import <Bolts/Bolts.h>
+#import "FCAlertView.h"
 
 #import "MEHBottomBorderTextField.h"
+#import "MEHUserStoreController.h"
 
 @interface MEHLoginViewController () <UITextFieldDelegate>
 
@@ -92,6 +95,7 @@
     [self.nextButton setTitle:@"Login" forState:UIControlStateNormal];
     self.nextButton.titleLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
     self.nextButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    [self.nextButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchDown];
     
     
 }
@@ -136,7 +140,17 @@
 }
 
 - (void)login : (id)sender {
-    
+    FCAlertView *alert = [[FCAlertView alloc] init];
+    alert.hideAllButtons = YES;
+    alert.blurBackground = YES;
+    [alert showAlertInView:self withTitle:@"Signing in" withSubtitle:nil withCustomImage:nil withDoneButtonTitle:nil andButtons:nil];
+    [alert makeAlertTypeProgress];
+    [[[MEHUserStoreController sharedUserStoreController]loginWithUsername:self.usernameField.text password:self.passwordField.text]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alert dismissAlertView];
+        });
+        return nil;
+    }];
 }
 
 /*
