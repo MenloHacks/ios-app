@@ -1,9 +1,11 @@
-ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/Bolts" "$PODS_CONFIGURATION_BUILD_DIR/FCAlertView" "$PODS_CONFIGURATION_BUILD_DIR/JNKeychain" "$PODS_CONFIGURATION_BUILD_DIR/PageMenu" "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/SocketRocket" "$PODS_CONFIGURATION_BUILD_DIR/libPusher"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 kPTPusherClientLibraryVersion=@\"1.6.1\"
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/FCAlertView" "${PODS_ROOT}/Headers/Public/JNKeychain" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/SocketRocket" "${PODS_ROOT}/Headers/Public/libPusher"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/Bolts" "$PODS_CONFIGURATION_BUILD_DIR/FCAlertView" "$PODS_CONFIGURATION_BUILD_DIR/JNKeychain" "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/SocketRocket" "$PODS_CONFIGURATION_BUILD_DIR/libPusher" $(inherited) "${PODS_ROOT}/Realm/core"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/Bolts" -isystem "${PODS_ROOT}/Headers/Public/FCAlertView" -isystem "${PODS_ROOT}/Headers/Public/JNKeychain" -isystem "${PODS_ROOT}/Headers/Public/Realm" -isystem "${PODS_ROOT}/Headers/Public/SocketRocket" -isystem "${PODS_ROOT}/Headers/Public/libPusher"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"Bolts" -l"FCAlertView" -l"JNKeychain" -l"Realm" -l"SocketRocket" -l"c++" -l"icucore" -l"libPusher" -l"realm-ios" -l"z" -framework "CFNetwork" -framework "CoreGraphics" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Bolts/Bolts.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/FCAlertView/FCAlertView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/JNKeychain/JNKeychain.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PageMenu/PageMenu.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Realm/Realm.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SocketRocket/SocketRocket.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/libPusher/Pusher.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "AFNetworking" -framework "Bolts" -framework "FCAlertView" -framework "JNKeychain" -framework "PageMenu" -framework "Pusher" -framework "Realm" -framework "SocketRocket"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods
