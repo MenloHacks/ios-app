@@ -48,16 +48,30 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 
 
 - (void)handleError : (NSError *)error {
-    if(error.code >=400 && error.code < 500) {
+    NSInteger code = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+    
+    NSString *message = nil;
+    NSString *title = @"An error has occurred";
+    
+    if(code >=400 && code < 500) {
         NSDictionary *jsonDictionary = [NSJSONSerialization
                                         JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
                                         options:0
                                         error:&error];
         if (jsonDictionary[@"error"]) {
-            NSString *message = jsonDictionary[@"error"][@"message"];
-            NSString *title = jsonDictionary[@"error"][@"title"];
+            message = jsonDictionary[@"error"][@"message"];
+            title = jsonDictionary[@"error"][@"title"];
         }
     }
+    
+    FCAlertView *alert = [[FCAlertView alloc] init];
+    [alert showAlertInWindow:[[UIApplication sharedApplication]keyWindow]
+                   withTitle:title withSubtitle:message
+             withCustomImage:nil
+         withDoneButtonTitle:nil
+                  andButtons:nil];
+    
+    [alert makeAlertTypeWarning];
     
 
     

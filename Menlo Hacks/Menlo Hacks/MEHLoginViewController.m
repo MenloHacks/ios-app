@@ -79,6 +79,7 @@
     self.usernameField.delegate = self;
     self.usernameField.returnKeyType = UIReturnKeyNext;
     self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.usernameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     self.passwordField = [[MEHBottomBorderTextField alloc]initWithBorderColor:[UIColor whiteColor] borderWidth:1.0];
     self.passwordField.textColor = [UIColor whiteColor];
