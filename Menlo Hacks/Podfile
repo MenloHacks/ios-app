@@ -6,7 +6,6 @@ pod 'JNKeychain'
 pod 'Realm'
 pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
 use_frameworks!
-
 pod 'PageMenu'
 
 end
