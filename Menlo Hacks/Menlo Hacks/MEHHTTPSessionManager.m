@@ -10,6 +10,7 @@
 
 #import <Bolts/Bolts.h>
 #import "JNKeychain.h"
+#import "FCAlertView.h"
 
 #import "MEHUserStoreController.h"
 
@@ -47,8 +48,19 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 
 
 - (void)handleError : (NSError *)error {
-    //TODO: Error handling
-    //    NSLog(@"error = %@", error.localizedDescription);
+    if(error.code >=400 && error.code < 500) {
+        NSDictionary *jsonDictionary = [NSJSONSerialization
+                                        JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
+                                        options:0
+                                        error:&error];
+        if (jsonDictionary[@"error"]) {
+            NSString *message = jsonDictionary[@"error"][@"message"];
+            NSString *title = jsonDictionary[@"error"][@"title"];
+        }
+    }
+    
+
+    
 }
 
 - (void)setAuthorizationHeader {
