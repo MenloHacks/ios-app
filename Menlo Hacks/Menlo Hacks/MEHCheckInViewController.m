@@ -14,7 +14,9 @@
 #import "MEHLoginViewController.h"
 #import "MEHUserStoreController.h"
 
-@interface MEHCheckInViewController ()
+@interface MEHCheckInViewController () <MEHLoginViewControllerDelegate>
+
+@property (nonatomic, strong) MEHLoginViewController *loginVC;
 
 @end
 
@@ -24,10 +26,16 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor menloHacksPurple];
     if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
-        [self displayContentController:loginVC];
+        self.loginVC = [[MEHLoginViewController alloc]init];
+        self.loginVC.delegate = self;
+        [self displayContentController:self.loginVC];
     }
     // Do any additional setup after loading the view.
+}
+
+- (void)didLoginSuccessfully {
+    [self removeContentViewController:self.loginVC];
+    self.loginVC = nil;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -17,5 +17,10 @@
   [content didMoveToParentViewController:self];
 }
 
+- (void)removeContentViewController : (UIViewController *)content {
+    [content willMoveToParentViewController:nil];
+    [content.view removeFromSuperview];
+    [content removeFromParentViewController];
+}
 
 @end

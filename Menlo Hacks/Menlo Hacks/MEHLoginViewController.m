@@ -11,6 +11,7 @@
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "AutolayoutHelper.h"
+#import <AFNetworking/AFNetworking.h>
 #import <Bolts/Bolts.h>
 #import "FCAlertView.h"
 
@@ -77,6 +78,7 @@
     self.usernameField.keyboardType = UIKeyboardTypeEmailAddress;
     self.usernameField.delegate = self;
     self.usernameField.returnKeyType = UIReturnKeyNext;
+    self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     self.passwordField = [[MEHBottomBorderTextField alloc]initWithBorderColor:[UIColor whiteColor] borderWidth:1.0];
     self.passwordField.textColor = [UIColor whiteColor];
@@ -149,6 +151,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert dismissAlertView];
         });
+        if(!t.error) {
+            if(self.delegate) {
+                [self.delegate didLoginSuccessfully];
+            }
+        }
         return nil;
     }];
 }

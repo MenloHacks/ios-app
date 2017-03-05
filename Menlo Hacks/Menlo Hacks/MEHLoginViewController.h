@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MEHLoginViewControllerDelegate <NSObject>
+
+- (void)didLoginSuccessfully;
+
+@end
+
 @interface MEHLoginViewController : UIViewController
+
+
+
+@property (nonatomic, weak) id<MEHLoginViewControllerDelegate>delegate;
+
 
 @end
