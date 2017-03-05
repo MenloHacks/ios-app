@@ -34,7 +34,6 @@ import Bolts
 //            return MEHMentorshipStoreController.sharedStoreController().fetchQueue
 //        }
         
-        vc1.view.backgroundColor = UIColor.redColor()
         
         let vc2 = UIViewController()
         
