@@ -13,10 +13,10 @@
 #import "MEHScheduleViewController.h"
 #import "MEHAnnouncementsViewController.h"
 #import "MEHMapViewController.h"
-#import "MentorshipViewController.h"
 #import "MEHCheckInViewController.h"
 #import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
+#import "Menlo_Hacks-Swift.h"
 
 @interface AppDelegate ()
 
@@ -39,7 +39,7 @@
   MEHAnnouncementsViewController *vc2 = [[MEHAnnouncementsViewController alloc]init];
   MEHCheckInViewController *vc3 = [[MEHCheckInViewController alloc]init];
   MEHMapViewController *vc4 = [[MEHMapViewController alloc]init];
-  MentorshipViewController *vc5 = [[MentorshipViewController alloc]init];
+  MEHMentorshipPageViewController *vc5 = [[MEHMentorshipPageViewController alloc]init];
     
     
   
