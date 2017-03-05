@@ -25,4 +25,7 @@
 
 + (instancetype)eventFromDictionary: (NSDictionary *)dictionary;
 
+
 @end
+
+RLM_ARRAY_TYPE(MEHEvent)

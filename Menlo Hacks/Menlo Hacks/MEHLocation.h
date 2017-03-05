@@ -20,3 +20,5 @@
 @property NSInteger rank;
 
 @end
+
+RLM_ARRAY_TYPE(MEHLocation)
