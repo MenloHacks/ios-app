@@ -11,6 +11,7 @@
 import Foundation
 import UIKit
 import PageMenu
+import Bolts
 
 @objc class MEHMentorshipPageViewController: UIViewController {
     
@@ -20,7 +21,19 @@ import PageMenu
     
     override func viewDidLoad(){
         
-        let vc1 = UIViewController()
+        let vc1 = MEHMentorshipViewController()
+        vc1.categories = [kMEHQueueCategory];
+        
+        vc1.fetchFromServer = { () -> BFTask in
+            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchQueue()
+        }
+        
+        
+        
+//        vc1.refreshBlock = { () -> BFTask in
+//            return MEHMentorshipStoreController.sharedStoreController().fetchQueue
+//        }
+        
         vc1.view.backgroundColor = UIColor.redColor()
         
         let vc2 = UIViewController()

@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class BFTask;
+
 extern NSString * kMEHQueueCategory;
+extern NSString *kMEHClaimedCategory;
 
 
 @interface MEHMentorshipStoreController : NSObject
+
++ (instancetype)sharedMentorshipStoreController;
+
+- (BFTask *)fetchQueue;
 
 @end
