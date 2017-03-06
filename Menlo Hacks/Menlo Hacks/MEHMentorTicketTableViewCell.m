@@ -15,6 +15,7 @@
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "MEHMentorTicket.h"
+#import "MEHMentorActionButton.h"
 
 @interface MEHMentorTicketTableViewCell()
 
@@ -24,9 +25,13 @@
 @property (nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UILabel *contactLabel;
 
-@property (nonatomic, strong) UIButton *actionButton;
+@property (nonatomic, strong) MEHMentorActionButton *primaryActionButton;
+@property (nonatomic, strong) MEHMentorActionButton *secondaryActionButton;
 
 @property (nonatomic, strong) UIView *mainContentView;
+
+@property (nonatomic, strong) NSLayoutConstraint *secondaryActionButtonZeroHeight;
+@property (nonatomic) BOOL containsTwoButtons;
 
 
 
@@ -93,10 +98,18 @@
     self.locationLabel.textColor = [UIColor menloHacksGray];
     self.locationLabel.numberOfLines = 0;
     
-    self.actionButton = [UIButton new];
-    [self.actionButton setBackgroundColor:[UIColor menloHacksPurple]];
-    self.actionButton.titleLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
-    [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.primaryActionButton = [[MEHMentorActionButton alloc]init];
+    self.secondaryActionButton = [[MEHMentorActionButton alloc]init];
+    
+    
+    self.secondaryActionButtonZeroHeight = [NSLayoutConstraint constraintWithItem:self.secondaryActionButton
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:0];
+    
     
     [AutolayoutHelper configureView:self.contentView
                            subViews:NSDictionaryOfVariableBindings(_mainContentView)
@@ -104,43 +117,64 @@
                                       @"V:|[_mainContentView]-20-|"]];
     
     [AutolayoutHelper configureView:self.mainContentView
-                           subViews:NSDictionaryOfVariableBindings(_timeLabel, _descriptionLabel, _contactLabel, _locationLabel, _actionButton)
+                           subViews:NSDictionaryOfVariableBindings(_timeLabel, _descriptionLabel, _contactLabel, _locationLabel, _primaryActionButton, _secondaryActionButton)
                         constraints:@[@"H:[_timeLabel]-12-|",
                                       @"H:|-[_descriptionLabel]-|",
                                       @"H:|-[_locationLabel]-|",
                                       @"H:|-[_contactLabel]-|",
-                                      @"H:|-[_actionButton]-|",
-                                      @"V:|-12-[_timeLabel]-[_descriptionLabel]-[_locationLabel]-[_contactLabel]-20-[_actionButton]-|"]];
+                                      @"H:|-[_primaryActionButton]-|",
+                                      @"H:|-[_secondaryActionButton]-|",
+                                      @"V:|-12-[_timeLabel]-[_descriptionLabel]-[_locationLabel]-[_contactLabel]-20-[_primaryActionButton]-[_secondaryActionButton]-|"]];
     
     
     
 }
 
 - (void)setTicket:(MEHMentorTicket *)ticket {
+    if(self.ticket && !self.containsTwoButtons) {
+        [self.mainContentView removeConstraint:self.secondaryActionButtonZeroHeight];
+    }
+    
     _ticket = ticket;
     self.locationLabel.text = ticket.ticketLocation;
     self.descriptionLabel.text = ticket.ticketDescription;
     self.contactLabel.text = ticket.contact;
     self.timeLabel.text = [NSDate formattedShortTimeFromDate:ticket.timeCreated];
     
-    NSString *action;
+    MEHMentorAction action;
+    MEHMentorAction secondaryAction;
+    
+    
     
     if(ticket.claimed == NO) {
         if(ticket.expired == NO) {
-            action = @"claim";
+            action = MEHMentorActionClaim;
+            self.containsTwoButtons = NO;
         } else {
-            action = @"Reopen";
+            action = MEHMentorActionReopen;
+            self.containsTwoButtons = NO;
         }
     }
     else {
-        if(ticket.expired == NO) {
-            action = @"Reopen";
+        if(ticket.closed == NO) {
+            action = MEHMentorActionReopen;
+            secondaryAction = MEHMentorActionClose;
+            self.containsTwoButtons = YES;
         } else {
-            action = @"Close";
+            action = MEHMentorActionReopen;
+            self.containsTwoButtons = NO;
         }
     }
     
-    [self.actionButton setTitle:action forState:UIControlStateNormal];
+    self.primaryActionButton.action = action;
+    if(self.containsTwoButtons) {
+        self.secondaryActionButton.action = secondaryAction;
+    } else {
+        [self.mainContentView addConstraint:self.secondaryActionButtonZeroHeight];
+        self.containsTwoButtons = NO;
+    }
+    
+
 }
 
 @end

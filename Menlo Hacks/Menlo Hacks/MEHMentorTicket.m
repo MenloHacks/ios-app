@@ -49,13 +49,13 @@
         ticket.timeCreated = timeCreated;
     }
     
-    BOOL claimed = [dictionary[@"expired"]boolValue];
+    BOOL claimed = [dictionary[@"claimed"]boolValue];
     
     if(ticket.claimed != claimed) {
         ticket.claimed = claimed;
     }
     
-    BOOL expired = [dictionary[@"claimed"]boolValue];
+    BOOL expired = [dictionary[@"expired"]boolValue];
     
     if(ticket.expired != expired) {
         ticket.expired = expired;

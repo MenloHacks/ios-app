@@ -105,7 +105,58 @@ NSString * kMEHClaimedCategory = @"claimed";
         
     }];
     
+}
+
+- (BFTask *)performAction: (MEHMentorAction)action onTicketWithIdentifier : (NSString *)serverID {
+    NSString *verb = [[self class]verbForAction:action];
+    if(!verb) {
+        return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.mentorship" code:0 userInfo:@{@"message" : @"Invalid action"}]];
+    }
+    NSString *path = [NSString stringWithFormat:@"mentorship/%@", verb];
+    NSDictionary *parameters = @{@"id" : serverID};
+    
+    return [[[MEHHTTPSessionManager sharedSessionManager]POST:path parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result];
+            ticket.category = [[self class]categoryForAction:action];
+            [realm addOrUpdateObject:ticket];
+        }];
+    }];
+}
+
++ (NSString *)verbForAction : (MEHMentorAction)action {
+
+    static dispatch_once_t once;
+    static NSDictionary *_sharedInstance;
+    dispatch_once(&once, ^{
+        _sharedInstance = @{
+                            @(MEHMentorActionClaim) : @"claim",
+                            @(MEHMentorActionClose) : @"close",
+                            @(MEHMentorActionReopen) : @"reopen"
+                            };
+    });
+    
+    return _sharedInstance[@(action)];
     
 }
+
++ (NSString *)categoryForAction : (MEHMentorAction)action {
+    
+    static dispatch_once_t once;
+    static NSDictionary *_sharedInstance;
+    dispatch_once(&once, ^{
+        _sharedInstance = @{
+                            @(MEHMentorActionClaim) : kMEHClaimedCategory,
+                            @(MEHMentorActionClose) : @"closed", //This is disgusting and will break if serverside categories change unlike everything else, but with so little time to finish this RIP.
+                            @(MEHMentorActionReopen) : kMEHQueueCategory
+                            };
+    });
+    
+    return _sharedInstance[@(action)];
+    
+}
+
+
 
 @end
