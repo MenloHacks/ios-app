@@ -51,19 +51,13 @@
                     alert.customViewColor = [UIColor menloHacksPurple];
                     alert.shouldDismissOnTapOutside = YES;
                     [alert showSuccess:@"Ticket created" subTitle:nil closeButtonTitle:@"Ok" duration:3.0];
-                    [alert alertIsDismissed:^{
-//                        dispatch_semaphore_signal(semaphore);
-                    }];
-                } else {
-         //           dispatch_semaphore_signal(semaphore);
                 }
                 
                 return nil;
             }];
         });
         
-        
-      //  dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
         
     }];
     
