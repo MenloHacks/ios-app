@@ -8,10 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MEHMentorshipStoreController.h"
+
 @class MEHMentorTicket;
+
+@protocol MEHMentorTicketTableViewCellDelegate <NSObject>
+
+@required
+- (void)handleAction : (MEHMentorAction)action forTicketWithServerID : (NSString *)serverID;
+
+@end
 
 @interface MEHMentorTicketTableViewCell : UITableViewCell
 
 @property (nonatomic) MEHMentorTicket *ticket;
+@property (nonatomic, weak) id<MEHMentorTicketTableViewCellDelegate>delegate;
 
 @end

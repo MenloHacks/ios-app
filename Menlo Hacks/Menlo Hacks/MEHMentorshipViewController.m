@@ -19,7 +19,7 @@
 #import "MEHMentorshipStoreController.h"
 #import "MEHMentorTicketTableViewCell.h"
 
-@interface MEHMentorshipViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface MEHMentorshipViewController () <UITableViewDelegate, UITableViewDataSource, MEHMentorTicketTableViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
@@ -104,6 +104,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MEHMentorTicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMEHMentorTicketReuseIdentifier];
     cell.ticket = self.tickets[indexPath.section][indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
@@ -198,14 +199,11 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark MEHMentorTicketTableViewCellDelegate
+
+- (void)handleAction:(MEHMentorAction)action forTicketWithServerID:(NSString *)serverID {
+    [[MEHMentorshipStoreController sharedMentorshipStoreController]performAction:action onTicketWithIdentifier:serverID];
 }
-*/
 
 @end

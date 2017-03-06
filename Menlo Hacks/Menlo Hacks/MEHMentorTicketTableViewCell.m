@@ -99,7 +99,10 @@
     self.locationLabel.numberOfLines = 0;
     
     self.primaryActionButton = [[MEHMentorActionButton alloc]init];
+    [self.primaryActionButton addTarget:self action:@selector(handleAction:) forControlEvents:UIControlEventTouchDown];
+    
     self.secondaryActionButton = [[MEHMentorActionButton alloc]init];
+    [self.secondaryActionButton addTarget:self action:@selector(handleAction:) forControlEvents:UIControlEventTouchDown];
     
     
     self.secondaryActionButtonZeroHeight = [NSLayoutConstraint constraintWithItem:self.secondaryActionButton
@@ -175,6 +178,12 @@
     }
     
 
+}
+
+- (void)handleAction : (MEHMentorActionButton *)button {
+    if(self.delegate) {
+        [self.delegate handleAction:button.action forTicketWithServerID:self.ticket.serverID];
+    }
 }
 
 @end
