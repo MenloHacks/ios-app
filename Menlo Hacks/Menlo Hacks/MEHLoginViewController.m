@@ -8,12 +8,14 @@
 
 #import "MEHLoginViewController.h"
 
+#import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
 
 #import "AutolayoutHelper.h"
 #import <AFNetworking/AFNetworking.h>
 #import <Bolts/Bolts.h>
-#import "FCAlertView.h"
+#import "SCLAlertView.h"
+
 
 #import "MEHBottomBorderTextField.h"
 #import "MEHUserStoreController.h"
@@ -143,14 +145,16 @@
 }
 
 - (void)login : (id)sender {
-    FCAlertView *alert = [[FCAlertView alloc] init];
-    alert.hideAllButtons = YES;
-    alert.blurBackground = YES;
-    [alert showAlertInView:self withTitle:@"Signing in" withSubtitle:nil withCustomImage:nil withDoneButtonTitle:nil andButtons:nil];
-    [alert makeAlertTypeProgress];
+    SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
+    [alertView showWaiting:@"Signing in" subTitle:nil closeButtonTitle:nil duration:0];
+    
+
+    
+    
+
     [[[MEHUserStoreController sharedUserStoreController]loginWithUsername:self.usernameField.text password:self.passwordField.text]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [alert dismissAlertView];
+            [alertView hideView];
         });
         if(!t.error) {
             if(self.delegate) {

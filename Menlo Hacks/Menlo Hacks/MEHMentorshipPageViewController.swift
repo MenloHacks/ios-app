@@ -21,6 +21,10 @@ import Bolts
     
     override func viewDidLoad(){
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
+        
+        self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+        
         let vc1 = MEHMentorshipViewController()
         vc1.categories = [kMEHQueueCategory];
         
@@ -81,6 +85,14 @@ import Bolts
         // Lastly add page menu as subview of base view controller view
         // or use pageMenu controller in you view hierachy as desired
         self.view.addSubview(pageMenu!.view)
+        
+    }
+    
+    func addTicket(sender : AnyObject) {
+        let vc = MEHAddMentorTicketViewController()
+        self.displayContentController(vc)
+        
+        
         
     }
 }

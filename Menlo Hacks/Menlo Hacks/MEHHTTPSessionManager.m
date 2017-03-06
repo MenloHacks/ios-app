@@ -10,7 +10,7 @@
 
 #import <Bolts/Bolts.h>
 #import "JNKeychain.h"
-#import "FCAlertView.h"
+#import "SCLAlertView.h"
 
 #import "MEHUserStoreController.h"
 
@@ -64,16 +64,12 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         }
     }
     
-    FCAlertView *alert = [[FCAlertView alloc] init];
-    [alert showAlertInWindow:[[UIApplication sharedApplication]keyWindow]
-                   withTitle:title withSubtitle:message
-             withCustomImage:nil
-         withDoneButtonTitle:nil
-                  andButtons:nil];
+    //Wait to give an adequate amount of time
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        SCLAlertView *alert = [[SCLAlertView alloc]initWithNewWindow];
+        [alert showError:title subTitle:message closeButtonTitle:@"OK" duration:0];
+    });
     
-    [alert makeAlertTypeWarning];
-    
-
     
 }
 

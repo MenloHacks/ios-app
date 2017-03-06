@@ -20,7 +20,6 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - FCAlertView (1.2.8)
   - JNKeychain (0.1.4)
   - libPusher (1.6.1):
     - libPusher/Core (= 1.6.1)
@@ -30,16 +29,17 @@ PODS:
   - Realm (2.1.2):
     - Realm/Headers (= 2.1.2)
   - Realm/Headers (2.1.2)
+  - SCLAlertView-Objective-C (1.1.0)
   - SocketRocket (0.5.1)
 
 DEPENDENCIES:
   - AFNetworking
   - Bolts
-  - FCAlertView
   - JNKeychain
   - libPusher (from `https://github.com/pusher/libPusher.git`, branch `push-notifications`)
   - PageMenu
   - Realm
+  - SCLAlertView-Objective-C
 
 EXTERNAL SOURCES:
   libPusher:
@@ -54,13 +54,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FCAlertView: c051a628d0adf7ee20f4966322c5186965debf75
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
   libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
   PageMenu: ba19ff267f7a19e444e93c20a7847b78954a7011
   Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
+  SCLAlertView-Objective-C: 349a894d4e1d1dbf14d443da784c6ca1e92c78d2
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: 1f3d44c6704f8fc0c2e4b6895ce0a64f862ba302
+PODFILE CHECKSUM: ef6167118dee8566d16f6ccc4d702712cd01d0f6
 
 COCOAPODS: 1.1.1
