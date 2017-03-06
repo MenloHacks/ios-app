@@ -37,6 +37,12 @@
         ticket.ticketLocation = location;
     }
     
+    NSString *contact = dictionary[@"contact"];
+    
+    if (![ticket.contact isEqualToString:contact]) {
+        ticket.contact = contact;
+    }
+    
     NSDate *timeCreated =[NSDate dateFromISOString:dictionary[@"time_created"]];
     
     if (![ticket.timeCreated isEqualToDate:timeCreated]) {

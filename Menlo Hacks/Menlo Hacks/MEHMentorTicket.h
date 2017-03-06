@@ -14,6 +14,7 @@
 
 @property NSString *ticketDescription;
 @property NSString *ticketLocation;
+@property NSString *contact;
 @property NSDate *timeCreated;
 @property NSString *serverID;
 @property BOOL claimed;

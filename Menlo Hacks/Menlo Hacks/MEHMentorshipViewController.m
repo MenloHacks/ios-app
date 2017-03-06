@@ -16,6 +16,7 @@
 
 #import "MEHMentorTicket.h"
 #import "MEHMentorshipStoreController.h"
+#import "MEHMentorTicketTableViewCell.h"
 
 @interface MEHMentorshipViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -38,9 +39,11 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
-    self.tableView.estimatedRowHeight = 40;
+    self.tableView.estimatedRowHeight = 150;
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kMEHMentorTicketReuseIdentifier];
+    [self.tableView registerClass:[MEHMentorTicketTableViewCell class] forCellReuseIdentifier:kMEHMentorTicketReuseIdentifier];
     
     [AutolayoutHelper configureView:self.view fillWithSubView:self.tableView];
     
@@ -98,8 +101,8 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMEHMentorTicketReuseIdentifier];
-    cell.textLabel.text = self.tickets[indexPath.section][indexPath.row].ticketDescription;
+    MEHMentorTicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMEHMentorTicketReuseIdentifier];
+    cell.ticket = self.tickets[indexPath.section][indexPath.row];
     return cell;
 }
 

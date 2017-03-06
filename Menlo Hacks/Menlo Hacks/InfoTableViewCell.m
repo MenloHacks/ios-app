@@ -54,7 +54,7 @@
   
   _timeLabel = [UILabel new];
   _timeLabel.font = font;
-    _timeLabel.textColor = [UIColor menloHacksPurple];
+  _timeLabel.textColor = [UIColor menloHacksPurple];
   
   _locationLabel = [UILabel new];
   _locationLabel.font = font;
