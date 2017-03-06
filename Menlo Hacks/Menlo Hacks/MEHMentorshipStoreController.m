@@ -51,7 +51,8 @@ NSString * kMEHClaimedCategory = @"claimed";
 - (BFTask *)fetchUserQueue {
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/user/queue" parameters:nil]
             continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                __block NSDictionary *tickets = t.result[@"data"];
+                __block NSDictionary *data = t.result[@"data"];
+                NSDictionary *tickets = data[@"tickets"];
                 RLMRealm *realm = [RLMRealm defaultRealm];
                 return [[realm meh_TransactionWithBlock:^{
                     for (NSString *key in tickets) {
@@ -65,7 +66,7 @@ NSString * kMEHClaimedCategory = @"claimed";
 
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    return tickets.allKeys;
+                    return data[@"categories"];
                 }];
                 
             }];

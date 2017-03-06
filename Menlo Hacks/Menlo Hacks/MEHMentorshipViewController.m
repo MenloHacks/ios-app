@@ -13,6 +13,7 @@
 #import <Realm/Realm.h>
 
 #import "UIColor+ColorPalette.h"
+#import "UIFontDescriptor+AvenirNext.h"
 
 #import "MEHMentorTicket.h"
 #import "MEHMentorshipStoreController.h"
@@ -106,9 +107,42 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if(self.tickets.count > 1) {
+        
+        UIView *wrapper = [UIView new];
+        wrapper.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *label = [UILabel new];
+        label.backgroundColor = [UIColor whiteColor];
+        label.text = [[self.categories[section]capitalizedString]stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        label.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
+        label.textColor = [UIColor menloHacksPurple];
+        
+        [AutolayoutHelper configureView:wrapper
+                               subViews:NSDictionaryOfVariableBindings(label)
+                            constraints:@[@"H:|-[label]|",
+                                          @"V:|[label]|"]];
+        
+        
+        return wrapper;
+    }
+    return nil;
+}
+
 
 - (void)setTickets:(NSArray<RLMResults<MEHMentorTicket *> *> *)tickets {
     _tickets = tickets;
+    
+    if(tickets.count > 1) {
+        self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+        self.tableView.estimatedSectionHeaderHeight = 25;
+    } else {
+        self.tableView.sectionHeaderHeight = 0;
+    }
+    
+
+    
     NSMutableArray *tokens = [NSMutableArray arrayWithCapacity:tickets.count];
     int i = 0;
     __weak typeof(self) weakSelf = self;
