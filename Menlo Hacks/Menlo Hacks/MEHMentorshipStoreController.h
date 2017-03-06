@@ -22,4 +22,6 @@ extern NSString *kMEHClaimedCategory;
 - (BFTask *)fetchClaimedQueue;
 - (BFTask *)fetchUserQueue;
 
+- (BFTask *)createTicket : (NSString *)description location : (NSString *)location contact : (NSString *)contact;
+
 @end

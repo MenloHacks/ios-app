@@ -8,9 +8,12 @@
 
 #import "MEHAddMentorTicketViewController.h"
 
+#import <Bolts/Bolts.h>
+
 #import "SCLAlertView.h"
 
 #import "UIColor+ColorPalette.h"
+#import "MEHMentorshipStoreController.h"
 
 @interface MEHAddMentorTicketViewController ()
 
@@ -33,13 +36,34 @@
     UITextField *locationField = [alert addTextField:@"Where are you located?"];
     UITextField *contactField = [alert addTextField:@"email, phone, etc"];
     
-//    [alert addButton:@"Submit" actionBlock:^(void) {
-//        NSLog(@"Second button tapped");
-//    }];
     
     [alert addButton:@"Submit" validationBlock:^BOOL{
-        return NO;
+        //Maybe add validation instead of just relying on server, but time is limited.
+        return YES;
     } actionBlock:^{
+     //   dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[MEHMentorshipStoreController sharedMentorshipStoreController]createTicket:descriptionField.text
+                                                                                location:locationField.text
+                                                                                 contact:contactField.text]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
+                if(!t.error) {
+                    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+                    alert.customViewColor = [UIColor menloHacksPurple];
+                    alert.shouldDismissOnTapOutside = YES;
+                    [alert showSuccess:@"Ticket created" subTitle:nil closeButtonTitle:@"Ok" duration:3.0];
+                    [alert alertIsDismissed:^{
+//                        dispatch_semaphore_signal(semaphore);
+                    }];
+                } else {
+         //           dispatch_semaphore_signal(semaphore);
+                }
+                
+                return nil;
+            }];
+        });
+        
+        
+      //  dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         
     }];
     

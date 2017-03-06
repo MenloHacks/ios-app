@@ -38,6 +38,8 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self setRequestSerializer:serializer];
         
+//        NSOperationQueue *operationQueue = self.operationQueue;
+        
         [self setAuthorizationHeader];
     }
     return self;
@@ -99,6 +101,8 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 
 - (BFTask *)POST:(NSString *)URLString
       parameters:(id)parameters {
+    
+    
     
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
     

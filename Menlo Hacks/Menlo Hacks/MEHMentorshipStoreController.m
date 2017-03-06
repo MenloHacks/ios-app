@@ -14,7 +14,7 @@
 #import "MEHHTTPSessionManager.h"
 #import "MEHMentorTicket.h"
 
-NSString * kMEHQueueCategory = @"queue";
+NSString * kMEHQueueCategory = @"open";
 NSString * kMEHClaimedCategory = @"claimed";
 
 
@@ -40,7 +40,7 @@ NSString * kMEHClaimedCategory = @"claimed";
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                         ticket.category = kMEHQueueCategory;
-                        [realm addObject:ticket];
+                        [realm addOrUpdateObject:ticket];
                     }
                     
                 }];
@@ -60,7 +60,7 @@ NSString * kMEHClaimedCategory = @"claimed";
                         for (NSDictionary *ticketDictionary in ticketsList) {
                             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                             ticket.category = key;
-                            [realm addObject:ticket];
+                            [realm addOrUpdateObject:ticket];
                         }
                     }
 
@@ -81,12 +81,31 @@ NSString * kMEHClaimedCategory = @"claimed";
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                         ticket.category = kMEHClaimedCategory;
-                        [realm addObject:ticket];
+                        [realm addOrUpdateObject:ticket];
                     }
                     
                 }];
                 
             }];
+}
+
+- (BFTask *)createTicket : (NSString *)description location : (NSString *)location contact : (NSString *)contact {
+    NSDictionary *parameters = @{@"description" : description,
+                                 @"location" : location,
+                                 @"contact" : contact};
+    
+    return [[[MEHHTTPSessionManager sharedSessionManager]POST:@"mentorship/create" parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result];
+            ticket.category = kMEHQueueCategory;
+            [realm addOrUpdateObject:ticket];
+        }];
+
+        
+    }];
+    
+    
 }
 
 @end
