@@ -28,16 +28,34 @@ import Bolts
             return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchQueue()
         }
         
+        vc1.title = "Queue";
+        
+        let vc2 = MEHMentorshipViewController()
+        vc2.categories = [kMEHClaimedCategory];
+        
+        vc2.fetchFromServer = { () -> BFTask in
+            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchClaimedQueue()
+        }
+        
+        vc2.title = "Claimed";
+        
+        let vc3 = MEHMentorshipViewController()
+        vc3.categories = [kMEHClaimedCategory];
+        
+        vc3.fetchFromServer = { () -> BFTask in
+            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchUserQueue().continueWithSuccessBlock({ (task : BFTask) -> AnyObject? in
+                vc3.categories = task.result as! [AnyObject]
+                return task
+            });
+        }
+        
+        vc3.title = "My Tickets";
         
         
-//        vc1.refreshBlock = { () -> BFTask in
-//            return MEHMentorshipStoreController.sharedStoreController().fetchQueue
-//        }
         
         
-        let vc2 = UIViewController()
         
-        let controllers = [vc1, vc2]
+        let controllers = [vc1, vc2, vc3]
         
         // Initialize page menu with controller array, frame, and optional parameters
         

@@ -19,5 +19,7 @@ extern NSString *kMEHClaimedCategory;
 + (instancetype)sharedMentorshipStoreController;
 
 - (BFTask *)fetchQueue;
+- (BFTask *)fetchClaimedQueue;
+- (BFTask *)fetchUserQueue;
 
 @end

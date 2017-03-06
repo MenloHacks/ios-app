@@ -36,9 +36,9 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        
-        
         [self setRequestSerializer:serializer];
+        
+        [self setAuthorizationHeader];
     }
     return self;
 }

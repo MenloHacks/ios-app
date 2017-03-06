@@ -48,21 +48,28 @@ NSString * kMEHClaimedCategory = @"claimed";
             }];
 }
 
-//- (BFTask *)fetchUserQueue {
-//    return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/user/queue" parameters:nil]
-//            continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-//                NSArray *tickets = t.result[@"data"];
-//                RLMRealm *realm = [RLMRealm defaultRealm];
-//                return [realm meh_TransactionWithBlock:^{
-//                    for (NSDictionary *ticketDictionary in tickets) {
-//                        MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
-//                        [realm addObject:ticket];
-//                    }
-//                    
-//                }];
-//                
-//            }];
-//}
+- (BFTask *)fetchUserQueue {
+    return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/user/queue" parameters:nil]
+            continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+                __block NSDictionary *tickets = t.result[@"data"];
+                RLMRealm *realm = [RLMRealm defaultRealm];
+                return [[realm meh_TransactionWithBlock:^{
+                    for (NSString *key in tickets) {
+                        NSArray *ticketsList = tickets[key];
+                        for (NSDictionary *ticketDictionary in ticketsList) {
+                            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
+                            ticket.category = key;
+                            [realm addObject:ticket];
+                        }
+                    }
+
+                    
+                }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+                    return tickets.allKeys;
+                }];
+                
+            }];
+}
 
 - (BFTask *)fetchClaimedQueue {
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/user/claimed" parameters:nil]

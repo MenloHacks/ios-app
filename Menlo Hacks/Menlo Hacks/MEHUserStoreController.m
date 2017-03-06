@@ -47,6 +47,7 @@ static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
         
         NSString *token = data[@"token"];
         [JNKeychain saveValue:token forKey:kMEHKeychainAuthTokenKey];
+        [[MEHHTTPSessionManager sharedSessionManager]setAuthorizationHeader];
         return [realm meh_TransactionWithBlock:^{
             RLMResults *allUsers = [MEHUser objectsWhere:@"username != %@", username];
             [realm deleteObjects:allUsers];

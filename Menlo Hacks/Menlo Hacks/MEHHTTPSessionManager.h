@@ -14,6 +14,8 @@
 
 + (instancetype)sharedSessionManager;
 
+- (void)setAuthorizationHeader;
+
 - (BFTask *)GET:(NSString *)URLString
      parameters:(id)parameters ;
 
