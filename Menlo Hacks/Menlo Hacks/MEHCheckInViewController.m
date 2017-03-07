@@ -9,6 +9,7 @@
 #import "MEHCheckInViewController.h"
 
 #import <Bolts/Bolts.h>
+#import "SCLAlertView.h"
 
 #import "AutolayoutHelper.h"
 #import "UIColor+ColorPalette.h"
@@ -86,13 +87,25 @@
 }
 
 - (void)getPassPressed : (id)sender {
+    SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
+    [alertView showWaiting:@"Fetching" subTitle:nil closeButtonTitle:nil duration:0];
+    
     [[[MEHUserStoreController sharedUserStoreController]getPass]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alertView hideView];
+        });
         if ([PKAddPassesViewController canAddPasses]) {
             PKPass *pass = [[PKPass alloc] initWithData:t.result error:nil];
             PKAddPassesViewController *passVC = [[[PKAddPassesViewController alloc] init] initWithPass:pass];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self presentViewController:passVC animated:YES completion:nil];
             });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
+                [alertView showError:@"Error" subTitle:@"This device does not support passbook." closeButtonTitle:@"Ok" duration:0];
+            });
+
         }
         return nil;
     }];

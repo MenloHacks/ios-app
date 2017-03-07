@@ -127,6 +127,20 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     [request setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
     
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        NSInteger code = [httpResponse statusCode];
+        //Really crappy, but again no time.
+        if (code < 200 || code >= 300) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                SCLAlertView *alert = [[SCLAlertView alloc]initWithNewWindow];
+                [alert showError:@"An error has occurred." subTitle:nil closeButtonTitle:@"OK" duration:0];
+            });
+            NSError *error = [NSError errorWithDomain:@"com.menlohacks.download" code:code userInfo:@{@"message" : @"An unknown error has occurred"}];
+
+            [completionSource setError:error];
+            
+        }
+        
         if(error) {
             [completionSource setError:error];
         } else {
