@@ -12,14 +12,15 @@
 #import "UIFontDescriptor+AvenirNext.h"
 #import "UIColor+ColorPalette.h"
 #import "NSDate+Utilities.h"
+#import "TTTAttributedLabel.h"
 
 #import "MEHEvent.h"
 #import "MEHLocation.h"
 #import "MEHAnnouncement.h"
 
-@interface InfoTableViewCell()
+@interface InfoTableViewCell() <TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
 
@@ -47,10 +48,11 @@
 
 -(void)commonInit {
   UIFont *font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleBody]size:0];
-  _descriptionLabel = [UILabel new];
+  _descriptionLabel = [TTTAttributedLabel new];
   _descriptionLabel.font = font;
   _descriptionLabel.numberOfLines = 0;
-    _descriptionLabel.textColor = [UIColor menloHacksGray];
+  _descriptionLabel.textColor = [UIColor menloHacksGray];
+    _descriptionLabel.delegate = self;
   
   _timeLabel = [UILabel new];
   _timeLabel.font = font;
@@ -71,15 +73,22 @@
 }
 
 -(void)configureWithEvent : (MEHEvent *)event{
+    _descriptionLabel.enabledTextCheckingTypes = 0;
     _descriptionLabel.text = event.shortDescription;
     _locationLabel.text = event.location.locationName;
     _timeLabel.text = [NSDate formattedShortTimeFromDate:event.startTime];
+    
 }
 
 -(void)configureWithAnnouncement:(MEHAnnouncement *)announcement {
+     _descriptionLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     _descriptionLabel.text = announcement.message;
     _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.time];
     _locationLabel.text = @"";
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

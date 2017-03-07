@@ -31,6 +31,7 @@ PODS:
   - Realm/Headers (2.1.2)
   - SCLAlertView-Objective-C (1.1.0)
   - SocketRocket (0.5.1)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - PageMenu
   - Realm
   - SCLAlertView-Objective-C
+  - TTTAttributedLabel
 
 EXTERNAL SOURCES:
   libPusher:
@@ -60,7 +62,8 @@ SPEC CHECKSUMS:
   Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   SCLAlertView-Objective-C: 349a894d4e1d1dbf14d443da784c6ca1e92c78d2
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: ef6167118dee8566d16f6ccc4d702712cd01d0f6
+PODFILE CHECKSUM: e5fc320ae6f2fb9515865d2e5cf7831e54282190
 
 COCOAPODS: 1.1.1
