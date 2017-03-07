@@ -12,5 +12,6 @@
 
 - (void)displayContentController:(UIViewController *)content;
 - (void)removeContentViewController : (UIViewController *)content;
+- (void)presentViewControllerFromVisibleViewController:(UIViewController *)viewControllerToPresent;
 
 @end

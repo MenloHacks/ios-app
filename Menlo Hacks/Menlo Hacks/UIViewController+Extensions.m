@@ -23,4 +23,15 @@
     [content removeFromParentViewController];
 }
 
+- (void)presentViewControllerFromVisibleViewController:(UIViewController *)viewControllerToPresent {
+    if ([self isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (UINavigationController *)self;
+        [navController.topViewController presentViewControllerFromVisibleViewController:viewControllerToPresent];
+    } else if (self.presentedViewController) {
+        [self.presentedViewController presentViewControllerFromVisibleViewController:viewControllerToPresent];
+    } else {
+        [self presentViewController:viewControllerToPresent animated:YES completion:nil];
+    }
+}
+
 @end

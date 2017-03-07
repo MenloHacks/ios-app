@@ -22,4 +22,5 @@
 - (BFTask *)POST:(NSString *)URLString
       parameters:(id)parameters;
 
+- (BFTask *)downloadResource : (NSString *)URLString;
 @end

@@ -31,8 +31,6 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 @property (nonatomic, strong) NSArray<RLMResults<MEHMentorTicket *> *>*tickets;
 @property (nonatomic, strong) NSArray <RLMNotificationToken *>*notificationTokens;
 
-@property (nonatomic) MEHLoginViewController *loginVC;
-
 @end
 
 static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.ticket.cell";
@@ -68,9 +66,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     [self.tableView addSubview:refresh];
     
     if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        self.loginVC = [[MEHLoginViewController alloc]init];
-        self.loginVC.delegate = self;
-        [self displayContentController:self.loginVC];
+        MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
+        loginVC.delegate = self;
+        [self displayContentController:loginVC];
     } else {
         [self refresh];
     }
@@ -99,7 +97,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 - (void)resetTickets {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.categories.count];
     for (NSString *category in self.categories) {
-        RLMResults *results = [[MEHMentorTicket objectsWhere:@"category == %@", category]sortedResultsUsingProperty:@"timeCreated" ascending:NO];
+        RLMResults *results = [[MEHMentorTicket objectsWhere:@"category == %@", category]sortedResultsUsingProperty:@"timeCreated" ascending:YES];
         [array addObject:results];
     }
     self.tickets = [NSArray arrayWithArray:array];
@@ -217,7 +215,13 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 - (void)handleAction:(MEHMentorAction)action forTicketWithServerID:(NSString *)serverID {
     if (![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        //Present it modally
+        
+        UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UINavigationController *loginVC = [MEHLoginViewController loginViewControllerInNavigationControllerWithDelegate:self];
+        [rootVC presentViewController:loginVC animated:YES completion:nil];
+        
+        
+        return;
     }
     SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
     
@@ -234,10 +238,10 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 #pragma mark MEHLoginViewControllerDelegate
 
-- (void)didLoginSuccessfully {
-    [self removeContentViewController:self.loginVC];
+
+- (void)didLoginSuccessfully:(MEHLoginViewController *)loginVC {
+    [self removeContentViewController:loginVC];
     [self refresh];
 }
-
 
 @end

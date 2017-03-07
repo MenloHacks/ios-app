@@ -24,6 +24,7 @@
 @end
 
 static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
+static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
 
 @implementation MEHUserStoreController
 
@@ -47,14 +48,17 @@ static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
         
         NSString *token = data[@"token"];
         [JNKeychain saveValue:token forKey:kMEHKeychainAuthTokenKey];
+        [JNKeychain saveValue:username forKey:kMEHCurrentUsernameKey];
         [[MEHHTTPSessionManager sharedSessionManager]setAuthorizationHeader];
         return [realm meh_TransactionWithBlock:^{
-            RLMResults *allUsers = [MEHUser objectsWhere:@"username != %@", username];
-            [realm deleteObjects:allUsers];
             MEHUser *user = [MEHUser userFromDictionary:data];
             [realm addOrUpdateObject:user];
         }];
     }];
+}
+
+- (NSString *)loggedInUserID {
+    return [JNKeychain loadValueForKey:kMEHCurrentUsernameKey];
 }
 
 - (NSString *)authToken {
@@ -63,6 +67,10 @@ static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
 
 - (BOOL)isUserLoggedIn {
     return NO;
+}
+
+- (BFTask *)getPass {
+    return [[MEHHTTPSessionManager sharedSessionManager]downloadResource:@"user/ticket"];
 }
 
 

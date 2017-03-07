@@ -45,6 +45,22 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
++ (UINavigationController *)loginViewControllerInNavigationControllerWithDelegate : (id<MEHLoginViewControllerDelegate>)delegate{
+    MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
+    loginVC.delegate = delegate;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    
+    navigationController.navigationBar.tintColor = [UIColor menloHacksPurple];
+    navigationController.navigationBar.topItem.titleView = [[UIImageView alloc]initWithImage:
+                                                     [UIImage imageNamed:@"menlohacks_nav"]];
+    navigationController.navigationBar.translucent = NO;
+
+    
+    
+    return navigationController;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createViews];
@@ -55,6 +71,13 @@
 }
 
 - (void)createViews {
+    
+    if(self.presentingViewController) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                             target:self
+                                                                             action:@selector(dismissSelf:)];
+        self.navigationItem.leftBarButtonItems = @[item];
+    }
     
     self.backgroundImageView = [UIImageView new];
     self.backgroundImageView.image = [UIImage imageNamed:@"launch_background"];
@@ -163,12 +186,13 @@
         });
         if(!t.error) {
             if(self.delegate) {
-                [self.delegate didLoginSuccessfully];
+                [self.delegate didLoginSuccessfully:self];
             }
         }
         return nil;
     }];
 }
+
 
 /*
 #pragma mark - Navigation

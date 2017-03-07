@@ -17,5 +17,7 @@
 
 - (BOOL)isUserLoggedIn;
 - (NSString *)authToken;
+- (NSString *)loggedInUserID;
+- (BFTask *)getPass;
 
 @end

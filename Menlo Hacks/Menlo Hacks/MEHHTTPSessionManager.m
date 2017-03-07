@@ -102,8 +102,6 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 - (BFTask *)POST:(NSString *)URLString
       parameters:(id)parameters {
     
-    
-    
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
     
     [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -114,6 +112,36 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     }];
     
     return completionSource.task;
+}
+
+- (BFTask *)downloadResource : (NSString *)URLString {
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+                                                
+    NSURL *fullURL = [NSURL URLWithString:URLString relativeToURL:self.baseURL];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:fullURL];
+    
+    NSString *authToken = [[MEHUserStoreController sharedUserStoreController]authToken];
+    
+    [request setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
+    
+    NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error) {
+            [completionSource setError:error];
+        } else {
+            [completionSource setResult:data];
+            
+        }
+    }];
+    
+
+    
+    [task resume];
+    
+    return completionSource.task;
+    
+
 }
 
 @end

@@ -56,7 +56,7 @@
             if(_maps.count > 1){
                 [self configurePageView];
             }
-            else {
+            else if (_maps.count == 1){
                 [self configureSingleMap];
             }
         });

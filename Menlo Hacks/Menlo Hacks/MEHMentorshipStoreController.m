@@ -119,7 +119,7 @@ NSString * kMEHClaimedCategory = @"claimed";
     return [[[MEHHTTPSessionManager sharedSessionManager]POST:@"mentorship/create" parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         RLMRealm *realm = [RLMRealm defaultRealm];
         return [realm meh_TransactionWithBlock:^{
-            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result];
+            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result[@"data"]];
             ticket.category = kMEHQueueCategory;
             [realm addOrUpdateObject:ticket];
         }];

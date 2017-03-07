@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class MEHLoginViewController;
+
 @protocol MEHLoginViewControllerDelegate <NSObject>
 
-- (void)didLoginSuccessfully;
+- (void)didLoginSuccessfully: (MEHLoginViewController *)loginVC;
 
 @end
 
 @interface MEHLoginViewController : UIViewController
 
-
++ (UINavigationController *)loginViewControllerInNavigationControllerWithDelegate : (id<MEHLoginViewControllerDelegate>)delegate;
 
 
 @property (nonatomic, weak) id<MEHLoginViewControllerDelegate>delegate;
