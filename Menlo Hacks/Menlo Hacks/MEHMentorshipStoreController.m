@@ -35,14 +35,21 @@ NSString * kMEHClaimedCategory = @"claimed";
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/queue" parameters:nil]
             continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
                 NSArray *tickets = t.result[@"data"];
+                __block NSMutableArray *ticketIDs = [NSMutableArray array];
                 RLMRealm *realm = [RLMRealm defaultRealm];
-                return [realm meh_TransactionWithBlock:^{
+                return [[realm meh_TransactionWithBlock:^{
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                         ticket.category = kMEHQueueCategory;
+                        [ticketIDs addObject:ticket.serverID];
                         [realm addOrUpdateObject:ticket];
                     }
                     
+                }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHQueueCategory];
+                    return [realm meh_TransactionWithBlock:^{
+                        [realm deleteObjects:objectsToDelete];
+                    }];
                 }];
                 
             }];
@@ -53,6 +60,7 @@ NSString * kMEHClaimedCategory = @"claimed";
             continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
                 __block NSDictionary *data = t.result[@"data"];
                 NSDictionary *tickets = data[@"tickets"];
+                __block NSMutableArray *ticketIDs = [NSMutableArray array];
                 RLMRealm *realm = [RLMRealm defaultRealm];
                 return [[realm meh_TransactionWithBlock:^{
                     for (NSString *key in tickets) {
@@ -60,13 +68,20 @@ NSString * kMEHClaimedCategory = @"claimed";
                         for (NSDictionary *ticketDictionary in ticketsList) {
                             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                             ticket.category = key;
+                            [ticketIDs addObject:ticket.serverID];
                             [realm addOrUpdateObject:ticket];
                         }
                     }
 
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    return data[@"categories"];
+                    NSArray *categories = data[@"categories"];
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND (category IN %@)", ticketIDs, categories];
+                    return [[realm meh_TransactionWithBlock:^{
+                        [realm deleteObjects:objectsToDelete];
+                    }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+                        return [BFTask taskWithResult:data[@"categories"]];
+                    }];
                 }];
                 
             }];
@@ -76,14 +91,21 @@ NSString * kMEHClaimedCategory = @"claimed";
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/user/claimed" parameters:nil]
             continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
                 NSArray *tickets = t.result[@"data"];
+                __block NSMutableArray *ticketIDs = [NSMutableArray array];
                 RLMRealm *realm = [RLMRealm defaultRealm];
-                return [realm meh_TransactionWithBlock:^{
+                return [[realm meh_TransactionWithBlock:^{
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
                         ticket.category = kMEHClaimedCategory;
+                        [ticketIDs addObject:ticket.serverID];
                         [realm addOrUpdateObject:ticket];
                     }
                     
+                }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHClaimedCategory];
+                    return [realm meh_TransactionWithBlock:^{
+                        [realm deleteObjects:objectsToDelete];
+                    }];
                 }];
                 
             }];
@@ -118,7 +140,7 @@ NSString * kMEHClaimedCategory = @"claimed";
     return [[[MEHHTTPSessionManager sharedSessionManager]POST:path parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         RLMRealm *realm = [RLMRealm defaultRealm];
         return [realm meh_TransactionWithBlock:^{
-            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result];
+            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result[@"data"]];
             ticket.category = [[self class]categoryForAction:action];
             [realm addOrUpdateObject:ticket];
         }];

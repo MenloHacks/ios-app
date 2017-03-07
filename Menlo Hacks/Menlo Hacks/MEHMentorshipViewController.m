@@ -11,6 +11,7 @@
 #import "AutolayoutHelper.h"
 #import <Bolts/Bolts.h>
 #import <Realm/Realm.h>
+#import "SCLAlertView.h"
 
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
@@ -215,7 +216,20 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 #pragma mark MEHMentorTicketTableViewCellDelegate
 
 - (void)handleAction:(MEHMentorAction)action forTicketWithServerID:(NSString *)serverID {
-    [[MEHMentorshipStoreController sharedMentorshipStoreController]performAction:action onTicketWithIdentifier:serverID];
+    if (![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        //Present it modally
+    }
+    SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
+    
+    NSString *verb = [[[MEHMentorshipStoreController verbForAction:action]stringByAppendingString:@"ing"]capitalizedString];
+    [alertView showWaiting:verb subTitle:nil closeButtonTitle:nil duration:0];
+    
+    [[[MEHMentorshipStoreController sharedMentorshipStoreController]performAction:action onTicketWithIdentifier:serverID]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alertView hideView];
+        });
+        return nil;
+    }];
 }
 
 #pragma mark MEHLoginViewControllerDelegate
