@@ -40,6 +40,11 @@
 
 @implementation MEHLoginViewController
 
+
+- (void)dismissSelf : (id)sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createViews];

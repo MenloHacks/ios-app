@@ -35,6 +35,7 @@ import Bolts
         vc1.title = "Queue";
         
         let vc2 = MEHMentorshipViewController()
+        vc2.requiresLogin = true
         vc2.categories = [kMEHClaimedCategory];
         
         vc2.fetchFromServer = { () -> BFTask in
@@ -44,6 +45,7 @@ import Bolts
         vc2.title = "Claimed";
         
         let vc3 = MEHMentorshipViewController()
+        vc3.requiresLogin = true
         vc3.categories = [kMEHClaimedCategory];
         
         vc3.fetchFromServer = { () -> BFTask in

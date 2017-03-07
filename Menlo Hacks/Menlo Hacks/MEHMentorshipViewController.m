@@ -14,17 +14,23 @@
 
 #import "UIColor+ColorPalette.h"
 #import "UIFontDescriptor+AvenirNext.h"
+#import "UIViewController+Extensions.h"
 
+#import "MEHLoginViewController.h"
 #import "MEHMentorTicket.h"
 #import "MEHMentorshipStoreController.h"
 #import "MEHMentorTicketTableViewCell.h"
+#import "MEHUserStoreController.h"
 
-@interface MEHMentorshipViewController () <UITableViewDelegate, UITableViewDataSource, MEHMentorTicketTableViewCellDelegate>
+@interface MEHMentorshipViewController () <UITableViewDelegate, UITableViewDataSource,
+MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) NSArray<RLMResults<MEHMentorTicket *> *>*tickets;
 @property (nonatomic, strong) NSArray <RLMNotificationToken *>*notificationTokens;
+
+@property (nonatomic) MEHLoginViewController *loginVC;
 
 @end
 
@@ -60,7 +66,13 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     //[refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refresh];
     
-    [self refresh];
+    if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        self.loginVC = [[MEHLoginViewController alloc]init];
+        self.loginVC.delegate = self;
+        [self displayContentController:self.loginVC];
+    } else {
+        [self refresh];
+    }
 
 }
 
@@ -205,5 +217,13 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 - (void)handleAction:(MEHMentorAction)action forTicketWithServerID:(NSString *)serverID {
     [[MEHMentorshipStoreController sharedMentorshipStoreController]performAction:action onTicketWithIdentifier:serverID];
 }
+
+#pragma mark MEHLoginViewControllerDelegate
+
+- (void)didLoginSuccessfully {
+    [self removeContentViewController:self.loginVC];
+    [self refresh];
+}
+
 
 @end
