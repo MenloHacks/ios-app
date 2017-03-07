@@ -31,6 +31,8 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 @property (nonatomic, strong) NSArray<RLMResults<MEHMentorTicket *> *>*tickets;
 @property (nonatomic, strong) NSArray <RLMNotificationToken *>*notificationTokens;
 
+@property (nonatomic, strong) UILabel *noTicketsLabel;
+
 @end
 
 static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.ticket.cell";
@@ -53,6 +55,18 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     
     [AutolayoutHelper configureView:self.view fillWithSubView:self.tableView];
     
+    
+    _noTicketsLabel = [UILabel new];
+    _noTicketsLabel.textColor = [UIColor lightGrayColor];
+    _noTicketsLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
+    _noTicketsLabel.numberOfLines = 0;
+    _noTicketsLabel.text = @"No tickets are available.";
+    _noTicketsLabel.hidden = YES;
+    _noTicketsLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [AutolayoutHelper configureView:self.view subViews:VarBindings(_noTicketsLabel)
+                        constraints: @[@"H:|-[_noTicketsLabel]-|",
+                                       @"X:_noTicketsLabel.centerY == superview.centerY"]];
     
     _loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _loadingView.color = [UIColor menloHacksPurple];
@@ -153,7 +167,15 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         self.tableView.sectionHeaderHeight = 0;
     }
     
-
+    BOOL isEmpty = YES;
+    for (RLMResults *results in tickets) {
+        if (results.count > 0) {
+            isEmpty = NO;
+            break;
+        }
+    }
+    _noTicketsLabel.hidden = !isEmpty;
+    
     
     NSMutableArray *tokens = [NSMutableArray arrayWithCapacity:tickets.count];
     int i = 0;
