@@ -13,11 +13,17 @@
 #import "JNKeychain.h"
 #import "SCLAlertView.h"
 
+#import "MEHErrorCodes.h"
 #import "MEHUserStoreController.h"
 
 
 static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
-static NSInteger kMEHAuthenticationFailedCode = 401;
+
+@interface MEHHTTPSessionManager()
+
+@property (nonatomic) AFNetworkReachabilityStatus reachabilityStatus;
+
+@end
 
 @implementation MEHHTTPSessionManager
 
@@ -42,6 +48,7 @@ static NSInteger kMEHAuthenticationFailedCode = 401;
         
         NSOperationQueue *operationQueue = self.operationQueue;
         [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            self.reachabilityStatus = status;
             switch (status) {
                 case AFNetworkReachabilityStatusReachableViaWWAN:
                 case AFNetworkReachabilityStatusReachableViaWiFi:
@@ -100,10 +107,21 @@ static NSInteger kMEHAuthenticationFailedCode = 401;
     [self.requestSerializer setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
 }
 
+- (void)showNoNetworkError {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [AFMInfoBanner showAndHideWithText:@"Please check your internet connection" style:AFMInfoBannerStyleError];
+    });
+}
+
 #pragma mark networking requests with Bolts
 
 
 - (BFTask *)GET:(NSString *)URLString parameters:(id)parameters {
+    
+    if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+        [self showNoNetworkError];
+        return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
+    }
     
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
     
@@ -122,6 +140,11 @@ static NSInteger kMEHAuthenticationFailedCode = 401;
 - (BFTask *)POST:(NSString *)URLString
       parameters:(id)parameters {
     
+    if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+        [self showNoNetworkError];
+        return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
+    }
+    
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
     
     [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -135,6 +158,12 @@ static NSInteger kMEHAuthenticationFailedCode = 401;
 }
 
 - (BFTask *)downloadResource : (NSString *)URLString {
+    
+    if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+        [self showNoNetworkError];
+        return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
+    }
+    
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
                                                 
     NSURL *fullURL = [NSURL URLWithString:URLString relativeToURL:self.baseURL];

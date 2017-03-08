@@ -50,7 +50,7 @@
 
 - (void)setupView {
     
-    [[[MEHMapStoreController sharedMapStoreController]fetchMaps]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHMapStoreController sharedMapStoreController]fetchMaps]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         _maps= [[MEHMapStoreController sharedMapStoreController]maps];
         dispatch_async(dispatch_get_main_queue(), ^{
             if(_maps.count > 1){

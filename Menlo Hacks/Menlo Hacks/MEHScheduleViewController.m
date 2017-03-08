@@ -88,7 +88,7 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 
 - (void)refresh : (UIRefreshControl *)sender {
     
-    [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         return [[[MEHScheduleStoreController sharedScheduleStoreController]events]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
             self.events = t.result;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -115,7 +115,7 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 - (void)refresh {
   _tableView.hidden = YES;
   [_loadingView startAnimating];
-  [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+  [[[MEHScheduleStoreController sharedScheduleStoreController]fetchScheduleItems]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
       return [[[MEHScheduleStoreController sharedScheduleStoreController]events]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
           self.events = t.result;
           dispatch_async(dispatch_get_main_queue(), ^{

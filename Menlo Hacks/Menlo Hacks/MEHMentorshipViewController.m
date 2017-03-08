@@ -17,6 +17,7 @@
 #import "UIFontDescriptor+AvenirNext.h"
 #import "UIViewController+Extensions.h"
 
+#import "MEHErrorCodes.h"
 #import "MEHLoginViewController.h"
 #import "MEHMentorTicket.h"
 #import "MEHMentorshipStoreController.h"
@@ -113,7 +114,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 }
 
 - (void)refresh : (id)sender {
-    [self.fetchFromServer()continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [self.fetchFromServer()continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         [self resetTickets];
         dispatch_async(dispatch_get_main_queue(), ^{
             [CATransaction begin];
@@ -123,6 +124,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
             [sender endRefreshing];
             [CATransaction commit];
         });
+
         
         return nil;
     }];
@@ -132,7 +134,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     _tableView.hidden = YES;
     [_loadingView startAnimating];
     
-    [self.fetchFromServer()continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [self.fetchFromServer()continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         [self resetTickets];
         dispatch_async(dispatch_get_main_queue(), ^{
             [_loadingView stopAnimating];
@@ -141,6 +143,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
             _loadingView.hidden = YES;
             [_tableView reloadData];
         });
+
 
         return nil;
     }];

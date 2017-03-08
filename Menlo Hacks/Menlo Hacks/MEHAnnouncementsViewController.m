@@ -98,7 +98,8 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 - (void)forceRefresh {
     [_loadingView startAnimating];
     _tableView.hidden = YES;
-    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
+        
         self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -122,7 +123,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 
 - (void)refresh : (UIRefreshControl *)sender {
     
-    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];
         
         dispatch_async(dispatch_get_main_queue(), ^{
