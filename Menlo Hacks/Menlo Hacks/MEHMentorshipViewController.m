@@ -234,41 +234,12 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     __weak typeof(self) weakSelf = self;
     for (RLMResults *results in tickets) {
         tokens[i] = [results addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
-            if(!results) {
-                return;
-            }
-            int section = i;
-            if (error) {
-                NSLog(@"Failed to open Realm on background worker: %@", error);
-                return;
-            }
+            //Basically we have an issue where notifs for some section are received first.
+            //Solving this requires either on a UI level using multiple table views for building a massive new notification system
+            //But I don't have a whole lot of time so I'm going to be lazy.
             
-            UITableView *tableView = weakSelf.tableView;
-            
-            // Initial run of the query will pass nil for the change information
-            if (!changes) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView reloadData];
-                });
-                return;
-            }
-            
-            
-            // Query results have changed, so apply them to the UITableView
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [tableView beginUpdates];
-                [tableView insertRowsAtIndexPaths:[changes insertionsInSection:section]
-                                 withRowAnimation:UITableViewRowAnimationAutomatic];
-                [tableView deleteRowsAtIndexPaths:[changes deletionsInSection:section]
-                                 withRowAnimation:UITableViewRowAnimationAutomatic];
-                [tableView reloadRowsAtIndexPaths:[changes modificationsInSection:section]
-                                 withRowAnimation:UITableViewRowAnimationAutomatic];
-                
-                [tableView endUpdates];
-            });
-            
-            
+            //Next year's organizers: FIX THIS.
+            [weakSelf.tableView reloadData];
         }];
         i++;
     }
