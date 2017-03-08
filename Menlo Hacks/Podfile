@@ -8,6 +8,7 @@ use_frameworks!
 pod 'PageMenu'
 pod 'SCLAlertView-Objective-C'
 pod 'TTTAttributedLabel'
+pod 'AFMInfoBanner'
 
 end
 

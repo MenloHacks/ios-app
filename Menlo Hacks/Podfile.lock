@@ -1,4 +1,6 @@
 PODS:
+  - AFMInfoBanner (1.2.1):
+    - CVKHierarchySearcher (~> 0.2)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -20,6 +22,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - CVKHierarchySearcher (0.2.0)
   - JNKeychain (0.1.4)
   - libPusher (1.6.1):
     - libPusher/Core (= 1.6.1)
@@ -34,6 +37,7 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
+  - AFMInfoBanner
   - AFNetworking
   - Bolts
   - JNKeychain
@@ -54,8 +58,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/pusher/libPusher.git
 
 SPEC CHECKSUMS:
+  AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  CVKHierarchySearcher: 7be8d3bcbcc6f86ff07f785e6c632b5e40da2553
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
   libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
   PageMenu: ba19ff267f7a19e444e93c20a7847b78954a7011
@@ -64,6 +70,6 @@ SPEC CHECKSUMS:
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: e5fc320ae6f2fb9515865d2e5cf7831e54282190
+PODFILE CHECKSUM: 3ccc7d5421c142359453e6985b5afe2ec3a7f310
 
 COCOAPODS: 1.1.1

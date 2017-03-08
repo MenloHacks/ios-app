@@ -9,6 +9,7 @@
 #import "MEHHTTPSessionManager.h"
 
 #import <Bolts/Bolts.h>
+#import "AFMInfoBanner.h"
 #import "JNKeychain.h"
 #import "SCLAlertView.h"
 
@@ -38,7 +39,22 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self setRequestSerializer:serializer];
         
-//        NSOperationQueue *operationQueue = self.operationQueue;
+        NSOperationQueue *operationQueue = self.operationQueue;
+        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            switch (status) {
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    [operationQueue setSuspended:NO];
+                    break;
+                case AFNetworkReachabilityStatusNotReachable:
+                    [AFMInfoBanner showAndHideWithText:@"Please check your internet connection" style:AFMInfoBannerStyleError];
+                default:
+                    [operationQueue setSuspended:YES];
+                    break;
+            }
+        }];
+        
+        [self.reachabilityManager startMonitoring];
         
         [self setAuthorizationHeader];
     }
