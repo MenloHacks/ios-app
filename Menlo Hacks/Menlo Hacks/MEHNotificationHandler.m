@@ -13,6 +13,7 @@
 #import "MEHAPIKeys.h"
 #import "MEHAnnouncementsStoreController.h"
 #import "MEHScheduleStoreController.h"
+#import "MEHMentorshipStoreController.h"
 
 @import UserNotifications;
 @import UIKit;
@@ -95,11 +96,11 @@ static NSString *kMEHMentorshipExpireAction = @"expire";
     
     PTPusherChannel *mentorChannel = [self.pusher subscribeToChannelNamed:kMEHMentorUpdate];
     [mentorChannel bindToEventNamed:kMEHChannelAction handleWithBlock:^(PTPusherEvent *channelEvent) {
-        
+        [[MEHMentorshipStoreController sharedMentorshipStoreController]didReceiveNotification:@[channelEvent.data]];
     }];
     
     [mentorChannel bindToEventNamed:kMEHMentorshipExpireAction handleWithBlock:^(PTPusherEvent *channelEvent) {
-        
+        [[MEHMentorshipStoreController sharedMentorshipStoreController]didReceiveNotification:channelEvent.data];
     }];
 }
 

@@ -152,6 +152,20 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.tickets.count > 0) {
+        BOOL isEmpty = YES;
+        for (RLMResults *results in self.tickets) {
+            if (results.count > 0) {
+                isEmpty = NO;
+                break;
+            }
+        }
+        
+        _noTicketsLabel.hidden = !isEmpty;
+    } else {
+        _noTicketsLabel.hidden = YES;
+    }
+
     return self.tickets.count;
 }
 
@@ -200,14 +214,6 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         self.tableView.sectionHeaderHeight = 0;
     }
     
-    BOOL isEmpty = YES;
-    for (RLMResults *results in tickets) {
-        if (results.count > 0) {
-            isEmpty = NO;
-            break;
-        }
-    }
-    _noTicketsLabel.hidden = !isEmpty;
     
     
     NSMutableArray *tokens = [NSMutableArray arrayWithCapacity:tickets.count];
@@ -233,8 +239,6 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
                 });
                 return;
             }
-            
-            if(changes.deletions.count > 0) 
             
             
             // Query results have changed, so apply them to the UITableView
