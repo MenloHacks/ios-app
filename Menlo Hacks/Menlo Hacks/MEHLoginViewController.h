@@ -14,6 +14,9 @@
 
 - (void)didLoginSuccessfully: (MEHLoginViewController *)loginVC;
 
+@optional
+- (void)didDismissLoginScreen : (MEHLoginViewController *)loginVC;
+
 @end
 
 @interface MEHLoginViewController : UIViewController

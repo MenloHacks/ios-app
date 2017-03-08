@@ -42,7 +42,11 @@
 
 
 - (void)dismissSelf : (id)sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        if(self.delegate && [self.delegate respondsToSelector:@selector(didDismissLoginScreen:)]) {
+            [self.delegate didDismissLoginScreen:self];
+        }
+    }];
 }
 
 + (UINavigationController *)loginViewControllerInNavigationControllerWithDelegate : (id<MEHLoginViewControllerDelegate>)delegate{

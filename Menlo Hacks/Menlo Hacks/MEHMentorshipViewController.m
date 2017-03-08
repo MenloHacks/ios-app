@@ -33,6 +33,9 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 
 @property (nonatomic, strong) UILabel *noTicketsLabel;
 
+@property (nonatomic) MEHMentorAction pendingAction;
+@property (nonatomic, strong) NSString *pendingActionTicket;
+
 @end
 
 static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.ticket.cell";
@@ -76,7 +79,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor menloHacksPurple];
-    //[refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [refresh addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refresh];
     
     if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
@@ -87,6 +90,29 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         [self refresh];
     }
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if(self.pendingActionTicket) {
+        [self handleAction:self.pendingAction forTicketWithServerID:self.pendingActionTicket];
+    }
+}
+
+- (void)refresh : (id)sender {
+    [self.fetchFromServer()continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        [self resetTickets];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CATransaction begin];
+            [CATransaction setCompletionBlock:^{
+                [self.tableView reloadData];
+            }];
+            [sender endRefreshing];
+            [CATransaction commit];
+        });
+        
+        return nil;
+    }];
 }
 
 - (void)refresh {
@@ -111,7 +137,14 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 - (void)resetTickets {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.categories.count];
     for (NSString *category in self.categories) {
-        RLMResults *results = [[MEHMentorTicket objectsWhere:@"category == %@", category]sortedResultsUsingProperty:@"timeCreated" ascending:YES];
+        NSPredicate *predicate;
+        if(self.predicate) {
+            NSString *formatString = [NSString stringWithFormat:@"category == \'%@\' AND %@", category, self.predicate];
+            predicate = [NSPredicate predicateWithFormat:formatString];
+        } else {
+            predicate = [NSPredicate predicateWithFormat:@"category = %@", category];
+        }
+        RLMResults *results = [[MEHMentorTicket objectsWithPredicate:predicate]sortedResultsUsingProperty:@"timeCreated" ascending:YES];
         [array addObject:results];
     }
     self.tickets = [NSArray arrayWithArray:array];
@@ -182,6 +215,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     __weak typeof(self) weakSelf = self;
     for (RLMResults *results in tickets) {
         tokens[i] = [results addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
+            if(!results) {
+                return;
+            }
             int section = i;
             if (error) {
                 NSLog(@"Failed to open Realm on background worker: %@", error);
@@ -198,16 +234,12 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
                 return;
             }
             
+            if(changes.deletions.count > 0) 
+            
+            
             // Query results have changed, so apply them to the UITableView
             dispatch_async(dispatch_get_main_queue(), ^{
-                if(changes.insertions.count == 0 &&
-                   changes.deletions.count == 0 &&
-                   changes.modifications.count == [tableView numberOfRowsInSection:section]) {
-                    //We seem to have a problem where realm triggers changes for all things at certain points.
-                    //A refresh force reloads and we'll never batch send notifs so this fixes the issue.
-                    //hacky, yes––but it works.
-                    return;
-                }
+
                 [tableView beginUpdates];
                 [tableView insertRowsAtIndexPaths:[changes insertionsInSection:section]
                                  withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -238,6 +270,8 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 - (void)handleAction:(MEHMentorAction)action forTicketWithServerID:(NSString *)serverID {
     if (![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
         
+        self.pendingAction = action;
+        self.pendingActionTicket = serverID;
         UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
         UINavigationController *loginVC = [MEHLoginViewController loginViewControllerInNavigationControllerWithDelegate:self];
         [rootVC presentViewController:loginVC animated:YES completion:nil];
@@ -245,6 +279,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         
         return;
     }
+    self.pendingActionTicket = nil;
+    self.pendingAction = 0;
+    
     SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
     
     NSString *verb = [[[MEHMentorshipStoreController verbForAction:action]stringByAppendingString:@"ing"]capitalizedString];
@@ -262,7 +299,12 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 
 - (void)didLoginSuccessfully:(MEHLoginViewController *)loginVC {
-    [self removeContentViewController:loginVC];
+    if(loginVC.presentingViewController) {
+        [loginVC.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    } else {
+       [self removeContentViewController:loginVC]; 
+    }
+    
     [self refresh];
 }
 

@@ -36,7 +36,8 @@ import Bolts
         
         let vc2 = MEHMentorshipViewController()
         vc2.requiresLogin = true
-        vc2.categories = [kMEHClaimedCategory];
+        vc2.predicate = NSPredicate(format: "claimedByMe = 1")
+        vc2.categories = [kMEHInProgressCategory];
         
         vc2.fetchFromServer = { () -> BFTask in
             return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchClaimedQueue()
@@ -46,7 +47,8 @@ import Bolts
         
         let vc3 = MEHMentorshipViewController()
         vc3.requiresLogin = true
-        vc3.categories = [kMEHClaimedCategory];
+        
+        vc3.predicate = NSPredicate(format: "isMine=1")
         
         vc3.fetchFromServer = { () -> BFTask in
             return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchUserQueue().continueWithSuccessBlock({ (task : BFTask) -> AnyObject? in

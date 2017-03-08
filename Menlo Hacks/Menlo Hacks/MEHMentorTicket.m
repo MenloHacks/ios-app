@@ -10,6 +10,11 @@
 
 #import "NSDate+Utilities.h"
 
+NSString * kMEHQueueCategory = @"open";
+NSString * kMEHExpiredCategory = @"expired";
+NSString * kMEHInProgressCategory = @"in_progress";
+NSString * kMEHClosedCategory = @"closed";
+
 @implementation MEHMentorTicket
 
 + (instancetype)ticketFromDictionary: (NSDictionary *)dictionary {
@@ -72,9 +77,46 @@
             ticket.closed = YES;
         }
     }
+    
+    BOOL isMine = [dictionary[@"is_mine"]boolValue];
+    if (ticket.isMine != isMine) {
+        ticket.isMine = isMine;
+    }
+    
+    BOOL claimedByMe = [dictionary[@"claimed_by_me"]boolValue];
+    if (ticket.claimedByMe != claimedByMe) {
+        ticket.claimedByMe = claimedByMe;
+    }
+    
+    if(ticket.closed) {
+        ticket.category = kMEHClosedCategory;
+    } else if (ticket.claimed) {
+        ticket.category = kMEHInProgressCategory;
+    } else if (ticket.expired) {
+        ticket.category = kMEHExpiredCategory;
+    } else {
+        ticket.category = kMEHQueueCategory;
+    }
+    
+    
     return ticket;
 }
 
++ (NSString *)categoryForAction : (MEHMentorAction)action {
+    
+    static dispatch_once_t once;
+    static NSDictionary *_sharedInstance;
+    dispatch_once(&once, ^{
+        _sharedInstance = @{
+                            @(MEHMentorActionClaim) : kMEHInProgressCategory,
+                            @(MEHMentorActionClose) : kMEHClosedCategory,
+                            @(MEHMentorActionReopen) : kMEHQueueCategory
+                            };
+    });
+    
+    return _sharedInstance[@(action)];
+    
+}
 
 
 + (NSString *)primaryKey {

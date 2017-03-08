@@ -38,6 +38,22 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
     return _sharedInstance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if(self) {
+        NSString *username = [JNKeychain loadValueForKey:kMEHKeychainAuthTokenKey];
+        if(username) {
+            if (![MEHUser objectForPrimaryKey:username]) {
+                [JNKeychain saveValue:nil forKey:kMEHKeychainAuthTokenKey];
+                [JNKeychain saveValue:nil forKey:kMEHCurrentUsernameKey];
+            }
+        }
+        
+    }
+    
+    return self;
+}
+
 - (BFTask *)loginWithUsername : (NSString *)username password : (NSString *)password {
     NSDictionary *parameters = @{@"username" : username,
                                  @"password" : password};
@@ -66,7 +82,7 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
 }
 
 - (BOOL)isUserLoggedIn {
-    return NO;
+    return [JNKeychain loadValueForKey:kMEHKeychainAuthTokenKey];
 }
 
 - (BFTask *)getPass {

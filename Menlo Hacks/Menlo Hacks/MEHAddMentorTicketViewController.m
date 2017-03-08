@@ -13,9 +13,14 @@
 #import "SCLAlertView.h"
 
 #import "UIColor+ColorPalette.h"
-#import "MEHMentorshipStoreController.h"
+#import "UIViewController+Extensions.h"
 
-@interface MEHAddMentorTicketViewController ()
+#import "MEHMentorshipStoreController.h"
+#import "MEHLoginViewController.h"
+#import "MEHUserStoreController.h"
+
+
+@interface MEHAddMentorTicketViewController () <MEHLoginViewControllerDelegate>
 
 @end
 
@@ -24,8 +29,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
+    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UINavigationController *loginVC = [MEHLoginViewController loginViewControllerInNavigationControllerWithDelegate:self];
+        [rootVC presentViewController:loginVC animated:YES completion:nil];
+    } else {
+        [self showAlert];
+    }
+
+    // Do any additional setup after loading the view.
+}
+
+
+- (void)didLoginSuccessfully:(MEHLoginViewController *)loginVC {
+    [loginVC.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [self showAlert];
+    }];
     
-    
+}
+
+- (void)didDismissLoginScreen:(MEHLoginViewController *)loginVC {
+    if(self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    } else if (self.parentViewController) {
+        [self.parentViewController removeContentViewController:self];
+    }
+}
+
+
+- (void)showAlert {
     
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
     alert.customViewColor = [UIColor menloHacksPurple];
@@ -41,7 +73,7 @@
         //Maybe add validation instead of just relying on server, but time is limited.
         return YES;
     } actionBlock:^{
-     //   dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        //   dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[[MEHMentorshipStoreController sharedMentorshipStoreController]createTicket:descriptionField.text
                                                                                 location:locationField.text
@@ -57,23 +89,21 @@
             }];
         });
         
-    
+        
         
     }];
     
-
+    
     
     [alert showQuestion:@"Create a ticket" subTitle:nil closeButtonTitle:@"Cancel" duration:0];
     
     
-
+    
     
     [alert alertIsDismissed:^{
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
     }];
-
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

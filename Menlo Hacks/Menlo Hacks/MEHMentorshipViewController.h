@@ -16,6 +16,7 @@
 @property (nonatomic, copy, nonnull) BFTask * (^fetchFromServer)();
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic) BOOL requiresLogin;
+@property (nonatomic) NSPredicate *predicate;
 
 
 

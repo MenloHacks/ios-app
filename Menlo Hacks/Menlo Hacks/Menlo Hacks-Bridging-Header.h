@@ -9,3 +9,4 @@
 #import "MEHMentorshipStoreController.h"
 #import "MEHAddMentorTicketViewController.h"
 #import "UIViewController+Extensions.h"
+#import "MEHMentorTicket.h"

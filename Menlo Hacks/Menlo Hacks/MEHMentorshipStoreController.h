@@ -8,16 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MEHMentorTicket.h"
+
 @class BFTask;
 
-extern NSString * kMEHQueueCategory;
-extern NSString *kMEHClaimedCategory;
-
-typedef enum : NSUInteger {
-    MEHMentorActionClaim=0,
-    MEHMentorActionReopen=1,
-    MEHMentorActionClose=2,
-} MEHMentorAction;
 
 @interface MEHMentorshipStoreController : NSObject
 
@@ -32,6 +26,7 @@ typedef enum : NSUInteger {
 - (BFTask *)performAction: (MEHMentorAction)action onTicketWithIdentifier : (NSString *)serverID;
 + (NSString *)verbForAction : (MEHMentorAction)action;
 
+- (BFTask *)didReceiveNotification : (NSArray *)notification;
 
 
 @end

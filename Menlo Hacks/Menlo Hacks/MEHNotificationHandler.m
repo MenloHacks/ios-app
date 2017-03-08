@@ -30,7 +30,7 @@ static NSString *kMEHMentorUpdate = @"com.vivere.mentor.update";
 static NSString *kMEHEventUpdate = @"com.vivere.event.update";
 
 static NSString *kMEHChannelAction = @"save";
-
+static NSString *kMEHMentorshipExpireAction = @"expire";
 
 @implementation MEHNotificationHandler
 
@@ -95,6 +95,10 @@ static NSString *kMEHChannelAction = @"save";
     
     PTPusherChannel *mentorChannel = [self.pusher subscribeToChannelNamed:kMEHMentorUpdate];
     [mentorChannel bindToEventNamed:kMEHChannelAction handleWithBlock:^(PTPusherEvent *channelEvent) {
+        
+    }];
+    
+    [mentorChannel bindToEventNamed:kMEHMentorshipExpireAction handleWithBlock:^(PTPusherEvent *channelEvent) {
         
     }];
 }

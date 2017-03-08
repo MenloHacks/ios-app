@@ -14,9 +14,6 @@
 #import "MEHHTTPSessionManager.h"
 #import "MEHMentorTicket.h"
 
-NSString * kMEHQueueCategory = @"open";
-NSString * kMEHClaimedCategory = @"claimed";
-
 
 @implementation MEHMentorshipStoreController
 
@@ -96,13 +93,12 @@ NSString * kMEHClaimedCategory = @"claimed";
                 return [[realm meh_TransactionWithBlock:^{
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
-                        ticket.category = kMEHClaimedCategory;
                         [ticketIDs addObject:ticket.serverID];
                         [realm addOrUpdateObject:ticket];
                     }
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHClaimedCategory];
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHInProgressCategory];
                     return [realm meh_TransactionWithBlock:^{
                         [realm deleteObjects:objectsToDelete];
                     }];
@@ -141,12 +137,23 @@ NSString * kMEHClaimedCategory = @"claimed";
         RLMRealm *realm = [RLMRealm defaultRealm];
         return [realm meh_TransactionWithBlock:^{
             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result[@"data"]];
-            ticket.category = [[self class]categoryForAction:action];
+            ticket.category = [MEHMentorTicket categoryForAction:action];
             [realm addOrUpdateObject:ticket];
         }];
     }];
 }
 
+
+- (BFTask *)didReceiveNotification : (NSArray *)notification {
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    return [realm meh_TransactionWithBlock:^{
+        for (NSDictionary *ticketDictionary in notification) {
+            MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
+            [realm addOrUpdateObject:ticket];
+        }
+    }];
+
+}
 + (NSString *)verbForAction : (MEHMentorAction)action {
 
     static dispatch_once_t once;
@@ -163,21 +170,6 @@ NSString * kMEHClaimedCategory = @"claimed";
     
 }
 
-+ (NSString *)categoryForAction : (MEHMentorAction)action {
-    
-    static dispatch_once_t once;
-    static NSDictionary *_sharedInstance;
-    dispatch_once(&once, ^{
-        _sharedInstance = @{
-                            @(MEHMentorActionClaim) : kMEHClaimedCategory,
-                            @(MEHMentorActionClose) : @"closed", //This is disgusting and will break if serverside categories change unlike everything else, but with so little time to finish this RIP.
-                            @(MEHMentorActionReopen) : kMEHQueueCategory
-                            };
-    });
-    
-    return _sharedInstance[@(action)];
-    
-}
 
 
 

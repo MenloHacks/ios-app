@@ -8,6 +8,18 @@
 
 #import <Realm/Realm.h>
 
+extern NSString * kMEHQueueCategory;
+extern NSString * kMEHExpiredCategory;
+extern NSString * kMEHInProgressCategory;
+extern NSString * kMEHClosedCategory;
+
+
+typedef enum : NSUInteger {
+    MEHMentorActionClaim=0,
+    MEHMentorActionReopen=1,
+    MEHMentorActionClose=2,
+} MEHMentorAction;
+
 @interface MEHMentorTicket : RLMObject
 
 + (instancetype)ticketFromDictionary: (NSDictionary *)dictionary;
@@ -20,8 +32,12 @@
 @property BOOL claimed;
 @property BOOL expired;
 @property BOOL closed;
+@property BOOL isMine;
+@property BOOL claimedByMe;
 
 @property NSString *category;
+
++ (NSString *)categoryForAction : (MEHMentorAction)action;
 
 @end
 
