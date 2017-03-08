@@ -207,8 +207,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         
         [AutolayoutHelper configureView:wrapper
                                subViews:NSDictionaryOfVariableBindings(label)
-                            constraints:@[@"H:|-[label]|",
+                            constraints:@[@"H:|[label]|",
                                           @"V:|[label]|"]];
+        
         
         
         return wrapper;
