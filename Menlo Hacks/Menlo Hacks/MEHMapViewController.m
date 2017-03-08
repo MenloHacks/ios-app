@@ -41,11 +41,18 @@
   [_loadingView startAnimating];
 
   [self setupView];
+    
+  self.parentViewController.navigationItem.rightBarButtonItems = @[];
   
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.parentViewController.navigationItem.rightBarButtonItems = @[];
 }
 
 - (void)setupView {

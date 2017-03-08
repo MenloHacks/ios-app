@@ -19,6 +19,14 @@ import Bolts
     
     var pageMenu : CAPSPageMenu?
     
+    override func viewWillAppear(animated: Bool) {
+        if (self.parentViewController?.navigationItem.rightBarButtonItem == nil) {
+            let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
+            self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+        }
+
+    }
+    
     override func viewDidLoad(){
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))

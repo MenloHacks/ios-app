@@ -46,6 +46,9 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.tableFooterView = [UIView new];
   self.tableView.estimatedRowHeight = 40;
+
+  self.parentViewController.navigationItem.rightBarButtonItems = @[];
+    
   [_tableView registerClass:[InfoTableViewCell class] forCellReuseIdentifier:KMEHEventReuseIdentifier];
   TimeView *timeView = [[TimeView alloc]init];
     
@@ -84,6 +87,7 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  self.parentViewController.navigationItem.rightBarButtonItems = @[];
 }
 
 - (void)refresh : (UIRefreshControl *)sender {

@@ -80,7 +80,7 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                              target:self
                                                                              action:@selector(dismissSelf:)];
-        self.navigationItem.leftBarButtonItems = @[item];
+        self.parentViewController.navigationItem.rightBarButtonItems = @[];
     }
     
     self.backgroundImageView = [UIImageView new];

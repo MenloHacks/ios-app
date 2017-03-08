@@ -87,10 +87,13 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
   [self forceRefresh];
+    
+  self.parentViewController.navigationItem.rightBarButtonItems = @[];
   
 }
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  self.parentViewController.navigationItem.rightBarButtonItems = @[];
   _noAnnouncementsLabel.text = @"";
   [self forceRefresh];
 }

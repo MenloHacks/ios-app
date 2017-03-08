@@ -38,6 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor menloHacksPurple];
+    
+    self.parentViewController.navigationItem.rightBarButtonItems = @[];
+    
     [self createViews];
     if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
         self.loginVC = [[MEHLoginViewController alloc]init];
@@ -63,6 +66,11 @@
             [self removeContentViewController:self.loginVC];
         }
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.parentViewController.navigationItem.rightBarButtonItems = @[];
 }
 
 - (void)createViews {
