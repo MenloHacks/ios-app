@@ -301,12 +301,21 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     
     SCLAlertView *alertView = [[SCLAlertView alloc]initWithNewWindow];
     
-    NSString *verb = [[[MEHMentorshipStoreController verbForAction:action]stringByAppendingString:@"ing"]capitalizedString];
+    NSString *verb = [MEHMentorshipStoreController verbForAction:action];
+    
+    //this should be a category.
+    if([verb hasSuffix:@"e"]) {
+        verb = [[[verb substringWithRange:NSMakeRange(0, verb.length-1)]stringByAppendingString:@"ing"]capitalizedString];
+    } else {
+        verb= [[verb stringByAppendingString:@"ing"]capitalizedString];
+    }
+    
     [alertView showWaiting:verb subTitle:nil closeButtonTitle:nil duration:0];
     
     [[[MEHMentorshipStoreController sharedMentorshipStoreController]performAction:action onTicketWithIdentifier:serverID]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [alertView hideView];
+            
         });
         return nil;
     }];
