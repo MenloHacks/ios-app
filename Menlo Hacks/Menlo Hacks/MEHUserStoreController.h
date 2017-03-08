@@ -19,5 +19,6 @@
 - (NSString *)authToken;
 - (NSString *)loggedInUserID;
 - (BFTask *)getPass;
+- (void)logout;
 
 @end

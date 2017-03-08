@@ -17,6 +17,7 @@
 
 
 static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
+static NSInteger kMEHAuthenticationFailedCode = 401;
 
 @implementation MEHHTTPSessionManager
 
@@ -72,6 +73,9 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     NSString *title = @"An error has occurred";
     
     if(code >=400 && code < 500) {
+        if(code == kMEHAuthenticationFailedCode) {
+            [[MEHUserStoreController sharedUserStoreController]logout];
+        }
         NSDictionary *jsonDictionary = [NSJSONSerialization
                                         JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
                                         options:0

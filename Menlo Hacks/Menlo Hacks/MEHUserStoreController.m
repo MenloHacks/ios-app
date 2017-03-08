@@ -73,6 +73,11 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
     }];
 }
 
+- (void)logout {
+    [JNKeychain saveValue:nil forKey:kMEHKeychainAuthTokenKey];
+    [JNKeychain saveValue:nil forKey:kMEHCurrentUsernameKey];
+}
+
 - (NSString *)loggedInUserID {
     return [JNKeychain loadValueForKey:kMEHCurrentUsernameKey];
 }
