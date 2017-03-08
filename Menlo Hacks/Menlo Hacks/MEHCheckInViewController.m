@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UILabel *descriptionLabel;
 @property (nonatomic, strong) PKAddPassButton *addButton;
 
+@property (nonatomic, strong) MEHLoginViewController *loginVC;
+
 
 @end
 
@@ -38,13 +40,29 @@
     self.view.backgroundColor = [UIColor menloHacksPurple];
     [self createViews];
     if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
-        loginVC.delegate = self;
-        [self displayContentController:loginVC];
+        self.loginVC = [[MEHLoginViewController alloc]init];
+        self.loginVC.delegate = self;
+        [self displayContentController:self.loginVC];
     } else {
         [self configureView];
     }
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        if(!self.loginVC) {
+            self.loginVC = [[MEHLoginViewController alloc]init];
+            self.loginVC.delegate = self;
+            [self displayContentController:self.loginVC];
+        }
+    } else {
+        if(self.loginVC) {
+            [self configureView];
+            [self removeContentViewController:self.loginVC];
+        }
+    }
 }
 
 - (void)createViews {
@@ -77,6 +95,7 @@
 }
 
 - (void)didLoginSuccessfully:(MEHLoginViewController *)loginVC {
+    self.loginVC = nil;
     [self removeContentViewController:loginVC];
     [self configureView];
 }

@@ -41,7 +41,7 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
 - (instancetype)init {
     self = [super init];
     if(self) {
-        NSString *username = [JNKeychain loadValueForKey:kMEHKeychainAuthTokenKey];
+        NSString *username = [JNKeychain loadValueForKey:kMEHCurrentUsernameKey];
         if(username) {
             if (![MEHUser objectForPrimaryKey:username]) {
                 [JNKeychain saveValue:nil forKey:kMEHKeychainAuthTokenKey];

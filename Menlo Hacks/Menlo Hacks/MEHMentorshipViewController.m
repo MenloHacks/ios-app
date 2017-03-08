@@ -36,6 +36,8 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 @property (nonatomic) MEHMentorAction pendingAction;
 @property (nonatomic, strong) NSString *pendingActionTicket;
 
+@property (nonatomic, strong) MEHLoginViewController *loginVC;
+
 @end
 
 static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.ticket.cell";
@@ -83,9 +85,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     [self.tableView addSubview:refresh];
     
     if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        MEHLoginViewController *loginVC = [[MEHLoginViewController alloc]init];
-        loginVC.delegate = self;
-        [self displayContentController:loginVC];
+        self.loginVC = [[MEHLoginViewController alloc]init];
+        self.loginVC.delegate = self;
+        [self displayContentController:self.loginVC];
     } else {
         [self refresh];
     }
@@ -94,6 +96,17 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        if(!self.loginVC) {
+            self.loginVC = [[MEHLoginViewController alloc]init];
+            self.loginVC.delegate = self;
+            [self displayContentController:self.loginVC];
+        }
+    } else {
+        if(self.loginVC) {
+            [self removeContentViewController:self.loginVC];
+        }
+    }
     if(self.pendingActionTicket) {
         [self handleAction:self.pendingAction forTicketWithServerID:self.pendingActionTicket];
     }
@@ -306,8 +319,9 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     if(loginVC.presentingViewController) {
         [loginVC.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     } else {
-       [self removeContentViewController:loginVC]; 
+       [self removeContentViewController:self.loginVC];
     }
+    self.loginVC = nil;
     
     [self refresh];
 }
