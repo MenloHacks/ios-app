@@ -46,6 +46,8 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self setRequestSerializer:serializer];
         
+        self.reachabilityStatus = AFNetworkReachabilityStatusUnknown;
+        
         NSOperationQueue *operationQueue = self.operationQueue;
         __weak typeof(self) weakSelf = self;
         [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {

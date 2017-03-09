@@ -145,7 +145,7 @@
                            subViews:NSDictionaryOfVariableBindings(_welcomeLabel, _usernameField, _usernameLabel, _passwordLabel, _passwordField, _nextButton)
                         constraints:@[@"V:|-30-[_welcomeLabel]-20-[_usernameLabel]-[_usernameField]-20-[_passwordLabel]-[_passwordField]-20-[_nextButton]",
                                       @"X:_welcomeLabel.centerX == superview.centerX",
-                                      @"H:|-[_usernameField]-|",
+                                      @"H:|-20-[_usernameField]-20-|",
                                       @"X:_usernameField.left == _usernameLabel.left",
                                       @"X:_passwordLabel.left == _usernameLabel.left",
                                       @"X:_passwordField.left == _usernameField.left",
