@@ -238,12 +238,42 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     __weak typeof(self) weakSelf = self;
     for (RLMResults *results in tickets) {
         tokens[i] = [results addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
-            //Basically we have an issue where notifs for some section are received first.
-            //Solving this requires either on a UI level using multiple table views for building a massive new notification system
-            //But I don't have a whole lot of time so I'm going to be lazy.
             
-            //Next year's organizers: FIX THIS.
-            [weakSelf.tableView reloadData];
+            if(weakSelf.tableView.numberOfSections > 1) {
+                //Basically we have an issue where notifs for some section are received first.
+                //Solving this requires either on a UI level using multiple table views for building a massive new notification system
+                //But I don't have a whole lot of time so I'm going to be lazy.
+                
+                //Next year's organizers: FIX THIS.
+                [weakSelf.tableView reloadData];
+            } else {
+                if (error) {
+                    NSLog(@"Failed to open Realm on background worker: %@", error);
+                    return;
+                }
+                
+                UITableView *tableView = weakSelf.tableView;
+                // Initial run of the query will pass nil for the change information
+                if (!changes) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [tableView reloadData];
+                    });
+                    return;
+                }
+                
+                // Query results have changed, so apply them to the UITableView
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tableView beginUpdates];
+                    [tableView deleteRowsAtIndexPaths:[changes deletionsInSection:0]
+                                     withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView insertRowsAtIndexPaths:[changes insertionsInSection:0]
+                                     withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView reloadRowsAtIndexPaths:[changes modificationsInSection:0]
+                                     withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView endUpdates];
+                });
+            }
+            
         }];
         i++;
     }
@@ -308,6 +338,11 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     self.loginVC = nil;
     
     [self refresh];
+}
+
+- (void)didDismissLoginScreen:(MEHLoginViewController *)loginVC {
+    self.pendingActionTicket = nil;
+    self.pendingAction = 0;
 }
 
 @end

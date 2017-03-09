@@ -42,11 +42,10 @@
 
 
 - (void)dismissSelf : (id)sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        if(self.delegate && [self.delegate respondsToSelector:@selector(didDismissLoginScreen:)]) {
-            [self.delegate didDismissLoginScreen:self];
-        }
-    }];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(didDismissLoginScreen:)]) {
+        [self.delegate didDismissLoginScreen:self];
+    }
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 + (UINavigationController *)loginViewControllerInNavigationControllerWithDelegate : (id<MEHLoginViewControllerDelegate>)delegate{
@@ -81,6 +80,7 @@
                                                                              target:self
                                                                              action:@selector(dismissSelf:)];
         self.parentViewController.navigationItem.rightBarButtonItems = @[];
+        self.navigationItem.leftBarButtonItems = @[item];
     }
     
     self.backgroundImageView = [UIImageView new];

@@ -47,8 +47,12 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         [self setRequestSerializer:serializer];
         
         NSOperationQueue *operationQueue = self.operationQueue;
+        __weak typeof(self) weakSelf = self;
         [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            self.reachabilityStatus = status;
+            if(!weakSelf) {
+                return;
+            }
+            weakSelf.reachabilityStatus = status;
             switch (status) {
                 case AFNetworkReachabilityStatusReachableViaWWAN:
                 case AFNetworkReachabilityStatusReachableViaWiFi:
