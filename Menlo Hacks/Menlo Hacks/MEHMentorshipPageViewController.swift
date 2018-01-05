@@ -19,8 +19,8 @@ import Bolts
     
     var pageMenu : CAPSPageMenu?
     
-    override func viewWillAppear(animated: Bool) {
-        if (self.parentViewController?.navigationItem.rightBarButtonItem == nil) {
+    override func viewWillAppear(_ animated: Bool) {
+        if (self.parent?.navigationItem.rightBarButtonItem == nil) {
             let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
             self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
         }
@@ -36,8 +36,8 @@ import Bolts
         let vc1 = MEHMentorshipViewController()
         vc1.categories = [kMEHQueueCategory];
         
-        vc1.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchQueue()
+        vc1.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchQueue()
         }
         
         vc1.title = "Queue";
@@ -47,8 +47,8 @@ import Bolts
         vc2.predicate = NSPredicate(format: "claimedByMe = 1")
         vc2.categories = [kMEHInProgressCategory];
         
-        vc2.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchClaimedQueue()
+        vc2.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchClaimedQueue()
         }
         
         vc2.title = "Claimed";
@@ -58,8 +58,8 @@ import Bolts
         
         vc3.predicate = NSPredicate(format: "isMine=1")
         
-        vc3.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchUserQueue().continueWithSuccessBlock({ (task : BFTask) -> AnyObject? in
+        vc3.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchUserQueue().continueOnSuccessWith(block: { (task : BFTask) -> AnyObject? in
                 vc3.categories = task.result as! [AnyObject]
                 return task
             });
@@ -76,23 +76,23 @@ import Bolts
         // Initialize page menu with controller array, frame, and optional parameters
         
         let pageMenuParameters: [CAPSPageMenuOption] = [
-            .MenuItemSeparatorWidth(0),
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)),
-            .BottomMenuHairlineColor(UIColor.menloHacksPurple()),
-            .SelectionIndicatorColor(UIColor.menloHacksPurple()),
-            .MenuMargin(20.0),
-            .MenuHeight(40.0),
-            .SelectedMenuItemLabelColor(UIColor.menloHacksPurple()),
-            .UnselectedMenuItemLabelColor(UIColor.menloHacksGray()),
-            .MenuItemFont(UIFont(name: "Avenir", size: 16.0)!),
-            .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorRoundEdges(true),
-            .SelectionIndicatorHeight(2.0),
-            .MenuItemSeparatorPercentageHeight(0.1)
+            .menuItemSeparatorWidth(0),
+            .scrollMenuBackgroundColor(UIColor.white),
+            .viewBackgroundColor(UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)),
+            .bottomMenuHairlineColor(UIColor.menloHacksPurple()),
+            .selectionIndicatorColor(UIColor.menloHacksPurple()),
+            .menuMargin(20.0),
+            .menuHeight(40.0),
+            .selectedMenuItemLabelColor(UIColor.menloHacksPurple()),
+            .unselectedMenuItemLabelColor(UIColor.menloHacksGray()),
+            .menuItemFont(UIFont(name: "Avenir", size: 16.0)!),
+            .useMenuLikeSegmentedControl(true),
+            .menuItemSeparatorRoundEdges(true),
+            .selectionIndicatorHeight(2.0),
+            .menuItemSeparatorPercentageHeight(0.1)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: pageMenuParameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: pageMenuParameters)
         
         // Lastly add page menu as subview of base view controller view
         // or use pageMenu controller in you view hierachy as desired
@@ -103,8 +103,6 @@ import Bolts
     func addTicket(sender : AnyObject) {
         let vc = MEHAddMentorTicketViewController()
         self.displayContentController(vc)
-        
-        
         
     }
 }
