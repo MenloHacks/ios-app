@@ -30,7 +30,7 @@
 
 - (BFTask *)fetchAnnouncements {
     
-    MEHAnnouncement *newestAnnouncement = [[[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO]firstObject];
+    MEHAnnouncement *newestAnnouncement = [[[MEHAnnouncement allObjects]sortedResultsUsingKeyPath:@"time" ascending:NO]firstObject];
     NSDate *newestDate;
     if(newestAnnouncement) {
         newestDate = newestAnnouncement.time;
@@ -69,7 +69,7 @@
 }
 
 - (RLMResults *)announcements {
-    return [[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO];
+    return [[MEHAnnouncement allObjects]sortedResultsUsingKeyPath:@"time" ascending:NO];
 }
 
 

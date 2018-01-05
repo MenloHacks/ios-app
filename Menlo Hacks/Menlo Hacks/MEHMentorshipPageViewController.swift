@@ -21,17 +21,17 @@ import Bolts
     
     override func viewWillAppear(_ animated: Bool) {
         if (self.parent?.navigationItem.rightBarButtonItem == nil) {
-            let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
-            self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket(sender:)))
+            self.parent?.navigationItem.rightBarButtonItem = addButton;
         }
 
     }
     
     override func viewDidLoad(){
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket(sender:)))
         
-        self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+        self.parent?.navigationItem.rightBarButtonItem = addButton;
         
         let vc1 = MEHMentorshipViewController()
         vc1.categories = [kMEHQueueCategory];
@@ -100,7 +100,7 @@ import Bolts
         
     }
     
-    func addTicket(sender : AnyObject) {
+    @objc func addTicket(sender : AnyObject) {
         let vc = MEHAddMentorTicketViewController()
         self.displayContentController(vc)
         

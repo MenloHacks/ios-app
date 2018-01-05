@@ -24,9 +24,9 @@ PODS:
   - Bolts/Tasks (1.9.0)
   - CVKHierarchySearcher (0.2.0)
   - JNKeychain (0.1.4)
-  - libPusher (1.6.1):
-    - libPusher/Core (= 1.6.1)
-  - libPusher/Core (1.6.1):
+  - libPusher (1.6.3):
+    - libPusher/Core (= 1.6.3)
+  - libPusher/Core (1.6.3):
     - SocketRocket (= 0.5.1)
   - PageMenu (2.0.0)
   - Realm (3.0.2):
@@ -41,21 +41,11 @@ DEPENDENCIES:
   - AFNetworking
   - Bolts
   - JNKeychain
-  - libPusher (from `https://github.com/pusher/libPusher.git`, branch `push-notifications`)
+  - libPusher
   - PageMenu
   - Realm
   - SCLAlertView-Objective-C
   - TTTAttributedLabel
-
-EXTERNAL SOURCES:
-  libPusher:
-    :branch: push-notifications
-    :git: https://github.com/pusher/libPusher.git
-
-CHECKOUT OPTIONS:
-  libPusher:
-    :commit: 46aff21de81003c00fa34155472b91d74a5c6db4
-    :git: https://github.com/pusher/libPusher.git
 
 SPEC CHECKSUMS:
   AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
@@ -63,13 +53,13 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CVKHierarchySearcher: 7be8d3bcbcc6f86ff07f785e6c632b5e40da2553
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
-  libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
+  libPusher: b7fcf16e2db51c37915613652311d66065743ead
   PageMenu: 9c38fd7e0d9ef4b1408320f55bb907bbc0e538dc
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   SCLAlertView-Objective-C: 0e54351fa4f98a5c7c6ad3727e6dbb46784534e5
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 3ccc7d5421c142359453e6985b5afe2ec3a7f310
+PODFILE CHECKSUM: 76558b3c363ea2b14cf0e96e137214c07a00c206
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.2.1

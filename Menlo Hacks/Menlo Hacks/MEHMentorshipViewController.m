@@ -160,7 +160,8 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         } else {
             predicate = [NSPredicate predicateWithFormat:@"category = %@", category];
         }
-        RLMResults *results = [[MEHMentorTicket objectsWithPredicate:predicate]sortedResultsUsingProperty:@"timeCreated" ascending:YES];
+        
+        RLMResults *results = [[MEHMentorTicket objectsWithPredicate:predicate]sortedResultsUsingKeyPath:@"timeCreated" ascending:YES];
         [array addObject:results];
     }
     self.tickets = [NSArray arrayWithArray:array];

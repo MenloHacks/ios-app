@@ -200,7 +200,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
 
 - (void)dealloc {
     if(self.notificationToken) {
-        [self.notificationToken stop];
+        [self.notificationToken invalidate];
     }
 }
 

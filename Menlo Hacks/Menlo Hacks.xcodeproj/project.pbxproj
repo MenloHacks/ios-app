@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */; };
 		BE261A051C3321A000BB5920 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A041C3321A000BB5920 /* main.m */; };
 		BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A071C3321A000BB5920 /* AppDelegate.m */; };
 		BE261A0B1C3321A000BB5920 /* MEHScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */; };
@@ -46,13 +47,12 @@
 		BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */; };
 		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
 		BEE318271E6A5BC700F80A45 /* MEHUserStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */; };
-		F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 		3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.debug.xcconfig"; sourceTree = "<group>"; };
-		9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A001C3321A000BB5920 /* Menlo Hacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menlo Hacks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A041C3321A000BB5920 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE261A061C3321A000BB5920 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */,
+				5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +150,7 @@
 		806F197E3C26ED6CB27DA003 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */,
+				0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -460,7 +460,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */ = {
@@ -638,7 +638,7 @@
 				DEVELOPMENT_TEAM = 3R5J785EXT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -646,7 +646,7 @@
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -663,14 +663,14 @@
 				DEVELOPMENT_TEAM = 3R5J785EXT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
