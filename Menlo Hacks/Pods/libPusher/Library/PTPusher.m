@@ -16,7 +16,6 @@
 #import "PTPusherErrors.h"
 #import "PTPusherChannelServerBasedAuthorization.h"
 #import "PTPusherChannel_Private.h"
-#import "SRWebSocket.h"
 
 #define kPUSHER_HOST @"ws.pusherapp.com"
 
@@ -77,7 +76,7 @@ NSURL *PTPusherConnectionURL(NSString *host, NSString *key, NSString *clientID, 
     self.connection = connection;
     self.connection.delegate = self;
     self.reconnectDelay = kPTPusherDefaultReconnectDelay;
-
+    
     /* Three reconnection attempts should be more than enough attempts
      * to reconnect where the user has simply locked their device or
      * backgrounded the app.
@@ -116,6 +115,11 @@ NSURL *PTPusherConnectionURL(NSString *host, NSString *key, NSString *clientID, 
     PTPusherConnection *connection = [[PTPusherConnection alloc] initWithURL:serviceURL];
     PTPusher *pusher = [[self alloc] initWithConnection:connection];
     pusher.delegate = delegate;
+
+    #if TARGET_OS_IPHONE
+    pusher.nativePusher = [[PTNativePusher alloc] initWithPusherAppKey:key delegate:(id<PTPusherDelegate>)delegate ];
+    #endif
+
     return pusher;
 }
 
@@ -283,12 +287,10 @@ NSURL *PTPusherConnectionURL(NSString *host, NSString *key, NSString *clientID, 
 - (void)subscribeToChannel:(PTPusherChannel *)channel
 {
   if (channel.isPrivate) {
-    NSString *socketID = self.connection.socketID;
-    [self.channelAuthorizationDelegate pusherChannel:channel requiresAuthorizationForSocketID:socketID completionHandler:^(BOOL isAuthorized, NSDictionary *authData, NSError *error) {
-      
+    [self.channelAuthorizationDelegate pusherChannel:channel requiresAuthorizationForSocketID:self.connection.socketID completionHandler:^(BOOL isAuthorized, NSDictionary *authData, NSError *error) {
+
       if (!self.connection.isConnected) return;
-      if (self.connection.socketID != socketID) return; // Socket may have changed since the auth request was made
-      
+
       if (isAuthorized) {
         [channel subscribeWithAuthorization:authData];
       }
@@ -378,7 +380,7 @@ NSURL *PTPusherConnectionURL(NSString *host, NSString *key, NSString *clientID, 
 {
   NSError *error = nil;
 
-  if (errorCode > 0 && errorCode != SRStatusCodeNormal && errorCode != SRStatusCodeGoingAway) {
+  if (errorCode > 0) {
     if (reason == nil) {
         reason = @"Unknown error"; // not sure what could cause this to be nil, but just playing it safe
     }

@@ -11,6 +11,7 @@
 #endif
 
 #import "PTEventListener.h"
+#import "PTNativePusher.h"
 #import "PTPusher.h"
 #import "PTPusherAPI.h"
 #import "PTPusherChannel.h"
