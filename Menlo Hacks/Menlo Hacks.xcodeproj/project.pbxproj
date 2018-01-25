@@ -366,7 +366,7 @@
 				TargetAttributes = {
 					BE2619FF1C3321A000BB5920 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 3R5J785EXT;
+						DevelopmentTeam = YWVU2284UC;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -460,7 +460,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */ = {
@@ -634,15 +634,17 @@
 				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3R5J785EXT;
+				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -659,15 +661,17 @@
 				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3R5J785EXT;
+				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

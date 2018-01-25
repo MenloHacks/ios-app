@@ -50,6 +50,7 @@
   self.descriptionLabel = [UILabel new];
   self.descriptionLabel.textColor = [UIColor menloHacksPurple];
   self.descriptionLabel.font = standardTitleFont;
+  self.descriptionLabel.numberOfLines = 0;
   self.locationLabel = [UILabel new];
   self.locationLabel.textColor = [UIColor menloHacksGray];
   self.locationLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];
@@ -77,6 +78,7 @@
                                         @"V:|[_mapImageViewScrollView]-[_descriptionLabel]-[_locationLabel]-[_timeLabel]-[_descriptionTextView]-15-[_addToCalendarButton]-75-|",
                                         @"X:_locationLabel.centerX == superview.centerX",
                                         @"X:_descriptionLabel.centerX == superview.centerX",
+                                        @"H:|-[_descriptionLabel]-|",
                                         @"X:_addToCalendarButton.centerX == superview.centerX",
                                         @"X:_timeLabel.centerX == superview.centerX",
                                         @"H:|-[_descriptionTextView]-|"]];

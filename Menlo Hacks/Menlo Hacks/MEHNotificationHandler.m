@@ -24,11 +24,11 @@
 
 @end
 
-static NSString * const kMEHNotificationTopic = @"com.vivere.all_devices";
+static NSString * const kMEHNotificationTopic = @"com.vivereiii.all_devices";
 
-static NSString *kMEHAnnouncementUpdate = @"com.vivere.announcement.update";
-static NSString *kMEHMentorUpdate = @"com.vivere.mentor.update";
-static NSString *kMEHEventUpdate = @"com.vivere.event.update";
+static NSString *kMEHAnnouncementUpdate = @"com.vivereiii.update";
+static NSString *kMEHMentorUpdate = @"com.vivereiii.update";
+static NSString *kMEHEventUpdate = @"com.vivereiii.update";
 
 static NSString *kMEHChannelAction = @"save";
 static NSString *kMEHMentorshipExpireAction = @"expire";

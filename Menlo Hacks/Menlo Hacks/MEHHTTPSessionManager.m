@@ -31,7 +31,7 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     static dispatch_once_t once;
     static MEHHTTPSessionManager *_sharedInstance;
     dispatch_once(&once, ^{
-        _sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.menlohacks.com/"]];
+        _sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.menlohacks.com"]];
     });
     
     return _sharedInstance;
@@ -193,13 +193,16 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
             NSError *error = [NSError errorWithDomain:@"com.menlohacks.download" code:code userInfo:@{@"message" : @"An unknown error has occurred"}];
 
             [completionSource setError:error];
+            return;
             
         }
         
         if(error) {
             [completionSource setError:error];
+            return;
         } else {
             [completionSource setResult:data];
+            return;
             
         }
     }];
