@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Map;
+@class MEHLocation;
 
 @interface SingleMapViewController : UIViewController
 
--(void)configureFromMap: (Map *)map;
+-(void)configureFromMap: (MEHLocation *)map;
 @property (nonatomic) NSUInteger index;
 
 @end

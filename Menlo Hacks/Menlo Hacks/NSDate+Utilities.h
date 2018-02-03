@@ -13,5 +13,9 @@
 + (NSString *)formattedTimeUntilDate : (NSDate *)toDate fromDate: (NSDate *)fromDate;
 + (NSString *)formattedShortTimeFromDate : (NSDate *)date;
 + (NSString *)formattedDayOftheWeekFromDate : (NSDate *)date;
++ (NSDate *)dateFromISOString : (NSString *)string;
++ (NSInteger)numberOfDaysBetween : (NSDate *)firstDate and: (NSDate *)secondDate;
+- (NSDate *)add24Hours;
++ (NSString *)ISOStringFromDate : (NSDate *)date;
 
 @end

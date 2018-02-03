@@ -39,7 +39,7 @@
 }
 
 -(void)commonInit {
-  UIColor *progressColor = [UIColor emeraldGreen];
+  UIColor *progressColor = [UIColor menloHacksPurple];
   self.backgroundColor = [UIColor whiteColor];
   UIView *progressView = [UIView new];
   progressView.backgroundColor = progressColor;
@@ -68,10 +68,7 @@
                                     @"X:_timeLeftLabel.centerY == superview.centerY"]];
   [self setupTimer];
   
-  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]init];
-  [tapGestureRecognizer addTarget:self action:@selector(launchLargeView:)];
-  [self addGestureRecognizer:tapGestureRecognizer];
-
+    
 }
 
 -(void)updateView : (NSTimer *)timer {
@@ -157,10 +154,6 @@
     _totalEventLengthInMinutes = ([_endDate timeIntervalSinceDate:_startDate] / 60);
     [self updateView:nil];
   }
-}
-
--(void)launchLargeView : (UITapGestureRecognizer *)recognizer {
- [(AppDelegate *)[[UIApplication sharedApplication] delegate]switchToCountdown];
 }
 
 

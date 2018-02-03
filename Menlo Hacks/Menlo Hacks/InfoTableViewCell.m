@@ -12,14 +12,15 @@
 #import "UIFontDescriptor+AvenirNext.h"
 #import "UIColor+ColorPalette.h"
 #import "NSDate+Utilities.h"
+#import "TTTAttributedLabel.h"
 
-#import "Event.h"
-#import "EventLocation.h"
-#import "Announcement.h"
+#import "MEHEvent.h"
+#import "MEHLocation.h"
+#import "MEHAnnouncement.h"
 
-@interface InfoTableViewCell()
+@interface InfoTableViewCell() <TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
 
@@ -47,18 +48,19 @@
 
 -(void)commonInit {
   UIFont *font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleBody]size:0];
-  _descriptionLabel = [UILabel new];
+  _descriptionLabel = [TTTAttributedLabel new];
   _descriptionLabel.font = font;
   _descriptionLabel.numberOfLines = 0;
-  _descriptionLabel.textColor = [UIColor menloBlue];
+  _descriptionLabel.textColor = [UIColor menloHacksGray];
+    _descriptionLabel.delegate = self;
   
   _timeLabel = [UILabel new];
   _timeLabel.font = font;
-  _timeLabel.textColor = [UIColor menloGold];
+  _timeLabel.textColor = [UIColor menloHacksPurple];
   
   _locationLabel = [UILabel new];
   _locationLabel.font = font;
-  _locationLabel.textColor = [UIColor lightGrayColor];
+  _locationLabel.textColor = [UIColor menloHacksGray];
   _locationLabel.textAlignment = NSTextAlignmentRight;
   
   [AutolayoutHelper configureView:self subViews:VarBindings(_locationLabel, _timeLabel, _descriptionLabel)
@@ -70,16 +72,23 @@
   
 }
 
--(void)configureWithEvent : (Event *)event{
-  _descriptionLabel.text = event.short_description;
-  _locationLabel.text = event.location.location_name;
-  _timeLabel.text = [NSDate formattedShortTimeFromDate:event.start_time];
+-(void)configureWithEvent : (MEHEvent *)event{
+    _descriptionLabel.enabledTextCheckingTypes = 0;
+    _descriptionLabel.text = event.shortDescription;
+    _locationLabel.text = event.location.locationName;
+    _timeLabel.text = [NSDate formattedShortTimeFromDate:event.startTime];
+    
 }
 
--(void)configureWithAnnouncement:(Announcement *)announcement {
-  _descriptionLabel.text = announcement.messageContents;
-  _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.fireTime];
-  _locationLabel.text = @"";
+-(void)configureWithAnnouncement:(MEHAnnouncement *)announcement {
+     _descriptionLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    _descriptionLabel.text = announcement.message;
+    _timeLabel.text = [NSDate formattedShortTimeFromDate:announcement.time];
+    _locationLabel.text = @"";
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (Extensions)
+
 - (void)displayContentController:(UIViewController *)content;
+- (void)removeContentViewController : (UIViewController *)content;
+- (void)presentViewControllerFromVisibleViewController:(UIViewController *)viewControllerToPresent;
+
 @end

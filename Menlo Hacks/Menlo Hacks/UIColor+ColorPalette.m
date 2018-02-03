@@ -10,25 +10,18 @@
 
 @implementation UIColor(ColorPalette)
 
-+ (instancetype)menloBlue {
-  return [self colorWithRed:11.f   / 255.0f
-                      green:61.0f / 255.0f
-                       blue:145.0f / 255.0f
++ (instancetype)menloHacksPurple {
+  return [self colorWithRed:125.f   / 255.0f
+                      green:91.0f / 255.0f
+                       blue:166.0f / 255.0f
                       alpha:1.f];
 }
 
-+ (instancetype)menloGold {
-  return [self colorWithRed:254.f   / 255.0f
-                      green:166.0f / 255.0f
-                       blue:32.0f / 255.0f
++ (instancetype)menloHacksGray {
+  return [self colorWithRed:89.f   / 255.0f
+                      green:89.0f / 255.0f
+                       blue:89.0f / 255.0f
                       alpha:1.f];
-}
-
-+ (instancetype)emeraldGreen {
-  return [self colorWithRed:46.f/255.f
-                      green:204.f/255.f
-                       blue:133.f/255.f
-                      alpha:1];
 }
 
 @end

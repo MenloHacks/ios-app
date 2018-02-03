@@ -1,0 +1,77 @@
+//
+//  AnnouncementsStoreController.m
+//  Menlo Hacks
+//
+//  Created by Jason Scharff on 1/1/16.
+//  Copyright © 2016 MenloHacks. All rights reserved.
+//
+
+#import "MEHAnnouncementsStoreController.h"
+
+#import <Bolts/Bolts.h>
+#import "RLMRealm+MenloHacks.h"
+#import "NSDate+Utilities.h"
+
+#import "MEHAnnouncement.h"
+#import "MEHHTTPSessionManager.h"
+
+
+@implementation MEHAnnouncementsStoreController
+
++ (instancetype)sharedAnnouncementsStoreController {
+  static dispatch_once_t once;
+  static MEHAnnouncementsStoreController *_sharedInstance;
+  dispatch_once(&once, ^{
+    _sharedInstance = [[self alloc] init];
+  });
+  
+  return _sharedInstance;
+}
+
+- (BFTask *)fetchAnnouncements {
+    
+    MEHAnnouncement *newestAnnouncement = [[[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO]firstObject];
+    NSDate *newestDate;
+    if(newestAnnouncement) {
+        newestDate = newestAnnouncement.time;
+    } else {
+        newestDate = [NSDate distantPast];
+    }
+    
+    NSDictionary *parameters = @{@"since_date" : [NSDate ISOStringFromDate:newestDate]};
+    
+    return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"announcements" parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        NSArray *announcements = t.result[@"data"];
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            for (NSDictionary *announcementDictionary in announcements) {
+                MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:announcementDictionary];
+                [realm addOrUpdateObject:announcement];
+            }
+        }];
+
+
+        
+
+    }];
+    
+}
+
+- (BFTask *)didReceiveNotification: (NSDictionary *)notificationBody {
+    if (notificationBody) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        return [realm meh_TransactionWithBlock:^{
+            MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:notificationBody];
+            [realm addOrUpdateObject:announcement];
+        }];
+    }
+    return nil;
+}
+
+- (RLMResults *)announcements {
+    return [[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO];
+}
+
+
+
+@end

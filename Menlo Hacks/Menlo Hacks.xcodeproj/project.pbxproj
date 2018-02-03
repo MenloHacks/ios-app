@@ -1,0 +1,675 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE261A051C3321A000BB5920 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A041C3321A000BB5920 /* main.m */; };
+		BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A071C3321A000BB5920 /* AppDelegate.m */; };
+		BE261A0B1C3321A000BB5920 /* MEHScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */; };
+		BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE261A0F1C3321A000BB5920 /* Assets.xcassets */; };
+		BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */; };
+		BE386FD31C334C2800020989 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD21C334C2800020989 /* TimeView.m */; };
+		BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */; };
+		BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FD81C33577900020989 /* AutolayoutHelper.m */; };
+		BE386FDC1C33577900020989 /* LinearLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FDA1C33577900020989 /* LinearLayout.m */; };
+		BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FE71C336D3300020989 /* NSDate+Utilities.m */; };
+		BE386FEB1C34847F00020989 /* MEHEventTimingStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FEA1C34847F00020989 /* MEHEventTimingStoreController.m */; };
+		BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */; };
+		BE386FF21C34A52200020989 /* MEHScheduleStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF11C34A52200020989 /* MEHScheduleStoreController.m */; };
+		BE386FF51C34A59200020989 /* MEHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF41C34A59200020989 /* MEHEvent.m */; };
+		BE386FF81C34BF1700020989 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FF71C34BF1700020989 /* InfoTableViewCell.m */; };
+		BE386FFE1C35C6EC00020989 /* MEHAnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE386FFD1C35C6EC00020989 /* MEHAnnouncementsViewController.m */; };
+		BE3870011C35C6FE00020989 /* MEHMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870001C35C6FE00020989 /* MEHMapViewController.m */; };
+		BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870031C35CD3200020989 /* UIViewController+Extensions.m */; };
+		BE4215021CA4FEBF00BB7CA9 /* MEHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4215011CA4FEBF00BB7CA9 /* MEHLocation.m */; };
+		BE4215051CA5017200BB7CA9 /* MEHEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4215041CA5017200BB7CA9 /* MEHEventDetailViewController.m */; };
+		BE5387781E649CC700C99C53 /* MEHNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */; };
+		BE5E6D011E67F03600E50B08 /* MEHCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5E6D001E67F03600E50B08 /* MEHCheckInViewController.m */; };
+		BE5F9BC01E60BF43005CED30 /* RLMRealm+MenloHacks.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5F9BBF1E60BF43005CED30 /* RLMRealm+MenloHacks.m */; };
+		BE6D94631E6CA70E00730701 /* MEHMentorshipPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94621E6CA70E00730701 /* MEHMentorshipPageViewController.swift */; };
+		BE6D94661E6CADB900730701 /* MEHMentorshipStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */; };
+		BE6D94691E6CBC2500730701 /* MEHMentorTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94681E6CBC2500730701 /* MEHMentorTicket.m */; };
+		BE6D946C1E6CC74200730701 /* MEHMentorshipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D946B1E6CC74200730701 /* MEHMentorshipViewController.m */; };
+		BE6D946F1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D946E1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.m */; };
+		BE6D94721E6D251900730701 /* MEHAddMentorTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94711E6D251900730701 /* MEHAddMentorTicketViewController.m */; };
+		BE6D94751E6D3CA400730701 /* MEHMentorActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94741E6D3CA400730701 /* MEHMentorActionButton.m */; };
+		BE88E3351E5FCACF00921416 /* MEHAnnouncement.m in Sources */ = {isa = PBXBuildFile; fileRef = BE88E3341E5FCACF00921416 /* MEHAnnouncement.m */; };
+		BE88E3381E5FD18A00921416 /* MEHHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE88E3371E5FD18A00921416 /* MEHHTTPSessionManager.m */; };
+		BEA8B6F91E6A0E5D00030DDD /* MEHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6F81E6A0E5D00030DDD /* MEHLoginViewController.m */; };
+		BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */; };
+		BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB928281E6A9B270072C5CB /* MEHUser.m */; };
+		BED5EC771C370474002B5385 /* MEHAnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */; };
+		BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */; };
+		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
+		BEE318271E6A5BC700F80A45 /* MEHUserStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */; };
+		F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
+		3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.debug.xcconfig"; sourceTree = "<group>"; };
+		9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE261A001C3321A000BB5920 /* Menlo Hacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menlo Hacks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE261A041C3321A000BB5920 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BE261A061C3321A000BB5920 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BE261A071C3321A000BB5920 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BE261A091C3321A000BB5920 /* MEHScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHScheduleViewController.h; sourceTree = "<group>"; };
+		BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEHScheduleViewController.m; sourceTree = "<group>"; };
+		BE261A0F1C3321A000BB5920 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE261A121C3321A000BB5920 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BE261A141C3321A000BB5920 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE386FD11C334C2800020989 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
+		BE386FD21C334C2800020989 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
+		BE386FD41C33554A00020989 /* UIFontDescriptor+AvenirNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFontDescriptor+AvenirNext.h"; sourceTree = "<group>"; };
+		BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFontDescriptor+AvenirNext.m"; sourceTree = "<group>"; };
+		BE386FD71C33577900020989 /* AutolayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutolayoutHelper.h; sourceTree = "<group>"; };
+		BE386FD81C33577900020989 /* AutolayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutolayoutHelper.m; sourceTree = "<group>"; };
+		BE386FD91C33577900020989 /* LinearLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearLayout.h; sourceTree = "<group>"; };
+		BE386FDA1C33577900020989 /* LinearLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearLayout.m; sourceTree = "<group>"; };
+		BE386FE31C336C9600020989 /* Menlo Hacks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Menlo Hacks-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE386FE61C336D3300020989 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		BE386FE71C336D3300020989 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		BE386FE91C34847F00020989 /* MEHEventTimingStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHEventTimingStoreController.h; sourceTree = "<group>"; };
+		BE386FEA1C34847F00020989 /* MEHEventTimingStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHEventTimingStoreController.m; sourceTree = "<group>"; };
+		BE386FEC1C349D7200020989 /* UIColor+ColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorPalette.h"; sourceTree = "<group>"; };
+		BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorPalette.m"; sourceTree = "<group>"; };
+		BE386FF01C34A52200020989 /* MEHScheduleStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHScheduleStoreController.h; sourceTree = "<group>"; };
+		BE386FF11C34A52200020989 /* MEHScheduleStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHScheduleStoreController.m; sourceTree = "<group>"; };
+		BE386FF31C34A59200020989 /* MEHEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHEvent.h; sourceTree = "<group>"; };
+		BE386FF41C34A59200020989 /* MEHEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHEvent.m; sourceTree = "<group>"; };
+		BE386FF61C34BF1700020989 /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		BE386FF71C34BF1700020989 /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		BE386FFC1C35C6EC00020989 /* MEHAnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAnnouncementsViewController.h; sourceTree = "<group>"; };
+		BE386FFD1C35C6EC00020989 /* MEHAnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAnnouncementsViewController.m; sourceTree = "<group>"; };
+		BE386FFF1C35C6FE00020989 /* MEHMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMapViewController.h; sourceTree = "<group>"; };
+		BE3870001C35C6FE00020989 /* MEHMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMapViewController.m; sourceTree = "<group>"; };
+		BE3870021C35CD3200020989 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
+		BE3870031C35CD3200020989 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
+		BE4215001CA4FEBF00BB7CA9 /* MEHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHLocation.h; sourceTree = "<group>"; };
+		BE4215011CA4FEBF00BB7CA9 /* MEHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHLocation.m; sourceTree = "<group>"; };
+		BE4215031CA5017200BB7CA9 /* MEHEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHEventDetailViewController.h; sourceTree = "<group>"; };
+		BE4215041CA5017200BB7CA9 /* MEHEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHEventDetailViewController.m; sourceTree = "<group>"; };
+		BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHNotificationHandler.h; sourceTree = "<group>"; };
+		BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHNotificationHandler.m; sourceTree = "<group>"; };
+		BE5387791E649D8800C99C53 /* MEHAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHAPIKeys.h; sourceTree = "<group>"; };
+		BE5E6CFF1E67F03600E50B08 /* MEHCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHCheckInViewController.h; sourceTree = "<group>"; };
+		BE5E6D001E67F03600E50B08 /* MEHCheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHCheckInViewController.m; sourceTree = "<group>"; };
+		BE5F9BBE1E60BF43005CED30 /* RLMRealm+MenloHacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RLMRealm+MenloHacks.h"; sourceTree = "<group>"; };
+		BE5F9BBF1E60BF43005CED30 /* RLMRealm+MenloHacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RLMRealm+MenloHacks.m"; sourceTree = "<group>"; };
+		BE6D94621E6CA70E00730701 /* MEHMentorshipPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MEHMentorshipPageViewController.swift; sourceTree = "<group>"; };
+		BE6D94641E6CADB900730701 /* MEHMentorshipStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMentorshipStoreController.h; sourceTree = "<group>"; };
+		BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMentorshipStoreController.m; sourceTree = "<group>"; };
+		BE6D94671E6CBC2500730701 /* MEHMentorTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMentorTicket.h; sourceTree = "<group>"; };
+		BE6D94681E6CBC2500730701 /* MEHMentorTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMentorTicket.m; sourceTree = "<group>"; };
+		BE6D946A1E6CC74200730701 /* MEHMentorshipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMentorshipViewController.h; sourceTree = "<group>"; };
+		BE6D946B1E6CC74200730701 /* MEHMentorshipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMentorshipViewController.m; sourceTree = "<group>"; };
+		BE6D946D1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMentorTicketTableViewCell.h; sourceTree = "<group>"; };
+		BE6D946E1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMentorTicketTableViewCell.m; sourceTree = "<group>"; };
+		BE6D94701E6D251900730701 /* MEHAddMentorTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAddMentorTicketViewController.h; sourceTree = "<group>"; };
+		BE6D94711E6D251900730701 /* MEHAddMentorTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAddMentorTicketViewController.m; sourceTree = "<group>"; };
+		BE6D94731E6D3CA400730701 /* MEHMentorActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMentorActionButton.h; sourceTree = "<group>"; };
+		BE6D94741E6D3CA400730701 /* MEHMentorActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMentorActionButton.m; sourceTree = "<group>"; };
+		BE88E3331E5FCACF00921416 /* MEHAnnouncement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAnnouncement.h; sourceTree = "<group>"; };
+		BE88E3341E5FCACF00921416 /* MEHAnnouncement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAnnouncement.m; sourceTree = "<group>"; };
+		BE88E3361E5FD18A00921416 /* MEHHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHHTTPSessionManager.h; sourceTree = "<group>"; };
+		BE88E3371E5FD18A00921416 /* MEHHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHHTTPSessionManager.m; sourceTree = "<group>"; };
+		BE89E77C1E668DBD00F807DB /* Menlo Hacks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Menlo Hacks.entitlements"; sourceTree = "<group>"; };
+		BEA8B6F71E6A0E5D00030DDD /* MEHLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHLoginViewController.h; sourceTree = "<group>"; };
+		BEA8B6F81E6A0E5D00030DDD /* MEHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHLoginViewController.m; sourceTree = "<group>"; };
+		BEA8B6FA1E6A0EA500030DDD /* MEHBottomBorderTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHBottomBorderTextField.h; sourceTree = "<group>"; };
+		BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHBottomBorderTextField.m; sourceTree = "<group>"; };
+		BEB928271E6A9B270072C5CB /* MEHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHUser.h; sourceTree = "<group>"; };
+		BEB928281E6A9B270072C5CB /* MEHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHUser.m; sourceTree = "<group>"; };
+		BED5EC751C370474002B5385 /* MEHAnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAnnouncementsStoreController.h; sourceTree = "<group>"; };
+		BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAnnouncementsStoreController.m; sourceTree = "<group>"; };
+		BED5EC7B1C3884F0002B5385 /* MEHMapStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMapStoreController.h; sourceTree = "<group>"; };
+		BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHMapStoreController.m; sourceTree = "<group>"; };
+		BED5EC811C39AE56002B5385 /* SingleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleMapViewController.h; sourceTree = "<group>"; };
+		BED5EC821C39AE56002B5385 /* SingleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleMapViewController.m; sourceTree = "<group>"; };
+		BED80D1C1E6FE74900997E49 /* MEHErrorCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHErrorCodes.h; sourceTree = "<group>"; };
+		BEE318251E6A5BC700F80A45 /* MEHUserStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHUserStoreController.h; sourceTree = "<group>"; };
+		BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHUserStoreController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE2619FD1C3321A000BB5920 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		806F197E3C26ED6CB27DA003 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE2619F71C3321A000BB5920 = {
+			isa = PBXGroup;
+			children = (
+				BE261A021C3321A000BB5920 /* Menlo Hacks */,
+				BE261A011C3321A000BB5920 /* Products */,
+				BFBED57A819B4387EC4952CF /* Pods */,
+				806F197E3C26ED6CB27DA003 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BE261A011C3321A000BB5920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE261A001C3321A000BB5920 /* Menlo Hacks.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE261A021C3321A000BB5920 /* Menlo Hacks */ = {
+			isa = PBXGroup;
+			children = (
+				BE89E77C1E668DBD00F807DB /* Menlo Hacks.entitlements */,
+				BE5387791E649D8800C99C53 /* MEHAPIKeys.h */,
+				BED5EC741C37045A002B5385 /* Model Classes */,
+				BE88E3391E5FD19500921416 /* Networking */,
+				BE386FEF1C349D7900020989 /* Categories */,
+				BE386FDF1C33579F00020989 /* Views */,
+				BE386FDE1C33579000020989 /* ViewControllers */,
+				BE386FE11C3357CD00020989 /* Third Party */,
+				BE386FE01C3357B100020989 /* StoreControllers */,
+				BE261A061C3321A000BB5920 /* AppDelegate.h */,
+				BE261A071C3321A000BB5920 /* AppDelegate.m */,
+				BE261A0F1C3321A000BB5920 /* Assets.xcassets */,
+				BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */,
+				BE261A141C3321A000BB5920 /* Info.plist */,
+				BE261A031C3321A000BB5920 /* Supporting Files */,
+				BE386FE31C336C9600020989 /* Menlo Hacks-Bridging-Header.h */,
+			);
+			path = "Menlo Hacks";
+			sourceTree = "<group>";
+		};
+		BE261A031C3321A000BB5920 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE261A041C3321A000BB5920 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE386FDE1C33579000020989 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE6D94701E6D251900730701 /* MEHAddMentorTicketViewController.h */,
+				BE6D94711E6D251900730701 /* MEHAddMentorTicketViewController.m */,
+				BE6D946A1E6CC74200730701 /* MEHMentorshipViewController.h */,
+				BE6D946B1E6CC74200730701 /* MEHMentorshipViewController.m */,
+				BE5E6CFF1E67F03600E50B08 /* MEHCheckInViewController.h */,
+				BE5E6D001E67F03600E50B08 /* MEHCheckInViewController.m */,
+				BEA8B6F71E6A0E5D00030DDD /* MEHLoginViewController.h */,
+				BEA8B6F81E6A0E5D00030DDD /* MEHLoginViewController.m */,
+				BE4215031CA5017200BB7CA9 /* MEHEventDetailViewController.h */,
+				BE4215041CA5017200BB7CA9 /* MEHEventDetailViewController.m */,
+				BED5EC811C39AE56002B5385 /* SingleMapViewController.h */,
+				BED5EC821C39AE56002B5385 /* SingleMapViewController.m */,
+				BE386FFC1C35C6EC00020989 /* MEHAnnouncementsViewController.h */,
+				BE386FFD1C35C6EC00020989 /* MEHAnnouncementsViewController.m */,
+				BE386FFF1C35C6FE00020989 /* MEHMapViewController.h */,
+				BE3870001C35C6FE00020989 /* MEHMapViewController.m */,
+				BE261A091C3321A000BB5920 /* MEHScheduleViewController.h */,
+				BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */,
+				BE6D94621E6CA70E00730701 /* MEHMentorshipPageViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BE386FDF1C33579F00020989 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE6D94731E6D3CA400730701 /* MEHMentorActionButton.h */,
+				BE6D94741E6D3CA400730701 /* MEHMentorActionButton.m */,
+				BE6D946D1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.h */,
+				BE6D946E1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.m */,
+				BEA8B6FA1E6A0EA500030DDD /* MEHBottomBorderTextField.h */,
+				BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */,
+				BE386FF61C34BF1700020989 /* InfoTableViewCell.h */,
+				BE386FF71C34BF1700020989 /* InfoTableViewCell.m */,
+				BE386FD11C334C2800020989 /* TimeView.h */,
+				BE386FD21C334C2800020989 /* TimeView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BE386FE01C3357B100020989 /* StoreControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE6D94641E6CADB900730701 /* MEHMentorshipStoreController.h */,
+				BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */,
+				BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */,
+				BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */,
+				BED5EC7B1C3884F0002B5385 /* MEHMapStoreController.h */,
+				BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */,
+				BE386FF01C34A52200020989 /* MEHScheduleStoreController.h */,
+				BE386FF11C34A52200020989 /* MEHScheduleStoreController.m */,
+				BE5F9BBE1E60BF43005CED30 /* RLMRealm+MenloHacks.h */,
+				BE5F9BBF1E60BF43005CED30 /* RLMRealm+MenloHacks.m */,
+				BED5EC751C370474002B5385 /* MEHAnnouncementsStoreController.h */,
+				BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */,
+				BE386FE91C34847F00020989 /* MEHEventTimingStoreController.h */,
+				BE386FEA1C34847F00020989 /* MEHEventTimingStoreController.m */,
+				BEE318251E6A5BC700F80A45 /* MEHUserStoreController.h */,
+				BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */,
+			);
+			name = StoreControllers;
+			sourceTree = "<group>";
+		};
+		BE386FE11C3357CD00020989 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				BE386FD71C33577900020989 /* AutolayoutHelper.h */,
+				BE386FD81C33577900020989 /* AutolayoutHelper.m */,
+				BE386FD91C33577900020989 /* LinearLayout.h */,
+				BE386FDA1C33577900020989 /* LinearLayout.m */,
+			);
+			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		BE386FEF1C349D7900020989 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BE3870021C35CD3200020989 /* UIViewController+Extensions.h */,
+				BE3870031C35CD3200020989 /* UIViewController+Extensions.m */,
+				BE386FEC1C349D7200020989 /* UIColor+ColorPalette.h */,
+				BE386FED1C349D7200020989 /* UIColor+ColorPalette.m */,
+				BE386FE61C336D3300020989 /* NSDate+Utilities.h */,
+				BE386FE71C336D3300020989 /* NSDate+Utilities.m */,
+				BE386FD41C33554A00020989 /* UIFontDescriptor+AvenirNext.h */,
+				BE386FD51C33554A00020989 /* UIFontDescriptor+AvenirNext.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		BE88E3391E5FD19500921416 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BE88E3361E5FD18A00921416 /* MEHHTTPSessionManager.h */,
+				BE88E3371E5FD18A00921416 /* MEHHTTPSessionManager.m */,
+				BED80D1C1E6FE74900997E49 /* MEHErrorCodes.h */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		BED5EC741C37045A002B5385 /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BEB928271E6A9B270072C5CB /* MEHUser.h */,
+				BEB928281E6A9B270072C5CB /* MEHUser.m */,
+				BE88E3331E5FCACF00921416 /* MEHAnnouncement.h */,
+				BE88E3341E5FCACF00921416 /* MEHAnnouncement.m */,
+				BE386FF31C34A59200020989 /* MEHEvent.h */,
+				BE386FF41C34A59200020989 /* MEHEvent.m */,
+				BE4215001CA4FEBF00BB7CA9 /* MEHLocation.h */,
+				BE4215011CA4FEBF00BB7CA9 /* MEHLocation.m */,
+				BE6D94671E6CBC2500730701 /* MEHMentorTicket.h */,
+				BE6D94681E6CBC2500730701 /* MEHMentorTicket.m */,
+			);
+			name = "Model Classes";
+			sourceTree = "<group>";
+		};
+		BFBED57A819B4387EC4952CF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */,
+				1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE2619FF1C3321A000BB5920 /* Menlo Hacks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE261A171C3321A000BB5920 /* Build configuration list for PBXNativeTarget "Menlo Hacks" */;
+			buildPhases = (
+				AA6F681BD0C4B9A745FEEE81 /* [CP] Check Pods Manifest.lock */,
+				BE2619FC1C3321A000BB5920 /* Sources */,
+				BE2619FD1C3321A000BB5920 /* Frameworks */,
+				BE2619FE1C3321A000BB5920 /* Resources */,
+				A7ABCDC9306E29B8831CDEF4 /* [CP] Embed Pods Frameworks */,
+				ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Menlo Hacks";
+			productName = "Menlo Hacks";
+			productReference = BE261A001C3321A000BB5920 /* Menlo Hacks.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE2619F81C3321A000BB5920 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = MenloHacks;
+				TargetAttributes = {
+					BE2619FF1C3321A000BB5920 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 3R5J785EXT;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = BE2619FB1C3321A000BB5920 /* Build configuration list for PBXProject "Menlo Hacks" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE2619F71C3321A000BB5920;
+			productRefGroup = BE261A011C3321A000BB5920 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE2619FF1C3321A000BB5920 /* Menlo Hacks */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE2619FE1C3321A000BB5920 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE261A131C3321A000BB5920 /* LaunchScreen.storyboard in Resources */,
+				BE261A101C3321A000BB5920 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A7ABCDC9306E29B8831CDEF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA6F681BD0C4B9A745FEEE81 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE2619FC1C3321A000BB5920 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE4215021CA4FEBF00BB7CA9 /* MEHLocation.m in Sources */,
+				BED5EC771C370474002B5385 /* MEHAnnouncementsStoreController.m in Sources */,
+				BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */,
+				BE6D946F1E6CDC4D00730701 /* MEHMentorTicketTableViewCell.m in Sources */,
+				BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */,
+				BE261A0B1C3321A000BB5920 /* MEHScheduleViewController.m in Sources */,
+				BEA8B6F91E6A0E5D00030DDD /* MEHLoginViewController.m in Sources */,
+				BE88E3351E5FCACF00921416 /* MEHAnnouncement.m in Sources */,
+				BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */,
+				BE6D946C1E6CC74200730701 /* MEHMentorshipViewController.m in Sources */,
+				BE6D94631E6CA70E00730701 /* MEHMentorshipPageViewController.swift in Sources */,
+				BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */,
+				BE5F9BC01E60BF43005CED30 /* RLMRealm+MenloHacks.m in Sources */,
+				BE386FEB1C34847F00020989 /* MEHEventTimingStoreController.m in Sources */,
+				BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */,
+				BE6D94661E6CADB900730701 /* MEHMentorshipStoreController.m in Sources */,
+				BE6D94721E6D251900730701 /* MEHAddMentorTicketViewController.m in Sources */,
+				BE386FF51C34A59200020989 /* MEHEvent.m in Sources */,
+				BE386FDC1C33577900020989 /* LinearLayout.m in Sources */,
+				BE386FFE1C35C6EC00020989 /* MEHAnnouncementsViewController.m in Sources */,
+				BE386FD31C334C2800020989 /* TimeView.m in Sources */,
+				BE386FF81C34BF1700020989 /* InfoTableViewCell.m in Sources */,
+				BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */,
+				BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */,
+				BE4215051CA5017200BB7CA9 /* MEHEventDetailViewController.m in Sources */,
+				BE6D94691E6CBC2500730701 /* MEHMentorTicket.m in Sources */,
+				BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */,
+				BE5E6D011E67F03600E50B08 /* MEHCheckInViewController.m in Sources */,
+				BEE318271E6A5BC700F80A45 /* MEHUserStoreController.m in Sources */,
+				BE261A051C3321A000BB5920 /* main.m in Sources */,
+				BE6D94751E6D3CA400730701 /* MEHMentorActionButton.m in Sources */,
+				BE386FF21C34A52200020989 /* MEHScheduleStoreController.m in Sources */,
+				BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */,
+				BE88E3381E5FD18A00921416 /* MEHHTTPSessionManager.m in Sources */,
+				BE3870011C35C6FE00020989 /* MEHMapViewController.m in Sources */,
+				BE5387781E649CC700C99C53 /* MEHNotificationHandler.m in Sources */,
+				BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BE261A111C3321A000BB5920 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE261A121C3321A000BB5920 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE261A151C3321A000BB5920 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		BE261A161C3321A000BB5920 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE261A181C3321A000BB5920 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3R5J785EXT;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BE261A191C3321A000BB5920 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3R5J785EXT;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE2619FB1C3321A000BB5920 /* Build configuration list for PBXProject "Menlo Hacks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE261A151C3321A000BB5920 /* Debug */,
+				BE261A161C3321A000BB5920 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE261A171C3321A000BB5920 /* Build configuration list for PBXNativeTarget "Menlo Hacks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE261A181C3321A000BB5920 /* Debug */,
+				BE261A191C3321A000BB5920 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE2619F81C3321A000BB5920 /* Project object */;
+}

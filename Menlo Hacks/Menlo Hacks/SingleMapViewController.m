@@ -9,16 +9,17 @@
 #import "SingleMapViewController.h"
 
 #import "AutolayoutHelper.h"
+#import "UIImageView+AFNetworking.h"
 #import "UIFontDescriptor+AvenirNext.h"
-#import <ParseUI/ParseUI.h>
 
-#import "Map.h"
+
+#import "MEHLocation.h"
 
 @interface SingleMapViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) PFImageView *imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *captionLabel;
-@property (nonatomic, strong) Map *map;
+@property (nonatomic, strong) MEHLocation *map;
 
 
 @end
@@ -28,7 +29,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  _imageView = [[PFImageView alloc]init];
+  _imageView = [[UIImageView alloc]init];
   _imageView.contentMode = UIViewContentModeScaleAspectFit;
   _captionLabel = [[UILabel alloc]init];
   _captionLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];
@@ -76,17 +77,16 @@
   }
 }
 
--(void)configureFromMap:(Map *)map {
+-(void)configureFromMap:(MEHLocation *)map {
   if(_imageView) {
-    _imageView.file = map.image;
-    _captionLabel.text = map.caption;
-    [_imageView loadInBackground];
+      _captionLabel.text = map.locationName;
+      [_imageView setImageWithURL:[NSURL URLWithString:map.mapURL]];
   }
   _map = map;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-  return _imageView;
+    return _imageView;
 }
 
 
