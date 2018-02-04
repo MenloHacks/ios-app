@@ -6,18 +6,17 @@
 //  Copyright © 2017 MenloHacks. All rights reserved.
 //
 
-//Written in Swift 2 because PageMenu doesn't seem to like Swift 3.
 
 import Foundation
 import UIKit
-import PageMenu
+import Parchment
 import Bolts
 
 @objc class MEHMentorshipPageViewController: UIViewController {
     
 
     
-    var pageMenu : CAPSPageMenu?
+    var pageMenu : FixedPagingViewController!
     
     override func viewWillAppear(_ animated: Bool) {
         if (self.parent?.navigationItem.rightBarButtonItem == nil) {
@@ -68,35 +67,19 @@ import Bolts
         vc3.title = "My Tickets";
         
         
-        
-        
-        
         let controllers = [vc1, vc2, vc3]
         
-        // Initialize page menu with controller array, frame, and optional parameters
+        pageMenu = FixedPagingViewController(viewControllers: controllers)
+        pageMenu.textColor = UIColor.menloHacksGray()
+        pageMenu.font = UIFont(name: "Avenir", size: 16.0)!
+        pageMenu.selectedTextColor = UIColor.menloHacksPurple()
+        pageMenu.indicatorColor = UIColor.menloHacksPurple()
+        pageMenu.menuBackgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        pageMenu.menuItemSize = .sizeToFit(minWidth: 125, height: 40)
         
-        let pageMenuParameters: [CAPSPageMenuOption] = [
-            .menuItemSeparatorWidth(0),
-            .scrollMenuBackgroundColor(UIColor.white),
-            .viewBackgroundColor(UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)),
-            .bottomMenuHairlineColor(UIColor.menloHacksPurple()),
-            .selectionIndicatorColor(UIColor.menloHacksPurple()),
-            .menuMargin(20.0),
-            .menuHeight(40.0),
-            .selectedMenuItemLabelColor(UIColor.menloHacksPurple()),
-            .unselectedMenuItemLabelColor(UIColor.menloHacksGray()),
-            .menuItemFont(UIFont(name: "Avenir", size: 16.0)!),
-            .useMenuLikeSegmentedControl(true),
-            .menuItemSeparatorRoundEdges(true),
-            .selectionIndicatorHeight(2.0),
-            .menuItemSeparatorPercentageHeight(0.1)
-        ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: pageMenuParameters)
         
-        // Lastly add page menu as subview of base view controller view
-        // or use pageMenu controller in you view hierachy as desired
-        self.view.addSubview(pageMenu!.view)
+        AutolayoutHelper.configureView(self.view, fillWithSubView: pageMenu.view)
         
     }
     

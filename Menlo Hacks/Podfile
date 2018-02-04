@@ -5,7 +5,7 @@ target 'Menlo Hacks' do
     pod 'JNKeychain'
     pod 'Realm'
     pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
-    pod 'PageMenu'
+    pod 'Parchment'
     pod 'SCLAlertView-Objective-C'
     pod 'TTTAttributedLabel'
     pod 'AFMInfoBanner'
