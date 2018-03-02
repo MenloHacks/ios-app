@@ -55,13 +55,14 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
                 return;
             }
             weakSelf.reachabilityStatus = status;
+            [AFMInfoBanner hideAll];
             switch (status) {
                 case AFNetworkReachabilityStatusReachableViaWWAN:
                 case AFNetworkReachabilityStatusReachableViaWiFi:
                     [operationQueue setSuspended:NO];
                     break;
                 case AFNetworkReachabilityStatusNotReachable:
-                    [AFMInfoBanner showAndHideWithText:@"Please check your internet connection" style:AFMInfoBannerStyleError];
+                    [AFMInfoBanner showWithText:@"Please check your internet connection." style:AFMInfoBannerStyleError animated:YES];
                 default:
                     [operationQueue setSuspended:YES];
                     break;
@@ -80,6 +81,11 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 
 
 - (void)handleError : (NSError *)error {
+    if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+        //network errors will be handled by reachability
+        return;
+    }
+    
     NSInteger code = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
     
     NSString *message = nil;
@@ -88,6 +94,8 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     if(code >=400 && code < 500) {
         if(code == kMEHAuthenticationFailedCode) {
             [[MEHUserStoreController sharedUserStoreController]logout];
+            return;
+        
         }
         NSDictionary *jsonDictionary = [NSJSONSerialization
                                         JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
@@ -113,11 +121,6 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
     [self.requestSerializer setValue:authToken forHTTPHeaderField:kMEHAuthorizationHeaderField];
 }
 
-- (void)showNoNetworkError {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [AFMInfoBanner showAndHideWithText:@"Please check your internet connection" style:AFMInfoBannerStyleError];
-    });
-}
 
 #pragma mark networking requests with Bolts
 
@@ -125,7 +128,6 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 - (BFTask *)GET:(NSString *)URLString parameters:(id)parameters {
     
     if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
-        [self showNoNetworkError];
         return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
     }
     
@@ -147,7 +149,6 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
       parameters:(id)parameters {
     
     if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
-        [self showNoNetworkError];
         return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
     }
     
@@ -166,7 +167,6 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
 - (BFTask *)downloadResource : (NSString *)URLString {
     
     if(self.reachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
-        [self showNoNetworkError];
         return [BFTask taskWithError:[NSError errorWithDomain:@"com.menlohacks.networking" code:kMEHNoNetworkCode userInfo:nil]];
     }
     
