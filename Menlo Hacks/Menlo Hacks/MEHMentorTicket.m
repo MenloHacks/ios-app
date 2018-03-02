@@ -133,7 +133,7 @@
 }
 
 - (MEHMentorAction)secondaryAction {
-    return (MEHMentorAction)self.secondaryAction;
+    return (MEHMentorAction)self.rawSecondaryAction;
 }
 
 - (void)setSecondaryAction:(MEHMentorAction)secondaryAction {

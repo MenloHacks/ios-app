@@ -31,6 +31,7 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) NSArray<RLMResults<MEHMentorTicket *> *>*tickets;
 @property (nonatomic, strong) NSArray <RLMNotificationToken *>*notificationTokens;
+@property (nonatomic, strong) NSArray<NSNumber *> *nonEmptyTicketIndices;
 
 @property (nonatomic, strong) UILabel *noTicketsLabel;
 
@@ -161,54 +162,57 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSMutableArray *nonEmptyIndices = [NSMutableArray array];
     if(self.tickets.count > 0) {
-        BOOL isEmpty = YES;
+        int i = 0;
         for (RLMResults *results in self.tickets) {
             if (results.count > 0) {
-                isEmpty = NO;
-                break;
+                [nonEmptyIndices addObject:@(i)];
             }
+            i++;
         }
-        
-        _noTicketsLabel.hidden = !isEmpty;
-    } else {
-        _noTicketsLabel.hidden = YES;
     }
-
-    return self.tickets.count;
+    self.nonEmptyTicketIndices = [NSArray arrayWithArray:nonEmptyIndices];
+        
+    _noTicketsLabel.hidden = (self.nonEmptyTicketIndices.count > 0);
+    return self.nonEmptyTicketIndices.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tickets[section].count;
+    NSInteger index = self.nonEmptyTicketIndices[section].integerValue;
+    return self.tickets[index].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger index = self.nonEmptyTicketIndices[indexPath.section].integerValue;
     MEHMentorTicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMEHMentorTicketReuseIdentifier];
-    cell.ticket = self.tickets[indexPath.section][indexPath.row];
+    cell.ticket = self.tickets[index][indexPath.row];
     cell.delegate = self;
     return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if(self.tickets.count > 1) {
+    if(self.predicateLabels != nil && self.nonEmptyTicketIndices.count >= 1) {
         
-        UIView *wrapper = [UIView new];
-        wrapper.backgroundColor = [UIColor whiteColor];
+        NSInteger index = self.nonEmptyTicketIndices[section].integerValue;
+        if(index < self.predicateLabels.count) {
+            UIView *wrapper = [UIView new];
+            wrapper.backgroundColor = [UIColor whiteColor];
+            
+            UILabel *label = [UILabel new];
+            label.backgroundColor = [UIColor whiteColor];
+            label.text = self.predicateLabels[index];
+            label.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
+            label.textColor = [UIColor menloHacksPurple];
+                          
+            [AutolayoutHelper configureView:wrapper
+                                   subViews:NSDictionaryOfVariableBindings(label)
+                                constraints:@[@"H:|[label]|",
+                                              @"V:|[label]|"]];
+            return wrapper;
+        }
         
-        UILabel *label = [UILabel new];
-        label.backgroundColor = [UIColor whiteColor];
-       // label.text = [[self.categories[section]capitalizedString]stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        label.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
-        label.textColor = [UIColor menloHacksPurple];
-        
-        [AutolayoutHelper configureView:wrapper
-                               subViews:NSDictionaryOfVariableBindings(label)
-                            constraints:@[@"H:|[label]|",
-                                          @"V:|[label]|"]];
-        
-        
-        
-        return wrapper;
+
     }
     return nil;
 }
@@ -232,40 +236,14 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     for (RLMResults *results in tickets) {
         tokens[i] = [results addNotificationBlock:^(RLMResults *results, RLMCollectionChange *changes, NSError *error) {
             
-            if(weakSelf.tableView.numberOfSections > 1) {
-                //Basically we have an issue where notifs for some section are received first.
-                //Solving this requires either on a UI level using multiple table views for building a massive new notification system
-                //But I don't have a whole lot of time so I'm going to be lazy.
+            //Basically we have an issue where notifs for some section are received first.
+            //Solving this requires either on a UI level using multiple table views for building a massive new notification system
+            //But I don't have a whole lot of time so I'm going to be lazy.
                 
-                //Next year's organizers: FIX THIS.
+            //Next year's organizers: FIX THIS.
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
-            } else {
-                if (error) {
-                    NSLog(@"Failed to open Realm on background worker: %@", error);
-                    return;
-                }
-                
-                UITableView *tableView = weakSelf.tableView;
-                // Initial run of the query will pass nil for the change information
-                if (!changes) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [tableView reloadData];
-                    });
-                    return;
-                }
-                
-                // Query results have changed, so apply them to the UITableView
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView beginUpdates];
-                    [tableView deleteRowsAtIndexPaths:[changes deletionsInSection:0]
-                                     withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [tableView insertRowsAtIndexPaths:[changes insertionsInSection:0]
-                                     withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [tableView reloadRowsAtIndexPaths:[changes modificationsInSection:0]
-                                     withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [tableView endUpdates];
-                });
-            }
+            });
             
         }];
         i++;

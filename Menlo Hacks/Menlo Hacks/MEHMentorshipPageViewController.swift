@@ -52,12 +52,15 @@ import Bolts
         let vc3 = MEHMentorshipViewController()
         vc3.requiresLogin = true
         
-        vc3.predicates = [NSPredicate(format: "isMine = 1")];
+        vc3.predicates = [NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusOpen.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusClaimed.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusExpired.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusClosed.rawValue)];
+        
+        vc3.predicateLabels = ["Open", "In-Progress", "Expired", "Closed"]
         
         vc3.fetchFromServer = { () -> BFTask<AnyObject> in
-            return MEHMentorshipStoreController.shared().fetchUserQueue().continueOnSuccessWith(block: { (task : BFTask) -> AnyObject? in
-                return task
-            });
+            return MEHMentorshipStoreController.shared().fetchUserQueue()
         }
         
         vc3.title = "My Tickets";

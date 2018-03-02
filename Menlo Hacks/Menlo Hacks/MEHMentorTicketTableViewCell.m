@@ -144,34 +144,11 @@
     self.contactLabel.text = ticket.contact;
     self.timeLabel.text = [NSDate formattedShortTimeFromDate:ticket.timeCreated];
     
-    MEHMentorAction action;
-    MEHMentorAction secondaryAction;
+    self.primaryActionButton.action = ticket.primaryAction;
     
-    
-    
-    if(ticket.claimed == NO) {
-        if(ticket.expired == NO) {
-            action = MEHMentorActionClaim;
-            self.containsTwoButtons = NO;
-        } else {
-            action = MEHMentorActionReopen;
-            self.containsTwoButtons = NO;
-        }
-    }
-    else {
-        if(ticket.closed == NO) {
-            action = MEHMentorActionReopen;
-            secondaryAction = MEHMentorActionClose;
-            self.containsTwoButtons = YES;
-        } else {
-            action = MEHMentorActionReopen;
-            self.containsTwoButtons = NO;
-        }
-    }
-    
-    self.primaryActionButton.action = action;
-    if(self.containsTwoButtons) {
-        self.secondaryActionButton.action = secondaryAction;
+   
+    if(ticket.secondaryAction != MEHMentorActionNone) {
+        self.secondaryActionButton.action = ticket.secondaryAction;
     } else {
         [self.mainContentView addConstraint:self.secondaryActionButtonZeroHeight];
         self.containsTwoButtons = NO;
