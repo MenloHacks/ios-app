@@ -95,16 +95,17 @@ static NSString * kMEHAuthorizationHeaderField = @"X-MenloHacks-Authorization";
         if(code == kMEHAuthenticationFailedCode) {
             [[MEHUserStoreController sharedUserStoreController]logout];
             return;
-        
+        } else {
+            NSDictionary *jsonDictionary = [NSJSONSerialization
+                                            JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
+                                            options:0
+                                            error:&error];
+            if (jsonDictionary[@"error"]) {
+                message = jsonDictionary[@"error"][@"message"];
+                title = jsonDictionary[@"error"][@"title"];
+            }
         }
-        NSDictionary *jsonDictionary = [NSJSONSerialization
-                                        JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
-                                        options:0
-                                        error:&error];
-        if (jsonDictionary[@"error"]) {
-            message = jsonDictionary[@"error"][@"message"];
-            title = jsonDictionary[@"error"][@"title"];
-        }
+
     }
     
     //Wait to give an adequate amount of time

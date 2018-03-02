@@ -103,8 +103,8 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         if(!self.loginVC) {
             self.loginVC = [[MEHLoginViewController alloc]init];
             self.loginVC.delegate = self;
-            [self displayContentController:self.loginVC];
         }
+        [self displayContentController:self.loginVC];
     } else {
         if(self.loginVC) {
             [self removeContentViewController:self.loginVC];
