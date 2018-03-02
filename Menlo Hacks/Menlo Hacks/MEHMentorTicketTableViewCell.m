@@ -16,14 +16,15 @@
 
 #import "MEHMentorTicket.h"
 #import "MEHMentorActionButton.h"
+#import "TTTAttributedLabel.h"
 
-@interface MEHMentorTicketTableViewCell()
+@interface MEHMentorTicketTableViewCell() <TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, strong) UILabel *descriptionLabel;
 @property (nonatomic, strong) UILabel *locationLabel;
-@property (nonatomic, strong) UILabel *contactLabel;
+@property (nonatomic, strong) TTTAttributedLabel *contactLabel;
 
 @property (nonatomic, strong) MEHMentorActionButton *primaryActionButton;
 @property (nonatomic, strong) MEHMentorActionButton *secondaryActionButton;
@@ -88,10 +89,12 @@
     self.descriptionLabel.numberOfLines = 0;
     
     
-    self.contactLabel = [UILabel new];
+    self.contactLabel = [TTTAttributedLabel new];
     self.contactLabel.font = mainFont;
+    self.contactLabel.enabledTextCheckingTypes = NSTextCheckingTypePhoneNumber | NSTextCheckingTypeLink;
     self.contactLabel.textColor = [UIColor menloHacksGray];
     self.contactLabel.numberOfLines = 0;
+    self.contactLabel.delegate = self;
     
     self.locationLabel = [UILabel new];
     self.locationLabel.font = mainFont;
@@ -161,6 +164,14 @@
     if(self.delegate) {
         [self.delegate handleAction:button.action forTicketWithServerID:self.ticket.serverID];
     }
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)phoneNumber {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phoneNumber]] options:@{} completionHandler:nil];
 }
 
 @end
