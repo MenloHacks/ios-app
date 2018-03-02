@@ -10,6 +10,9 @@
 
 @class BFTask;
 
+extern NSString *kMEHDidLogoutNotification;
+extern NSString *kMEHDidLoginNotification;
+
 @interface MEHUserStoreController : NSObject
 
 + (instancetype)sharedUserStoreController;

@@ -54,24 +54,20 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        if(!self.loginVC) {
-            self.loginVC = [[MEHLoginViewController alloc]init];
-            self.loginVC.delegate = self;
-        }
-        [self displayContentController:self.loginVC];
-    } else {
-        if(self.loginVC) {
-            [self configureView];
-            [self removeContentViewController:self.loginVC];
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogOut:) name:kMEHDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogIn:) name:kMEHDidLoginNotification object:nil];
     self.parentViewController.navigationItem.rightBarButtonItems = @[];
+    [self handleLoginScreen];
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 
 - (void)createViews {
     self.welcomeLabel = [UILabel new];
@@ -139,14 +135,29 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)handleLoginScreen {
+    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        if(!self.loginVC) {
+            self.loginVC = [[MEHLoginViewController alloc]init];
+            self.loginVC.delegate = self;
+        }
+        [self displayContentController:self.loginVC];
+    } else {
+        if(self.loginVC) {
+            [self configureView];
+            [self removeContentViewController:self.loginVC];
+        }
+    }
 }
-*/
+
+- (void)didLogOut : (id)sender {
+    [self handleLoginScreen];
+}
+
+- (void)didLogin : (id)sender {
+    [self handleLoginScreen];
+}
+
+
 
 @end

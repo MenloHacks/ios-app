@@ -99,6 +99,15 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogOut:) name:kMEHDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogOut:) name:kMEHDidLoginNotification object:nil];
+    [self handleLoginScreen];
+    if(self.pendingActionTicket) {
+        [self handleAction:self.pendingAction forTicketWithServerID:self.pendingActionTicket];
+    }
+}
+
+- (void)handleLoginScreen {
     if(self.requiresLogin && ![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
         if(!self.loginVC) {
             self.loginVC = [[MEHLoginViewController alloc]init];
@@ -110,9 +119,10 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
             [self removeContentViewController:self.loginVC];
         }
     }
-    if(self.pendingActionTicket) {
-        [self handleAction:self.pendingAction forTicketWithServerID:self.pendingActionTicket];
-    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)refresh : (id)sender {
@@ -297,6 +307,15 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         return nil;
     }];
 }
+
+- (void)didLogOut: (id)sender {
+    [self handleLoginScreen];
+}
+
+- (void)didLogin: (id)sender {
+    [self handleLoginScreen];
+}
+
 
 #pragma mark MEHLoginViewControllerDelegate
 

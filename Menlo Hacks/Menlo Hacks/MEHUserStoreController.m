@@ -26,6 +26,9 @@
 static NSString *kMEHKeychainAuthTokenKey = @"com.menlohacks.authtoken.key";
 static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
 
+NSString *kMEHDidLogoutNotification = @"com.menlohacks.local.notification.did_log_out";
+NSString *kMEHDidLoginNotification = @"com.menlohacks.local.notification.did_log_in";
+
 @implementation MEHUserStoreController
 
 + (instancetype)sharedUserStoreController {
@@ -66,9 +69,12 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
         [JNKeychain saveValue:token forKey:kMEHKeychainAuthTokenKey];
         [JNKeychain saveValue:username forKey:kMEHCurrentUsernameKey];
         [[MEHHTTPSessionManager sharedSessionManager]setAuthorizationHeader];
-        return [realm meh_TransactionWithBlock:^{
+        return [[realm meh_TransactionWithBlock:^{
             MEHUser *user = [MEHUser userFromDictionary:data];
             [realm addOrUpdateObject:user];
+        }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:kMEHDidLoginNotification object:nil];
+            return t;
         }];
     }];
 }
@@ -76,6 +82,8 @@ static NSString *kMEHCurrentUsernameKey = @"com.menlohacks.username.key";
 - (void)logout {
     [JNKeychain saveValue:nil forKey:kMEHKeychainAuthTokenKey];
     [JNKeychain saveValue:nil forKey:kMEHCurrentUsernameKey];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:kMEHDidLogoutNotification object:nil];
 }
 
 - (NSString *)loggedInUserID {
