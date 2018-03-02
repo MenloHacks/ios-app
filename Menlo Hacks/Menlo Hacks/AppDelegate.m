@@ -32,8 +32,6 @@
 
 #pragma mark Application State Changes
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  [self configureAPIs];
-  [self registerForPush:application];
   [[MEHDatabaseMigrationController sharedMigrator]handleMigrations];
   _tabBarController = [[UITabBarController alloc]init];
   _tabBarController.tabBar.translucent = NO;
@@ -109,22 +107,6 @@
   
 }
 
-
-
-#pragma mark Helper Methods
--(void)configureAPIs {
-  
-
-  
-}
-
--(void)registerForPush : (UIApplication *)application {
-  UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes  categories:nil];
-  [application registerUserNotificationSettings:settings];
-  [application registerForRemoteNotifications];
-
-}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [[MEHNotificationHandler sharedNotificationHandler]registerDeviceToken:deviceToken];
