@@ -37,13 +37,12 @@
                 return [[realm meh_TransactionWithBlock:^{
                     for (NSDictionary *ticketDictionary in tickets) {
                         MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
-                        ticket.category = kMEHQueueCategory;
                         [ticketIDs addObject:ticket.serverID];
                         [realm addOrUpdateObject:ticket];
                     }
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHQueueCategory];
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND rawStatus = %i", ticketIDs, MEHMentorTicketStatusOpen];
                     return [realm meh_TransactionWithBlock:^{
                         [realm deleteObjects:objectsToDelete];
                     }];
@@ -64,16 +63,13 @@
                         NSArray *ticketsList = tickets[key];
                         for (NSDictionary *ticketDictionary in ticketsList) {
                             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:ticketDictionary];
-                            ticket.category = key;
                             [ticketIDs addObject:ticket.serverID];
                             [realm addOrUpdateObject:ticket];
                         }
                     }
-
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    NSArray *categories = data[@"categories"];
-                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND (category IN %@)", ticketIDs, categories];
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND isMine = %@", ticketIDs, @YES];
                     return [[realm meh_TransactionWithBlock:^{
                         [realm deleteObjects:objectsToDelete];
                     }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
@@ -98,7 +94,7 @@
                     }
                     
                 }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND category = %@", ticketIDs, kMEHInProgressCategory];
+                    RLMResults *objectsToDelete = [MEHMentorTicket objectsWhere:@"NOT (serverID IN %@) AND rawStatus = %i AND claimedByMe = %@", ticketIDs, MEHMentorTicketStatusClaimed, @YES];
                     return [realm meh_TransactionWithBlock:^{
                         [realm deleteObjects:objectsToDelete];
                     }];
@@ -116,7 +112,6 @@
         RLMRealm *realm = [RLMRealm defaultRealm];
         return [realm meh_TransactionWithBlock:^{
             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result[@"data"]];
-            ticket.category = kMEHQueueCategory;
             [realm addOrUpdateObject:ticket];
         }];
 
@@ -137,7 +132,6 @@
         RLMRealm *realm = [RLMRealm defaultRealm];
         return [realm meh_TransactionWithBlock:^{
             MEHMentorTicket *ticket = [MEHMentorTicket ticketFromDictionary:t.result[@"data"]];
-            ticket.category = [MEHMentorTicket categoryForAction:action];
             [realm addOrUpdateObject:ticket];
         }];
     }];

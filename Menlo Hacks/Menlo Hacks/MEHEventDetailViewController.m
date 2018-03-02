@@ -51,6 +51,7 @@
   self.descriptionLabel.textColor = [UIColor menloHacksPurple];
   self.descriptionLabel.font = standardTitleFont;
   self.descriptionLabel.numberOfLines = 0;
+  self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
   self.locationLabel = [UILabel new];
   self.locationLabel.textColor = [UIColor menloHacksGray];
   self.locationLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];

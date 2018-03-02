@@ -43,6 +43,7 @@
 		BEA8B6F91E6A0E5D00030DDD /* MEHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6F81E6A0E5D00030DDD /* MEHLoginViewController.m */; };
 		BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */; };
 		BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB928281E6A9B270072C5CB /* MEHUser.m */; };
+		BEC906632048C06900E7983C /* MEHDatabaseMigrationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */; };
 		BED5EC771C370474002B5385 /* MEHAnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */; };
 		BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */; };
 		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
@@ -124,6 +125,8 @@
 		BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHBottomBorderTextField.m; sourceTree = "<group>"; };
 		BEB928271E6A9B270072C5CB /* MEHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHUser.h; sourceTree = "<group>"; };
 		BEB928281E6A9B270072C5CB /* MEHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHUser.m; sourceTree = "<group>"; };
+		BEC906612048C06900E7983C /* MEHDatabaseMigrationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHDatabaseMigrationController.h; sourceTree = "<group>"; };
+		BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEHDatabaseMigrationController.m; sourceTree = "<group>"; };
 		BED5EC751C370474002B5385 /* MEHAnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAnnouncementsStoreController.h; sourceTree = "<group>"; };
 		BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAnnouncementsStoreController.m; sourceTree = "<group>"; };
 		BED5EC7B1C3884F0002B5385 /* MEHMapStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMapStoreController.h; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				BE6D94641E6CADB900730701 /* MEHMentorshipStoreController.h */,
+				BEC906612048C06900E7983C /* MEHDatabaseMigrationController.h */,
+				BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */,
 				BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */,
 				BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */,
 				BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */,
@@ -499,6 +504,7 @@
 				BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */,
 				BE5F9BC01E60BF43005CED30 /* RLMRealm+MenloHacks.m in Sources */,
 				BE386FEB1C34847F00020989 /* MEHEventTimingStoreController.m in Sources */,
+				BEC906632048C06900E7983C /* MEHDatabaseMigrationController.m in Sources */,
 				BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */,
 				BE6D94661E6CADB900730701 /* MEHMentorshipStoreController.m in Sources */,
 				BE6D94721E6D251900730701 /* MEHAddMentorTicketViewController.m in Sources */,

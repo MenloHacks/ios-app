@@ -56,26 +56,15 @@ static NSString *kMEHMentorshipExpireAction = @"expire";
 }
 
 - (void)configureAPNS {
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
-        UIUserNotificationType allNotificationTypes =
-        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    } else {
-        // iOS 10 or later
-#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-        UNAuthorizationOptions authOptions =
+    UNAuthorizationOptions authOptions =
         UNAuthorizationOptionAlert
         | UNAuthorizationOptionSound
         | UNAuthorizationOptionBadge;
-        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
             
-        }];
+    }];
         
-        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-#endif
-    }
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     

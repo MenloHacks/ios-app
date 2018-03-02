@@ -14,8 +14,6 @@ import Bolts
 
 @objc class MEHMentorshipPageViewController: UIViewController {
     
-
-    
     var pageMenu : FixedPagingViewController!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +31,7 @@ import Bolts
         self.parent?.navigationItem.rightBarButtonItem = addButton;
         
         let vc1 = MEHMentorshipViewController()
-        vc1.categories = [kMEHQueueCategory];
+        vc1.predicates = [NSPredicate(format:"rawStatus = %i", MEHMentorTicketStatusOpen.rawValue)]
         
         vc1.fetchFromServer = { () -> BFTask<AnyObject> in
             return MEHMentorshipStoreController.shared().fetchQueue()
@@ -43,8 +41,7 @@ import Bolts
         
         let vc2 = MEHMentorshipViewController()
         vc2.requiresLogin = true
-        vc2.predicate = NSPredicate(format: "claimedByMe = 1")
-        vc2.categories = [kMEHInProgressCategory];
+        vc2.predicates = [NSPredicate(format: "claimedByMe = 1 AND rawStatus = %i", MEHMentorTicketStatusClaimed.rawValue)]
         
         vc2.fetchFromServer = { () -> BFTask<AnyObject> in
             return MEHMentorshipStoreController.shared().fetchClaimedQueue()
@@ -55,11 +52,10 @@ import Bolts
         let vc3 = MEHMentorshipViewController()
         vc3.requiresLogin = true
         
-        vc3.predicate = NSPredicate(format: "isMine=1")
+        vc3.predicates = [NSPredicate(format: "isMine = 1")];
         
         vc3.fetchFromServer = { () -> BFTask<AnyObject> in
             return MEHMentorshipStoreController.shared().fetchUserQueue().continueOnSuccessWith(block: { (task : BFTask) -> AnyObject? in
-                vc3.categories = task.result as! [AnyObject]
                 return task
             });
         }

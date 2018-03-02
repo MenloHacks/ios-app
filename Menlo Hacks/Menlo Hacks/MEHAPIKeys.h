@@ -7,7 +7,7 @@
 //
 
 #ifndef MEHAPIKeys_h
-static NSString * const kMEHNotificationAPIKey = @"243035ed0c201ba987a5";
+static NSString * const kMEHNotificationAPIKey = @"f5976c8e3914809909ab";
 #define MEHAPIKeys_h
 
 

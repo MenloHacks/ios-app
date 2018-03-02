@@ -14,6 +14,7 @@
 #import "MEHAnnouncementsViewController.h"
 #import "MEHMapViewController.h"
 #import "MEHCheckInViewController.h"
+#import "MEHDatabaseMigrationController.h"
 #import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
 #import "Menlo_Hacks-Swift.h"
@@ -33,6 +34,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [self configureAPIs];
   [self registerForPush:application];
+  [[MEHDatabaseMigrationController sharedMigrator]handleMigrations];
   _tabBarController = [[UITabBarController alloc]init];
   _tabBarController.tabBar.translucent = NO;
   MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
@@ -82,6 +84,7 @@
   
   return YES;
 }
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -151,16 +151,8 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 }
 
 - (void)resetTickets {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.categories.count];
-    for (NSString *category in self.categories) {
-        NSPredicate *predicate;
-        if(self.predicate) {
-            NSString *formatString = [NSString stringWithFormat:@"category == \'%@\' AND %@", category, self.predicate];
-            predicate = [NSPredicate predicateWithFormat:formatString];
-        } else {
-            predicate = [NSPredicate predicateWithFormat:@"category = %@", category];
-        }
-        
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.predicates.count];
+    for (NSPredicate *predicate in self.predicates) {
         RLMResults *results = [[MEHMentorTicket objectsWithPredicate:predicate]sortedResultsUsingKeyPath:@"timeCreated" ascending:YES];
         [array addObject:results];
     }
@@ -205,7 +197,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
         
         UILabel *label = [UILabel new];
         label.backgroundColor = [UIColor whiteColor];
-        label.text = [[self.categories[section]capitalizedString]stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+       // label.text = [[self.categories[section]capitalizedString]stringByReplacingOccurrencesOfString:@"_" withString:@" "];
         label.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
         label.textColor = [UIColor menloHacksPurple];
         
