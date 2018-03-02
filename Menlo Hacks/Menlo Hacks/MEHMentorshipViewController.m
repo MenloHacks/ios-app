@@ -48,6 +48,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.tableView = [[UITableView alloc]init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
