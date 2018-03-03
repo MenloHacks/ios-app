@@ -59,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogOut:) name:kMEHDidLogoutNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogIn:) name:kMEHDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogin:) name:kMEHDidLoginNotification object:nil];
     self.parentViewController.navigationItem.rightBarButtonItems = @[];
     [self handleLoginScreen];
 }

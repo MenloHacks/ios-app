@@ -1,20 +1,20 @@
 PODS:
   - AFMInfoBanner (1.2.1):
     - CVKHierarchySearcher (~> 0.2)
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (3.2.0):
+    - AFNetworking/NSURLSession (= 3.2.0)
+    - AFNetworking/Reachability (= 3.2.0)
+    - AFNetworking/Security (= 3.2.0)
+    - AFNetworking/Serialization (= 3.2.0)
+    - AFNetworking/UIKit (= 3.2.0)
+  - AFNetworking/NSURLSession (3.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (3.2.0)
+  - AFNetworking/Security (3.2.0)
+  - AFNetworking/Serialization (3.2.0)
+  - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -28,7 +28,7 @@ PODS:
     - libPusher/Core (= 1.6.1)
   - libPusher/Core (1.6.1):
     - SocketRocket (= 0.5.1)
-  - Parchment (1.0.1)
+  - Parchment (1.0.3)
   - Realm (3.1.1):
     - Realm/Headers (= 3.1.1)
   - Realm/Headers (3.1.1)
@@ -59,12 +59,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CVKHierarchySearcher: 7be8d3bcbcc6f86ff07f785e6c632b5e40da2553
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
   libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
-  Parchment: 7bf8796a64a0b3d1a8efc4137726809d08b00c3d
+  Parchment: 964ae2fa48431d87148c3bb37f0b9c86c7ceee4b
   Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
   SCLAlertView-Objective-C: 917836fb2349afa58edc43d592d22d21d46bb2a4
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
