@@ -79,15 +79,22 @@
     self.descriptionLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleBody]size:0];
     self.descriptionLabel.text = @"Please find a volunteer and show them your ticket.";
     
+    self.descriptionLabel.numberOfLines = 0;
+    
     self.addButton = [[PKAddPassButton alloc]initWithAddPassButtonStyle:PKAddPassButtonStyleBlack];
     [self.addButton addTarget:self action:@selector(getPassPressed:) forControlEvents:UIControlEventTouchDown];
+    
+    if(![PKAddPassesViewController canAddPasses]) {
+        self.addButton.hidden = YES;
+        self.descriptionLabel.text = @"Device does not support passbook.";
+    }
     
 
     [AutolayoutHelper configureView:self.view
                            subViews:NSDictionaryOfVariableBindings(_welcomeLabel, _descriptionLabel, _addButton)
                         constraints:@[@"H:|-[_welcomeLabel]",
                                       @"X:_addButton.centerX == superview.centerX",
-                                      @"H:|-[_descriptionLabel]|",
+                                      @"H:|-[_descriptionLabel]-|",
                                       @"V:|-30-[_welcomeLabel]-30-[_addButton]-20-[_descriptionLabel]"]];
     
 }
