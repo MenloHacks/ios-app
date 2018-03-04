@@ -76,7 +76,7 @@
   [AutolayoutHelper configureView:self.view
                          subViews:NSDictionaryOfVariableBindings(_mapImageViewScrollView, _timeLabel, _descriptionTextView, _descriptionLabel, _addToCalendarButton, _locationLabel)
                           constraints:@[@"H:|[_mapImageViewScrollView]|",
-                                        @"V:|[_mapImageViewScrollView]-[_descriptionLabel]-[_locationLabel]-[_timeLabel]-[_descriptionTextView]-15-[_addToCalendarButton]-75-|",
+                                        @"V:|[_mapImageViewScrollView]-[_descriptionLabel]-[_locationLabel]-[_timeLabel]-[_descriptionTextView]-15-[_addToCalendarButton]-50-|",
                                         @"X:_locationLabel.centerX == superview.centerX",
                                         @"X:_descriptionLabel.centerX == superview.centerX",
                                         @"H:|-[_descriptionLabel]-|",
