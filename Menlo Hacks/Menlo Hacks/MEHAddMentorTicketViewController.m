@@ -36,8 +36,6 @@
     } else {
         [self showAlert];
     }
-
-    // Do any additional setup after loading the view.
 }
 
 
@@ -65,7 +63,7 @@
     
     
     UITextField *descriptionField = [alert addTextField:@"Describe your issue"];
-    UITextField *locationField = [alert addTextField:@"Where are you located?"];
+    UITextField *locationField = [alert addTextField:@"Table number"];
     UITextField *contactField = [alert addTextField:@"email, phone, etc"];
     
     

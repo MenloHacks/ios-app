@@ -10,11 +10,6 @@
 
 #import "NSDate+Utilities.h"
 
-NSString * kMEHQueueCategory = @"open";
-NSString * kMEHExpiredCategory = @"expired";
-NSString * kMEHInProgressCategory = @"in_progress";
-NSString * kMEHClosedCategory = @"closed";
-
 @implementation MEHMentorTicket
 
 + (instancetype)ticketFromDictionary: (NSDictionary *)dictionary {
@@ -89,35 +84,67 @@ NSString * kMEHClosedCategory = @"closed";
     }
     
     if(ticket.closed) {
-        ticket.category = kMEHClosedCategory;
+        ticket.status =  MEHMentorTicketStatusClosed;
+        
+        ticket.primaryAction = MEHMentorActionReopen;
+        ticket.secondaryAction = MEHMentorActionNone;
     } else if (ticket.claimed) {
-        ticket.category = kMEHInProgressCategory;
+        ticket.status = MEHMentorTicketStatusClaimed;
+        ticket.primaryAction = MEHMentorActionReopen;
+        ticket.secondaryAction = MEHMentorActionClose;
     } else if (ticket.expired) {
-        ticket.category = kMEHExpiredCategory;
+        ticket.status = MEHMentorTicketStatusExpired;
+        
+        ticket.primaryAction = MEHMentorActionReopen;
+        ticket.secondaryAction = MEHMentorActionNone;
     } else {
-        ticket.category = kMEHQueueCategory;
+        ticket.status = MEHMentorTicketStatusOpen;
+        
+        if(ticket.isMine) {
+            ticket.primaryAction = MEHMentorActionClose;
+            ticket.secondaryAction = MEHMentorActionNone;
+        } else {
+            ticket.primaryAction = MEHMentorActionClaim;
+            ticket.secondaryAction = MEHMentorActionNone;
+        }
     }
+    
     
     
     return ticket;
 }
 
-+ (NSString *)categoryForAction : (MEHMentorAction)action {
-    
-    static dispatch_once_t once;
-    static NSDictionary *_sharedInstance;
-    dispatch_once(&once, ^{
-        _sharedInstance = @{
-                            @(MEHMentorActionClaim) : kMEHInProgressCategory,
-                            @(MEHMentorActionClose) : kMEHClosedCategory,
-                            @(MEHMentorActionReopen) : kMEHQueueCategory
-                            };
-    });
-    
-    return _sharedInstance[@(action)];
-    
+#pragma mark custom setters/getters
+
+- (MEHMentorTicketStatus)status {
+    return (MEHMentorTicketStatus)self.rawStatus;
 }
 
+- (void)setStatus:(MEHMentorTicketStatus)status {
+    self.rawStatus = status;
+}
+
+- (MEHMentorAction)primaryAction {
+    return (MEHMentorAction)self.rawPrimaryAction;
+}
+
+- (void)setPrimaryAction:(MEHMentorAction)primaryAction {
+    self.rawPrimaryAction = primaryAction;
+}
+
+- (MEHMentorAction)secondaryAction {
+    return (MEHMentorAction)self.rawSecondaryAction;
+}
+
+- (void)setSecondaryAction:(MEHMentorAction)secondaryAction {
+    self.rawSecondaryAction = secondaryAction;
+}
+
+
+
++ (NSArray *)ignoredProperties {
+    return @[@"status", @"primaryAction", @"secondaryAction"];
+}
 
 + (NSString *)primaryKey {
     return @"serverID";

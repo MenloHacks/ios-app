@@ -50,6 +50,8 @@
   self.descriptionLabel = [UILabel new];
   self.descriptionLabel.textColor = [UIColor menloHacksPurple];
   self.descriptionLabel.font = standardTitleFont;
+  self.descriptionLabel.numberOfLines = 0;
+  self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
   self.locationLabel = [UILabel new];
   self.locationLabel.textColor = [UIColor menloHacksGray];
   self.locationLabel.font = [UIFont fontWithName:@"AvenirNext" size:18.0f];
@@ -74,9 +76,10 @@
   [AutolayoutHelper configureView:self.view
                          subViews:NSDictionaryOfVariableBindings(_mapImageViewScrollView, _timeLabel, _descriptionTextView, _descriptionLabel, _addToCalendarButton, _locationLabel)
                           constraints:@[@"H:|[_mapImageViewScrollView]|",
-                                        @"V:|[_mapImageViewScrollView]-[_descriptionLabel]-[_locationLabel]-[_timeLabel]-[_descriptionTextView]-15-[_addToCalendarButton]-75-|",
+                                        @"V:|[_mapImageViewScrollView]-[_descriptionLabel]-[_locationLabel]-[_timeLabel]-[_descriptionTextView]-15-[_addToCalendarButton]-50-|",
                                         @"X:_locationLabel.centerX == superview.centerX",
                                         @"X:_descriptionLabel.centerX == superview.centerX",
+                                        @"H:|-[_descriptionLabel]-|",
                                         @"X:_addToCalendarButton.centerX == superview.centerX",
                                         @"X:_timeLabel.centerX == superview.centerX",
                                         @"H:|-[_descriptionTextView]-|"]];

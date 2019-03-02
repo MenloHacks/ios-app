@@ -261,7 +261,7 @@ static NSString *KMEHEventReuseIdentifier = @"com.menlohacks.tableview.event";
 
 - (void)dealloc {
     for (RLMNotificationToken *token in self.notificationTokens) {
-        [token stop];
+        [token invalidate];
     }
 }
 

@@ -3,6 +3,8 @@
 //
 #import "UIColor+ColorPalette.h"
 
+#import "AutolayoutHelper.h"
+
 #import <Bolts/Bolts.h>
 
 #import "MEHMentorshipViewController.h"

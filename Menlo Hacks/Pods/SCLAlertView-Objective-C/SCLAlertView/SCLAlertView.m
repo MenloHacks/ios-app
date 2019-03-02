@@ -3,7 +3,7 @@
 //  SCLAlertView
 //
 //  Created by Diogo Autilio on 9/26/14.
-//  Copyright (c) 2014-2016 AnyKey Entertainment. All rights reserved.
+//  Copyright (c) 2014-2017 AnyKey Entertainment. All rights reserved.
 //
 
 #import "SCLAlertView.h"
@@ -43,6 +43,8 @@
 @property (strong, nonatomic) UIWindow *previousWindow;
 @property (strong, nonatomic) UIWindow *SCLAlertWindow;
 @property (copy, nonatomic) SCLDismissBlock dismissBlock;
+@property (copy, nonatomic) SCLDismissAnimationCompletionBlock dismissAnimationCompletionBlock;
+@property (copy, nonatomic) SCLShowAnimationCompletionBlock showAnimationCompletionBlock;
 @property (weak, nonatomic) UIViewController *rootViewController;
 @property (weak, nonatomic) id<UIGestureRecognizerDelegate> restoreInteractivePopGestureDelegate;
 @property (assign, nonatomic) SystemSoundID soundID;
@@ -182,14 +184,16 @@ SCLTimerDisplay *buttonTimer;
     // Init
     _labelTitle = [[UILabel alloc] init];
     _viewText = [[UITextView alloc] init];
+    _viewText.accessibilityTraits = UIAccessibilityTraitStaticText;
     _contentView = [[UIView alloc] init];
     _circleView = [[UIView alloc] init];
     _circleViewBackground = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kCircleHeightBackground, kCircleHeightBackground)];
     _circleIconImageView = [[UIImageView alloc] init];
-    _backgroundView = [[UIImageView alloc]initWithFrame:[self mainScreenFrame]];
+    _backgroundView = [[UIImageView alloc] initWithFrame:[self mainScreenFrame]];
     _buttons = [[NSMutableArray alloc] init];
     _inputs = [[NSMutableArray alloc] init];
     _customViews = [[NSMutableArray alloc] init];
+    self.view.accessibilityViewIsModal = YES;
     
     // Add Subviews
     [self.view addSubview:_contentView];
@@ -241,10 +245,7 @@ SCLTimerDisplay *buttonTimer;
     _contentView.layer.masksToBounds = YES;
     _contentView.layer.borderWidth = 0.5f;
     [_contentView addSubview:_viewText];    
-
-    CGRect position = [self.contentView convertRect:self.labelTitle.frame toView:self.view];
-    _labelTitle.frame = position;
-    [self.view addSubview:_labelTitle];
+    [_contentView addSubview:_labelTitle];
     
     // Colors
     self.backgroundViewColor = [UIColor whiteColor];
@@ -253,22 +254,23 @@ SCLTimerDisplay *buttonTimer;
     _contentView.layer.borderColor = UIColorFromHEX(0xCCCCCC).CGColor; //Light Grey
 }
 
-- (void)setupNewWindow
-{
+- (void)setupNewWindow {
+    // Save previous window
+    self.previousWindow = [UIApplication sharedApplication].keyWindow;
+    
     // Create a new one to show the alert
     UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[self mainScreenFrame]];
     alertWindow.windowLevel = UIWindowLevelAlert;
     alertWindow.backgroundColor = [UIColor clearColor];
-    alertWindow.rootViewController = self;
+    alertWindow.rootViewController = [UIViewController new];
+    alertWindow.accessibilityViewIsModal = YES;
     self.SCLAlertWindow = alertWindow;
-    
     self.usingNewWindow = YES;
 }
 
 #pragma mark - Modal Validation
 
-- (BOOL)isModal
-{
+- (BOOL)isModal {
     return (_rootViewController != nil && _rootViewController.presentingViewController);
 }
 
@@ -293,8 +295,7 @@ SCLTimerDisplay *buttonTimer;
         // Reposition inner circle appropriately
         CGFloat x = (kCircleHeightBackground - kCircleHeight) / 2;
         _circleView.frame = CGRectMake(x, x, kCircleHeight, kCircleHeight);
-        if (_labelTitle.text == nil)
-        {
+        if (_labelTitle.text == nil) {
             kTitleTop = kCircleHeightBackground / 2;
         }
     } else {
@@ -302,64 +303,41 @@ SCLTimerDisplay *buttonTimer;
     }
     
     // Check if the rootViewController is modal, if so we need to get the modal size not the main screen size
-    if([self isModal] && !_usingNewWindow)
-    {
+    if ([self isModal] && !_usingNewWindow) {
         sz = _rootViewController.view.frame.size;
     }
     
-    if (SYSTEM_VERSION_LESS_THAN(@"8.0"))
-    {
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
         // iOS versions before 7.0 did not switch the width and height on device roration
-        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
-        {
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             CGSize ssz = sz;
             sz = CGSizeMake(ssz.height, ssz.width);
         }
     }
     
-    if(!_usingNewWindow)
-    {
-        // Set new background frame
-        CGRect newBackgroundFrame = self.backgroundView.frame;
-        newBackgroundFrame.size = sz;
-        self.backgroundView.frame = newBackgroundFrame;
-        
-        // Set new main frame
-        CGRect r;
-        if (self.view.superview != nil)
-        {
-            // View is showing, position at center of screen
-            r = CGRectMake((sz.width-_windowWidth)/2, (sz.height-_windowHeight)/2, _windowWidth, _windowHeight);
-        }
-        else
-        {
-            // View is not visible, position outside screen bounds
-            r = CGRectMake((sz.width-_windowWidth)/2, -_windowHeight, _windowWidth, _windowHeight);
-        }
-        
-        // Set frames
-        self.view.frame = r;
-        _contentView.frame = CGRectMake(0.0f, 0.0f, _windowWidth, _windowHeight);
-        _circleViewBackground.frame = CGRectMake(_windowWidth / 2 - kCircleHeightBackground / 2, kCircleBackgroundTopPosition, kCircleHeightBackground, kCircleHeightBackground);
-        _circleViewBackground.layer.cornerRadius = _circleViewBackground.frame.size.height / 2;
-        _circleView.layer.cornerRadius = _circleView.frame.size.height / 2;
-        _circleIconImageView.frame = CGRectMake(kCircleHeight / 2 - _circleIconHeight / 2, kCircleHeight / 2 - _circleIconHeight / 2, _circleIconHeight, _circleIconHeight);
-        _labelTitle.frame = CGRectMake(12.0f, kTitleTop, _windowWidth - 24.0f, kTitleHeight);
+    // Set new main frame
+    CGRect r;
+    if (self.view.superview != nil) {
+        // View is showing, position at center of screen
+        r = CGRectMake((sz.width-_windowWidth)/2, (sz.height-_windowHeight)/2, _windowWidth, _windowHeight);
+    } else {
+        // View is not visible, position outside screen bounds
+        r = CGRectMake((sz.width-_windowWidth)/2, -_windowHeight, _windowWidth, _windowHeight);
     }
-    else
-    {
-        CGFloat x = (sz.width - _windowWidth) / 2;
-        CGFloat y = (sz.height - _windowHeight - (kCircleHeight / 8)) / 2;
-        
-        _contentView.frame = CGRectMake(x, y, _windowWidth, _windowHeight);
-        y -= kCircleHeightBackground / 2;
-        x = (sz.width - kCircleHeightBackground) / 2;
-        _circleView.layer.cornerRadius = _circleView.frame.size.height / 2;        
-        _circleViewBackground.frame = CGRectMake(x, y, kCircleHeightBackground, kCircleHeightBackground);
-        _circleViewBackground.layer.cornerRadius = _circleViewBackground.frame.size.height / 2;        
-        _circleIconImageView.frame = CGRectMake(kCircleHeight / 2 - _circleIconHeight / 2, kCircleHeight / 2 - _circleIconHeight / 2, _circleIconHeight, _circleIconHeight);
-        _labelTitle.frame = CGRectMake(12.0f + self.contentView.frame.origin.x, kTitleTop + self.contentView.frame.origin.y, _windowWidth - 24.0f, kTitleHeight);
-    }
+    self.view.frame = r;
+    
+    // Set new background frame
+    CGRect newBackgroundFrame = self.backgroundView.frame;
+    newBackgroundFrame.size = sz;
+    self.backgroundView.frame = newBackgroundFrame;
+    
+    // Set frames
+    _contentView.frame = CGRectMake(0.0f, 0.0f, _windowWidth, _windowHeight);
+    _circleViewBackground.frame = CGRectMake(_windowWidth / 2 - kCircleHeightBackground / 2, kCircleBackgroundTopPosition, kCircleHeightBackground, kCircleHeightBackground);
+    _circleViewBackground.layer.cornerRadius = _circleViewBackground.frame.size.height / 2;
+    _circleView.layer.cornerRadius = _circleView.frame.size.height / 2;
+    _circleIconImageView.frame = CGRectMake(kCircleHeight / 2 - _circleIconHeight / 2, kCircleHeight / 2 - _circleIconHeight / 2, _circleIconHeight, _circleIconHeight);
+    _labelTitle.frame = CGRectMake(12.0f, kTitleTop, _windowWidth - 24.0f, kTitleHeight);
     
     // Text fields
     CGFloat y = (_labelTitle.text == nil) ? kTitleTop : kTitleTop + _labelTitle.frame.size.height;
@@ -370,24 +348,21 @@ SCLTimerDisplay *buttonTimer;
     }
 
     y += _subTitleHeight + 14.0f;
-    for (SCLTextView *textField in _inputs)
-    {
+    for (SCLTextView *textField in _inputs) {
         textField.frame = CGRectMake(12.0f, y, _windowWidth - 24.0f, textField.frame.size.height);
         textField.layer.cornerRadius = 3.0f;
         y += textField.frame.size.height + 10.0f;
     }
     
     // Custom views
-    for (UIView *view in _customViews)
-    {
+    for (UIView *view in _customViews) {
         view.frame = CGRectMake(12.0f, y, view.frame.size.width, view.frame.size.height);
         y += view.frame.size.height + 10.0f;
     }
     
     // Buttons
     CGFloat x = 12.0f;
-    for (SCLButton *btn in _buttons)
-    {
+    for (SCLButton *btn in _buttons) {
         btn.frame = CGRectMake(x, y, btn.frame.size.width, btn.frame.size.height);
         
         // Add horizontal or vertical offset acording on _horizontalButtons parameter
@@ -435,7 +410,10 @@ SCLTimerDisplay *buttonTimer;
                 hide = NO;
             }
         }
-        if(hide)[self hideView];
+        if(hide)
+        {
+            [self hideView];
+        }
     }
 }
 
@@ -446,7 +424,7 @@ SCLTimerDisplay *buttonTimer;
     if(_shouldDismissOnTapOutside)
     {
         self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [_usingNewWindow ? _SCLAlertWindow : _backgroundView addGestureRecognizer:_gestureRecognizer];
+        [_backgroundView addGestureRecognizer:_gestureRecognizer];
     }
 }
 
@@ -814,17 +792,15 @@ SCLTimerDisplay *buttonTimer;
 
 - (SCLAlertViewResponder *)showTitle:(UIViewController *)vc image:(UIImage *)image color:(UIColor *)color title:(NSString *)title subTitle:(NSString *)subTitle duration:(NSTimeInterval)duration completeText:(NSString *)completeText style:(SCLAlertViewStyle)style
 {
-    if(_usingNewWindow)
-    {
-        // Save previous window
-        self.previousWindow = [UIApplication sharedApplication].keyWindow;
+    if(_usingNewWindow) {
+
         self.backgroundView.frame = _SCLAlertWindow.bounds;
         
         // Add window subview
-        [_SCLAlertWindow addSubview:_backgroundView];
-    }
-    else
-    {
+        [_SCLAlertWindow.rootViewController addChildViewController:self];
+        [_SCLAlertWindow.rootViewController.view addSubview:_backgroundView];
+        [_SCLAlertWindow.rootViewController.view addSubview:self.view];
+    } else {
         _rootViewController = vc;
         
         [self disableInteractivePopGesture];
@@ -1170,6 +1146,14 @@ SCLTimerDisplay *buttonTimer;
     self.dismissBlock = dismissBlock;
 }
 
+- (void)alertDismissAnimationIsCompleted:(SCLDismissAnimationCompletionBlock)dismissAnimationCompletionBlock{
+    self.dismissAnimationCompletionBlock = dismissAnimationCompletionBlock;
+}
+
+- (void)alertShowAnimationIsCompleted:(SCLShowAnimationCompletionBlock)showAnimationCompletionBlock{
+    self.showAnimationCompletionBlock = showAnimationCompletionBlock;
+}
+
 - (SCLForceHideBlock)forceHideBlock:(SCLForceHideBlock)forceHideBlock
 {
     _forceHideBlock = forceHideBlock;
@@ -1365,16 +1349,16 @@ SCLTimerDisplay *buttonTimer;
         self.view.alpha = 0.0f;
     } completion:^(BOOL completed) {
         [self.backgroundView removeFromSuperview];
-        if (_usingNewWindow)
-        {
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        
+        if (_usingNewWindow) {
             // Remove current window
             [self.SCLAlertWindow setHidden:YES];
             self.SCLAlertWindow = nil;
         }
-        else
-        {
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
+        if ( _dismissAnimationCompletionBlock ){
+            self.dismissAnimationCompletionBlock();
         }
     }];
 }
@@ -1472,7 +1456,11 @@ SCLTimerDisplay *buttonTimer;
                          self.backgroundView.alpha = _backgroundOpacity;
                          self.view.alpha = 1.0f;
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if ( _showAnimationCompletionBlock ){
+                             self.showAnimationCompletionBlock();
+                         }
+                     }];
 }
 
 - (void)slideInFromTop
@@ -1496,6 +1484,10 @@ SCLTimerDisplay *buttonTimer;
         } completion:^(BOOL completed) {
             [UIView animateWithDuration:0.2f animations:^{
                 self.view.center = _backgroundView.center;
+            } completion:^(BOOL finished) {
+                if ( _showAnimationCompletionBlock ){
+                    self.showAnimationCompletionBlock();
+                }
             }];
         }];
     }
@@ -1515,7 +1507,9 @@ SCLTimerDisplay *buttonTimer;
             
             self.view.alpha = 1.0f;
         } completion:^(BOOL finished) {
-            // nothing
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }
 }
@@ -1539,6 +1533,10 @@ SCLTimerDisplay *buttonTimer;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
             self.view.center = _backgroundView.center;
+        } completion:^(BOOL finished) {
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }];
 }
@@ -1562,6 +1560,10 @@ SCLTimerDisplay *buttonTimer;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
             self.view.center = _backgroundView.center;
+        } completion:^(BOOL finished) {
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }];
 }
@@ -1585,6 +1587,10 @@ SCLTimerDisplay *buttonTimer;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
             self.view.center = _backgroundView.center;
+        } completion:^(BOOL finished) {
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }];
 }
@@ -1606,6 +1612,10 @@ SCLTimerDisplay *buttonTimer;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
             self.view.center = _backgroundView.center;
+        } completion:^(BOOL finished) {
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }];
 }
@@ -1627,6 +1637,10 @@ SCLTimerDisplay *buttonTimer;
     } completion:^(BOOL completed) {
         [UIView animateWithDuration:0.2f animations:^{
             self.view.center = _backgroundView.center;
+        } completion:^(BOOL finished) {
+            if ( _showAnimationCompletionBlock ){
+                self.showAnimationCompletionBlock();
+            }
         }];
     }];
 }
@@ -1639,6 +1653,9 @@ SCLTimerDisplay *buttonTimer;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.backgroundView.alpha = _backgroundOpacity;
         self.view.alpha = 1.0f;
+        if ( _showAnimationCompletionBlock ){
+            self.showAnimationCompletionBlock();
+        }
     });
 }
 
@@ -2010,6 +2027,26 @@ SCLTimerDisplay *buttonTimer;
         };
     }
     return _alertIsDismissed;
+}
+-(SCLAlertViewBuilder *(^)(SCLDismissAnimationCompletionBlock))alertDismissAnimationIsCompleted{
+    if (!_alertDismissAnimationIsCompleted) {
+        __weak typeof(self) weakSelf = self;
+        _alertDismissAnimationIsCompleted = ^(SCLDismissAnimationCompletionBlock dismissAnimationCompletionBlock) {
+            [weakSelf.alertView alertDismissAnimationIsCompleted:dismissAnimationCompletionBlock];
+            return weakSelf;
+        };
+    }
+    return _alertDismissAnimationIsCompleted;
+}
+-(SCLAlertViewBuilder *(^)(SCLShowAnimationCompletionBlock))alertShowAnimationIsCompleted{
+    if (!_alertShowAnimationIsCompleted) {
+        __weak typeof(self) weakSelf = self;
+        _alertShowAnimationIsCompleted = ^(SCLShowAnimationCompletionBlock showAnimationCompletionBlock) {
+            [weakSelf.alertView alertShowAnimationIsCompleted:showAnimationCompletionBlock];
+            return weakSelf;
+        };
+    }
+    return _alertShowAnimationIsCompleted;
 }
 - (SCLAlertViewBuilder *(^) (void))removeTopCircle {
     if (!_removeTopCircle) {

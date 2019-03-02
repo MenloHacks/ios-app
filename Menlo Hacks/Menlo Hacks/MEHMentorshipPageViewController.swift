@@ -6,49 +6,45 @@
 //  Copyright © 2017 MenloHacks. All rights reserved.
 //
 
-//Written in Swift 2 because PageMenu doesn't seem to like Swift 3.
 
 import Foundation
 import UIKit
-import PageMenu
+import Parchment
 import Bolts
 
 @objc class MEHMentorshipPageViewController: UIViewController {
     
-
+    var pageMenu : FixedPagingViewController!
     
-    var pageMenu : CAPSPageMenu?
-    
-    override func viewWillAppear(animated: Bool) {
-        if (self.parentViewController?.navigationItem.rightBarButtonItem == nil) {
-            let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
-            self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+    override func viewWillAppear(_ animated: Bool) {
+        if (self.parent?.navigationItem.rightBarButtonItem == nil) {
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket(sender:)))
+            self.parent?.navigationItem.rightBarButtonItem = addButton;
         }
 
     }
     
     override func viewDidLoad(){
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addTicket(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket(sender:)))
         
-        self.parentViewController?.navigationItem.rightBarButtonItem = addButton;
+        self.parent?.navigationItem.rightBarButtonItem = addButton;
         
         let vc1 = MEHMentorshipViewController()
-        vc1.categories = [kMEHQueueCategory];
+        vc1.predicates = [NSPredicate(format:"rawStatus = %i", MEHMentorTicketStatusOpen.rawValue)]
         
-        vc1.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchQueue()
+        vc1.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchQueue()
         }
         
         vc1.title = "Queue";
         
         let vc2 = MEHMentorshipViewController()
         vc2.requiresLogin = true
-        vc2.predicate = NSPredicate(format: "claimedByMe = 1")
-        vc2.categories = [kMEHInProgressCategory];
+        vc2.predicates = [NSPredicate(format: "claimedByMe = 1 AND rawStatus = %i", MEHMentorTicketStatusClaimed.rawValue)]
         
-        vc2.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchClaimedQueue()
+        vc2.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchClaimedQueue()
         }
         
         vc2.title = "Claimed";
@@ -56,55 +52,39 @@ import Bolts
         let vc3 = MEHMentorshipViewController()
         vc3.requiresLogin = true
         
-        vc3.predicate = NSPredicate(format: "isMine=1")
+        vc3.predicates = [NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusOpen.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusClaimed.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusExpired.rawValue),
+                          NSPredicate(format: "isMine = 1 AND rawStatus = %i", MEHMentorTicketStatusClosed.rawValue)];
         
-        vc3.fetchFromServer = { () -> BFTask in
-            return MEHMentorshipStoreController.sharedMentorshipStoreController().fetchUserQueue().continueWithSuccessBlock({ (task : BFTask) -> AnyObject? in
-                vc3.categories = task.result as! [AnyObject]
-                return task
-            });
+        vc3.predicateLabels = ["Open", "In-Progress", "Expired", "Closed"]
+        
+        vc3.fetchFromServer = { () -> BFTask<AnyObject> in
+            return MEHMentorshipStoreController.shared().fetchUserQueue()
         }
         
         vc3.title = "My Tickets";
         
         
-        
-        
-        
         let controllers = [vc1, vc2, vc3]
         
-        // Initialize page menu with controller array, frame, and optional parameters
+        pageMenu = FixedPagingViewController(viewControllers: controllers)
+        pageMenu.textColor = UIColor.menloHacksGray()
+        pageMenu.font = UIFont(name: "Avenir", size: 16.0)!
+        pageMenu.selectedTextColor = UIColor.menloHacksPurple()
+        pageMenu.indicatorColor = UIColor.menloHacksPurple()
+        pageMenu.menuBackgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        pageMenu.menuItemSize = .sizeToFit(minWidth: 125, height: 40)
         
-        let pageMenuParameters: [CAPSPageMenuOption] = [
-            .MenuItemSeparatorWidth(0),
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)),
-            .BottomMenuHairlineColor(UIColor.menloHacksPurple()),
-            .SelectionIndicatorColor(UIColor.menloHacksPurple()),
-            .MenuMargin(20.0),
-            .MenuHeight(40.0),
-            .SelectedMenuItemLabelColor(UIColor.menloHacksPurple()),
-            .UnselectedMenuItemLabelColor(UIColor.menloHacksGray()),
-            .MenuItemFont(UIFont(name: "Avenir", size: 16.0)!),
-            .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorRoundEdges(true),
-            .SelectionIndicatorHeight(2.0),
-            .MenuItemSeparatorPercentageHeight(0.1)
-        ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: pageMenuParameters)
         
-        // Lastly add page menu as subview of base view controller view
-        // or use pageMenu controller in you view hierachy as desired
-        self.view.addSubview(pageMenu!.view)
+        AutolayoutHelper.configureView(self.view, fillWithSubView: pageMenu.view)
         
     }
     
-    func addTicket(sender : AnyObject) {
+    @objc func addTicket(sender : AnyObject) {
         let vc = MEHAddMentorTicketViewController()
         self.displayContentController(vc)
-        
-        
         
     }
 }

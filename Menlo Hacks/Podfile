@@ -1,14 +1,14 @@
 target 'Menlo Hacks' do
-pod 'Bolts'
-pod 'AFNetworking'
-pod 'JNKeychain'
-pod 'Realm'
-pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
-use_frameworks!
-pod 'PageMenu'
-pod 'SCLAlertView-Objective-C'
-pod 'TTTAttributedLabel'
-pod 'AFMInfoBanner'
+    use_frameworks!
+    pod 'Bolts'
+    pod 'AFNetworking'
+    pod 'JNKeychain'
+    pod 'Realm'
+    pod 'libPusher', git: 'https://github.com/pusher/libPusher.git', branch: 'push-notifications'
+    pod 'Parchment'
+    pod 'SCLAlertView-Objective-C'
+    pod 'TTTAttributedLabel'
+    pod 'AFMInfoBanner'
 
 end
 

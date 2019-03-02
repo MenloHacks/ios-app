@@ -54,24 +54,20 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
-        if(!self.loginVC) {
-            self.loginVC = [[MEHLoginViewController alloc]init];
-            self.loginVC.delegate = self;
-            [self displayContentController:self.loginVC];
-        }
-    } else {
-        if(self.loginVC) {
-            [self configureView];
-            [self removeContentViewController:self.loginVC];
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogOut:) name:kMEHDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogin:) name:kMEHDidLoginNotification object:nil];
     self.parentViewController.navigationItem.rightBarButtonItems = @[];
+    [self handleLoginScreen];
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 
 - (void)createViews {
     self.welcomeLabel = [UILabel new];
@@ -83,15 +79,22 @@
     self.descriptionLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleBody]size:0];
     self.descriptionLabel.text = @"Please find a volunteer and show them your ticket.";
     
+    self.descriptionLabel.numberOfLines = 0;
+    
     self.addButton = [[PKAddPassButton alloc]initWithAddPassButtonStyle:PKAddPassButtonStyleBlack];
     [self.addButton addTarget:self action:@selector(getPassPressed:) forControlEvents:UIControlEventTouchDown];
+    
+    if(![PKAddPassesViewController canAddPasses]) {
+        self.addButton.hidden = YES;
+        self.descriptionLabel.text = @"Device does not support passbook.";
+    }
     
 
     [AutolayoutHelper configureView:self.view
                            subViews:NSDictionaryOfVariableBindings(_welcomeLabel, _descriptionLabel, _addButton)
                         constraints:@[@"H:|-[_welcomeLabel]",
                                       @"X:_addButton.centerX == superview.centerX",
-                                      @"H:|-[_descriptionLabel]|",
+                                      @"H:|-[_descriptionLabel]-|",
                                       @"V:|-30-[_welcomeLabel]-30-[_addButton]-20-[_descriptionLabel]"]];
     
 }
@@ -139,14 +142,29 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)handleLoginScreen {
+    if(![[MEHUserStoreController sharedUserStoreController]isUserLoggedIn]) {
+        if(!self.loginVC) {
+            self.loginVC = [[MEHLoginViewController alloc]init];
+            self.loginVC.delegate = self;
+        }
+        [self displayContentController:self.loginVC];
+    } else {
+        if(self.loginVC) {
+            [self configureView];
+            [self removeContentViewController:self.loginVC];
+        }
+    }
 }
-*/
+
+- (void)didLogOut : (id)sender {
+    [self handleLoginScreen];
+}
+
+- (void)didLogin : (id)sender {
+    [self handleLoginScreen];
+}
+
+
 
 @end

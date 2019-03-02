@@ -70,7 +70,7 @@
     static NSDateFormatter *_sharedInstance;
     dispatch_once(&once, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PT"]];
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
         _sharedInstance = dateFormatter;
     });
@@ -92,7 +92,7 @@
     static NSDateFormatter *_sharedInstance;
     dispatch_once(&once, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PT"]];
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
         _sharedInstance = dateFormatter;
     });
@@ -105,7 +105,7 @@
     static NSDateFormatter *_sharedInstance;
     dispatch_once(&once, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PT"]];
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.S";
         _sharedInstance = dateFormatter;
     });

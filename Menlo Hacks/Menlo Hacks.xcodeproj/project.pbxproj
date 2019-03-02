@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */; };
 		BE261A051C3321A000BB5920 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A041C3321A000BB5920 /* main.m */; };
 		BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A071C3321A000BB5920 /* AppDelegate.m */; };
 		BE261A0B1C3321A000BB5920 /* MEHScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */; };
@@ -42,17 +43,17 @@
 		BEA8B6F91E6A0E5D00030DDD /* MEHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6F81E6A0E5D00030DDD /* MEHLoginViewController.m */; };
 		BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */; };
 		BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB928281E6A9B270072C5CB /* MEHUser.m */; };
+		BEC906632048C06900E7983C /* MEHDatabaseMigrationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */; };
 		BED5EC771C370474002B5385 /* MEHAnnouncementsStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */; };
 		BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */; };
 		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
 		BEE318271E6A5BC700F80A45 /* MEHUserStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */; };
-		F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 		3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.debug.xcconfig"; sourceTree = "<group>"; };
-		9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A001C3321A000BB5920 /* Menlo Hacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menlo Hacks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A041C3321A000BB5920 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE261A061C3321A000BB5920 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +125,8 @@
 		BEA8B6FB1E6A0EA500030DDD /* MEHBottomBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHBottomBorderTextField.m; sourceTree = "<group>"; };
 		BEB928271E6A9B270072C5CB /* MEHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHUser.h; sourceTree = "<group>"; };
 		BEB928281E6A9B270072C5CB /* MEHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHUser.m; sourceTree = "<group>"; };
+		BEC906612048C06900E7983C /* MEHDatabaseMigrationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHDatabaseMigrationController.h; sourceTree = "<group>"; };
+		BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEHDatabaseMigrationController.m; sourceTree = "<group>"; };
 		BED5EC751C370474002B5385 /* MEHAnnouncementsStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHAnnouncementsStoreController.h; sourceTree = "<group>"; };
 		BED5EC761C370474002B5385 /* MEHAnnouncementsStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHAnnouncementsStoreController.m; sourceTree = "<group>"; };
 		BED5EC7B1C3884F0002B5385 /* MEHMapStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHMapStoreController.h; sourceTree = "<group>"; };
@@ -140,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CB94B8B73ACE03B612E748 /* Pods_Menlo_Hacks.framework in Frameworks */,
+				5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +153,7 @@
 		806F197E3C26ED6CB27DA003 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9E5F0F0884BADEA6C6306533 /* Pods_Menlo_Hacks.framework */,
+				0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -251,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				BE6D94641E6CADB900730701 /* MEHMentorshipStoreController.h */,
+				BEC906612048C06900E7983C /* MEHDatabaseMigrationController.h */,
+				BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */,
 				BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */,
 				BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */,
 				BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */,
@@ -366,7 +371,7 @@
 				TargetAttributes = {
 					BE2619FF1C3321A000BB5920 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 3R5J785EXT;
+						DevelopmentTeam = YWVU2284UC;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -413,9 +418,32 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFMInfoBanner/AFMInfoBanner.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CVKHierarchySearcher/CVKHierarchySearcher.framework",
+				"${BUILT_PRODUCTS_DIR}/JNKeychain/JNKeychain.framework",
+				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView-Objective-C/SCLAlertView_Objective_C.framework",
+				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
+				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/libPusher/Pusher.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFMInfoBanner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVKHierarchySearcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JNKeychain.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView_Objective_C.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pusher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -428,13 +456,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Menlo Hacks-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */ = {
@@ -473,6 +504,7 @@
 				BEA8B6FC1E6A0EA500030DDD /* MEHBottomBorderTextField.m in Sources */,
 				BE5F9BC01E60BF43005CED30 /* RLMRealm+MenloHacks.m in Sources */,
 				BE386FEB1C34847F00020989 /* MEHEventTimingStoreController.m in Sources */,
+				BEC906632048C06900E7983C /* MEHDatabaseMigrationController.m in Sources */,
 				BEB928291E6A9B270072C5CB /* MEHUser.m in Sources */,
 				BE6D94661E6CADB900730701 /* MEHMentorshipStoreController.m in Sources */,
 				BE6D94721E6D251900730701 /* MEHAddMentorTicketViewController.m in Sources */,
@@ -608,19 +640,21 @@
 				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3R5J785EXT;
+				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -633,18 +667,20 @@
 				CODE_SIGN_ENTITLEMENTS = "Menlo Hacks/Menlo Hacks.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3R5J785EXT;
+				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.menlohacks.Menlo-Hacks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Menlo Hacks/Menlo Hacks-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

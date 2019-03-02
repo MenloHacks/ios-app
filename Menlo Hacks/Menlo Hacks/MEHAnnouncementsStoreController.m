@@ -30,24 +30,21 @@
 
 - (BFTask *)fetchAnnouncements {
     
-    MEHAnnouncement *newestAnnouncement = [[[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO]firstObject];
-    NSDate *newestDate;
-    if(newestAnnouncement) {
-        newestDate = newestAnnouncement.time;
-    } else {
-        newestDate = [NSDate distantPast];
-    }
-    
-    NSDictionary *parameters = @{@"since_date" : [NSDate ISOStringFromDate:newestDate]};
-    
-    return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"announcements" parameters:parameters]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+    return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"announcements" parameters:nil]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
         NSArray *announcements = t.result[@"data"];
         RLMRealm *realm = [RLMRealm defaultRealm];
-        return [realm meh_TransactionWithBlock:^{
+        __block NSMutableArray<NSString *> *announcementIDs = [NSMutableArray arrayWithCapacity:announcements.count];
+        return [[realm meh_TransactionWithBlock:^{
             for (NSDictionary *announcementDictionary in announcements) {
                 MEHAnnouncement *announcement = [MEHAnnouncement announcementFromDictionary:announcementDictionary];
+                [announcementIDs addObject:announcement.serverID];
                 [realm addOrUpdateObject:announcement];
             }
+        }]continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+            RLMResults *objectsToDelete = [MEHAnnouncement objectsWhere:@"NOT (serverID IN %@)", announcementIDs];
+            return [realm meh_TransactionWithBlock:^{
+                [realm deleteObjects:objectsToDelete];
+            }];
         }];
 
 
@@ -69,7 +66,7 @@
 }
 
 - (RLMResults *)announcements {
-    return [[MEHAnnouncement allObjects]sortedResultsUsingProperty:@"time" ascending:NO];
+    return [[MEHAnnouncement allObjects]sortedResultsUsingKeyPath:@"time" ascending:NO];
 }
 
 

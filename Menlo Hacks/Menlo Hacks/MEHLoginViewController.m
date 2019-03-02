@@ -94,7 +94,7 @@
     self.welcomeLabel.textColor = [UIColor whiteColor];
     
     self.welcomeLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleHeadline]size:0];
-    self.welcomeLabel.text = @"Welcome to MenloHacks II";
+    self.welcomeLabel.text = @"Welcome to MenloHacks III";
     
     self.usernameLabel = [UILabel new];
     self.usernameLabel.font = [UIFont fontWithDescriptor:[UIFontDescriptor preferredAvenirNextFontDescriptorWithTextStyle:UIFontTextStyleSubheadline]size:0];

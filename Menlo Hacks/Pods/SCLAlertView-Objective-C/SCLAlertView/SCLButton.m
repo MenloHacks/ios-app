@@ -3,7 +3,7 @@
 //  SCLAlertView
 //
 //  Created by Diogo Autilio on 9/26/14.
-//  Copyright (c) 2014-2016 AnyKey Entertainment. All rights reserved.
+//  Copyright (c) 2014-2017 AnyKey Entertainment. All rights reserved.
 //
 
 #import "SCLButton.h"
@@ -63,9 +63,9 @@
     self.layer.cornerRadius = 3.0f;
 }
 
-- (void)adjustWidthWithWindowWidth:(CGFloat)windowWidht numberOfButtons:(NSUInteger)numberOfButtons
+- (void)adjustWidthWithWindowWidth:(CGFloat)windowWidth numberOfButtons:(NSUInteger)numberOfButtons
 {
-    CGFloat allButtonsWidth = windowWidht - (MARGIN_BUTTON * 2);
+    CGFloat allButtonsWidth = windowWidth - (MARGIN_BUTTON * 2);
     CGFloat buttonWidth = (allButtonsWidth - ((numberOfButtons - 1) * 10)) / numberOfButtons;
     
     self.frame = CGRectMake(0.0f, 0.0f, buttonWidth, MIN_HEIGHT);

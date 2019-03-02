@@ -8,17 +8,21 @@
 
 #import <Realm/Realm.h>
 
-extern NSString * kMEHQueueCategory;
-extern NSString * kMEHExpiredCategory;
-extern NSString * kMEHInProgressCategory;
-extern NSString * kMEHClosedCategory;
-
+typedef enum : NSUInteger {
+    MEHMentorActionNone = 0,
+    MEHMentorActionClaim=1,
+    MEHMentorActionReopen=2,
+    MEHMentorActionClose=3,
+    
+} MEHMentorAction;
 
 typedef enum : NSUInteger {
-    MEHMentorActionClaim=0,
-    MEHMentorActionReopen=1,
-    MEHMentorActionClose=2,
-} MEHMentorAction;
+    MEHMentorTicketStatusOpen=0,
+    MEHMentorTicketStatusClaimed=1,
+    MEHMentorTicketStatusExpired=2,
+    MEHMentorTicketStatusClosed=3
+    
+} MEHMentorTicketStatus;
 
 @interface MEHMentorTicket : RLMObject
 
@@ -35,9 +39,14 @@ typedef enum : NSUInteger {
 @property BOOL isMine;
 @property BOOL claimedByMe;
 
-@property NSString *category;
+@property (nonatomic)MEHMentorTicketStatus status;
+@property (nonatomic) MEHMentorAction primaryAction;
+@property (nonatomic) MEHMentorAction secondaryAction;
 
-+ (NSString *)categoryForAction : (MEHMentorAction)action;
+@property int rawStatus;
+@property int rawPrimaryAction;
+@property int rawSecondaryAction;
+
 
 @end
 

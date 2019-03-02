@@ -43,7 +43,7 @@
 }
 
 - (RLMResults *)maps {
-    return [[MEHLocation objectsWhere:@"isPrimary = 1"]sortedResultsUsingProperty:@"rank" ascending:YES];
+    return [[MEHLocation objectsWhere:@"isPrimary = 1"]sortedResultsUsingKeyPath:@"rank" ascending:YES];
 }
 
 

@@ -14,6 +14,7 @@
 #import "MEHAnnouncementsViewController.h"
 #import "MEHMapViewController.h"
 #import "MEHCheckInViewController.h"
+#import "MEHDatabaseMigrationController.h"
 #import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
 #import "Menlo_Hacks-Swift.h"
@@ -31,8 +32,7 @@
 
 #pragma mark Application State Changes
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  [self configureAPIs];
-  [self registerForPush:application];
+  [[MEHDatabaseMigrationController sharedMigrator]handleMigrations];
   _tabBarController = [[UITabBarController alloc]init];
   _tabBarController.tabBar.translucent = NO;
   MEHScheduleViewController *vc1 = [[MEHScheduleViewController alloc]init];
@@ -84,6 +84,7 @@
 }
 
 
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 
 }
@@ -106,22 +107,6 @@
   
 }
 
-
-
-#pragma mark Helper Methods
--(void)configureAPIs {
-  
-
-  
-}
-
--(void)registerForPush : (UIApplication *)application {
-  UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes  categories:nil];
-  [application registerUserNotificationSettings:settings];
-  [application registerForRemoteNotifications];
-
-}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [[MEHNotificationHandler sharedNotificationHandler]registerDeviceToken:deviceToken];
