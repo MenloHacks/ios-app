@@ -31,9 +31,9 @@ open class PagingViewController<T: PagingItem>:
 
   /// The class type for the menu item. Override this if you want
   /// your own custom menu items. _Default: PagingTitleCell.self_
-  public var menuItemClass: PagingCell.Type {
-    get { return options.menuItemClass }
-    set { options.menuItemClass = newValue }
+  public var menuItemSource: PagingMenuItemSource {
+    get { return options.menuItemSource }
+    set { options.menuItemSource = newValue }
   }
 
   /// Determine the spacing between the menu items. _Default: 0_
@@ -105,12 +105,15 @@ open class PagingViewController<T: PagingItem>:
     set { options.selectedScrollPosition = newValue }
   }
 
-  /// Add a indicator view to the selected menu item. The indicator
+  /// Add an indicator view to the selected menu item. The indicator
   /// width will be equal to the selected menu items width. Insets
   /// only apply horizontally. _Default: .visible_
   public var indicatorOptions: PagingIndicatorOptions {
     get { return options.indicatorOptions }
-    set { options.indicatorOptions = newValue }
+    set {
+      options.indicatorOptions = newValue
+      collectionViewLayout.invalidateLayout()
+    }
   }
 
   /// The class type for the indicator view. Override this if you want
@@ -118,13 +121,19 @@ open class PagingViewController<T: PagingItem>:
   /// PagingIndicatorView.self_
   public var indicatorClass: PagingIndicatorView.Type {
     get { return options.indicatorClass }
-    set { options.indicatorClass = newValue }
+    set {
+      options.indicatorClass = newValue
+      collectionViewLayout.registerIndicatorClass()
+    }
   }
 
   /// Determine the color of the indicator view.
   public var indicatorColor: UIColor {
     get { return options.indicatorColor }
-    set { options.indicatorColor = newValue }
+    set {
+      options.indicatorColor = newValue
+      collectionViewLayout.invalidateLayout()
+    }
   }
   
   /// Add a border at the bottom of the menu items. The border will be
@@ -132,7 +141,10 @@ open class PagingViewController<T: PagingItem>:
   /// _Default: .visible_
   public var borderOptions: PagingBorderOptions {
     get { return options.borderOptions }
-    set { options.borderOptions = newValue }
+    set {
+      options.borderOptions = newValue
+      collectionViewLayout.invalidateLayout()
+    }
   }
 
   /// The class type for the border view. Override this if you want
@@ -140,13 +152,19 @@ open class PagingViewController<T: PagingItem>:
   /// PagingBorderView.self_
   public var borderClass: PagingBorderView.Type {
     get { return options.borderClass }
-    set { options.borderClass = newValue }
+    set {
+      options.borderClass = newValue
+      collectionViewLayout.registerBorderClass()
+    }
   }
   
   /// Determine the color of the border view.
   public var borderColor: UIColor {
     get { return options.borderColor }
-    set { options.borderColor = newValue }
+    set {
+      options.borderColor = newValue
+      collectionViewLayout.invalidateLayout()
+    }
   }
 
   /// Updates the content inset for the menu items based on the
@@ -160,6 +178,12 @@ open class PagingViewController<T: PagingItem>:
   public var font: UIFont {
     get { return options.font }
     set { options.font = newValue }
+  }
+
+  /// The font used for the currently selected menu item.
+  public var selectedFont: UIFont {
+    get { return options.selectedFont }
+    set { options.selectedFont = newValue }
   }
 
   /// The color of the title label on the menu items.
@@ -307,19 +331,38 @@ open class PagingViewController<T: PagingItem>:
   
   // MARK: Public Methods
   
+  /// Reload data for all the menu items. This will keep the
+  /// previously selected item if it's still part of the updated data.
+  /// If not, it will select the first item in the list. This method
+  /// will not work when using PagingViewControllerInfiniteDataSource
+  /// as we then need to know what the initial item should be. You
+  /// should use the reloadData(around:) method in that case.
+  open func reloadData() {
+    let previouslySelected = state.currentPagingItem
+    let items = generateItemsForIndexedDataSource()
+    indexedDataSource?.items = items
+    
+    if let pagingItem = items.first(where: { $0 == previouslySelected }) {
+      resetItems(around: pagingItem)
+    } else if let firstItem = items.first {
+      resetItems(around: firstItem)
+    } else {
+      stateMachine.fire(.removeAll)
+    }
+  }
+  
   /// Reload data around given paging item. This will set the given
   /// paging item as selected and generate new items around it. This
   /// will also reload the view controllers displayed in the page view
-  /// controller.
+  /// controller. You need to use this method to reload data when
+  /// using PagingViewControllerInfiniteDataSource as we need to know
+  /// the initial item.
   ///
   /// - Parameter pagingItem: The `PagingItem` that will be selected
   /// after the data reloads.
   open func reloadData(around pagingItem: T) {
-    stateMachine.fire(.select(
-      pagingItem: pagingItem,
-      direction: .none,
-      animated: false))
-    reloadItems(around: pagingItem)
+    indexedDataSource?.items = generateItemsForIndexedDataSource()
+    resetItems(around: pagingItem)
   }
 
   /// Selects a given paging item. This need to be called after you
@@ -392,15 +435,30 @@ open class PagingViewController<T: PagingItem>:
   open override func viewDidLoad() {
     super.viewDidLoad()
     
+    #if swift(>=4.2)
+    addChild(pageViewController)
+    pagingView.configure()
+    pageViewController.didMove(toParent: self)
+    #else
     addChildViewController(pageViewController)
     pagingView.configure()
     pageViewController.didMove(toParentViewController: self)
+    #endif
+    
     pageViewController.dataSource = self
     
     collectionView.showsHorizontalScrollIndicator = false
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(options.menuItemClass, forCellWithReuseIdentifier: PagingCellReuseIdentifier)
+	
+	switch options.menuItemSource {
+	case .class(let type):
+		collectionView.register(type, forCellWithReuseIdentifier: PagingCellReuseIdentifier)
+		
+	case .nib(let nib):
+		collectionView.register(nib, forCellWithReuseIdentifier: PagingCellReuseIdentifier)
+	}
+	
     
     configureMenuInteraction()
     configureContentInteraction()
@@ -451,12 +509,13 @@ open class PagingViewController<T: PagingItem>:
     collectionViewLayout.visibleItems = visibleItems
     collectionViewLayout.sizeCache = sizeCache
     collectionViewLayout.state = state
-    collectionViewLayout.registerDecorationViews()
+    collectionViewLayout.registerIndicatorClass()
+    collectionViewLayout.registerBorderClass()
   }
   
   private func configureStateMachine() {
     stateMachine.onPagingItemSelect = { [unowned self] pagingItem, direction, animated in
-      self.selectViewController(pagingItem, direction: direction, animated: animated)
+      self.handlePagingItemSelect(pagingItem: pagingItem, direction: direction, animated: animated)
     }
     
     stateMachine.onStateChange = { [unowned self] oldState, state, event in
@@ -515,21 +574,30 @@ open class PagingViewController<T: PagingItem>:
       }
     }
   }
+
+  private func generateItemsForIndexedDataSource() -> [T] {
+    let numberOfItems = dataSource?.numberOfViewControllers(in: self) ?? 0
+    #if swift(>=4.1)
+      return (0..<numberOfItems).enumerated().compactMap{
+        dataSource?.pagingViewController(self, pagingItemForIndex: $0.offset)
+      }
+    #else
+      return (0..<numberOfItems).enumerated().flatMap{
+        dataSource?.pagingViewController(self, pagingItemForIndex: $0.offset)
+      }
+    #endif
+  }
   
   private func configureDataSource() {
-    let numberOfItems = dataSource?.numberOfViewControllers(in: self) ?? 0
-    let items = (0..<numberOfItems).enumerated().flatMap {
-      dataSource?.pagingViewController(self, pagingItemForIndex: $0.offset)
-    }
-    
-    indexedDataSource = IndexedPagingDataSource(items: items)
+    indexedDataSource = IndexedPagingDataSource()
+    indexedDataSource?.items = generateItemsForIndexedDataSource()
     indexedDataSource?.viewControllerForIndex = { [unowned self] in
       return self.dataSource?.pagingViewController(self, viewControllerForIndex: $0)
     }
-    
+  
     infiniteDataSource = indexedDataSource
-
-    if let firstItem = items.first {
+    
+    if let firstItem = indexedDataSource?.items.first {
       select(pagingItem: firstItem)
     }
   }
@@ -567,6 +635,7 @@ open class PagingViewController<T: PagingItem>:
   }
   
   private func setupGestureRecognizers() {
+    
     let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGestureRecognizer))
     swipeGestureRecognizerLeft.direction = .left
     
@@ -596,6 +665,20 @@ open class PagingViewController<T: PagingItem>:
     }
   }
   
+  private func handlePagingItemSelect(pagingItem: T, direction: PagingDirection, animated: Bool) {
+    guard let currentPagingItem = state.currentPagingItem else { return }
+    
+    if pagingItem == infiniteDataSource?.pagingViewController(self, pagingItemAfterPagingItem: currentPagingItem) {
+      pageViewController.scrollForward(animated: animated, completion: nil)
+      pageViewController.view.layoutIfNeeded()
+    } else if pagingItem == infiniteDataSource?.pagingViewController(self, pagingItemBeforePagingItem: currentPagingItem) {
+      pageViewController.scrollReverse(animated: animated, completion: nil)
+      pageViewController.view.layoutIfNeeded()
+    } else if currentPagingItem != pagingItem {
+      selectViewController(pagingItem, direction: direction)
+    }
+  }
+  
   private func handleStateUpdate(_ oldState: PagingState<T>, state: PagingState<T>, event: PagingEvent<T>?) {
     self.state = state
     collectionViewLayout.state = state
@@ -613,6 +696,8 @@ open class PagingViewController<T: PagingItem>:
             reloadItems(around: pagingItem)
             selectCollectionViewItem(for: pagingItem, animated: animated)
           }
+        case .reset:
+          collectionViewLayout.invalidateLayout()
         default:
           break
         }
@@ -634,7 +719,7 @@ open class PagingViewController<T: PagingItem>:
 
       collectionViewLayout.invalidateLayout(with: invalidationContext)
     case .empty:
-      break
+      removeAll()
     }
   }
   
@@ -687,6 +772,37 @@ open class PagingViewController<T: PagingItem>:
     }
     
     return items
+  }
+  
+  private func resetItems(around pagingItem: T) {
+    let toItems = generateItems(around: pagingItem)
+    let sortedItems = Array(toItems).sorted()
+
+    visibleItems = PagingItems(
+      items: sortedItems,
+      hasItemsBefore: hasItemBefore(pagingItem: sortedItems.first),
+      hasItemsAfter: hasItemAfter(pagingItem: sortedItems.last))
+    collectionViewLayout.visibleItems = visibleItems
+
+    stateMachine.fire(.reset(pagingItem: pagingItem))
+    collectionView.reloadData()
+    
+    pageViewController.removeAllViewControllers()
+    selectViewController(pagingItem, direction: .none, animated: false)
+    
+    configureSizeCache(for: pagingItem)
+
+    // Reloading the data triggers the didFinishScrollingFrom delegate
+    // to be called which in turn means the wrong item will be selected.
+    // For now, we just fix this by selecting the correct item manually.
+    stateMachine.fire(.reset(pagingItem: pagingItem))
+  }
+  
+  private func removeAll() {
+    visibleItems = PagingItems(items: [])
+    collectionViewLayout.visibleItems = visibleItems
+    pageViewController.removeAllViewControllers()
+    collectionView.reloadData()
   }
   
   private func reloadItems(around pagingItem: T, keepExisting: Bool = false) {
@@ -767,7 +883,7 @@ open class PagingViewController<T: PagingItem>:
       if case let .scrolling(_, _, progress, initialContentOffset, distance) = state {
         if collectionView.contentSize.width >= collectionView.bounds.width && state.progress != 0 {
           let contentOffset = CGPoint(
-            x: initialContentOffset.x + (distance * fabs(progress)),
+            x: initialContentOffset.x + (distance * abs(progress)),
             y: initialContentOffset.y)
           
           // We need to use setContentOffset with no animation in
@@ -953,6 +1069,13 @@ open class PagingViewController<T: PagingItem>:
   }
   
   open func em_pageViewController(_ pageViewController: EMPageViewController, willStartScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController) {
+    if let upcomingPagingItem = state.upcomingPagingItem {
+      delegate?.pagingViewController(
+        self,
+        willScrollToItem: upcomingPagingItem,
+        startingViewController: startingViewController,
+        destinationViewController: destinationViewController)
+    }
     return
   }
   

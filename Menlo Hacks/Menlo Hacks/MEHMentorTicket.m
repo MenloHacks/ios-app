@@ -31,7 +31,10 @@
     }
     
     
+    
     NSString *location = dictionary[@"location"];
+    //We'll treat empty locations as empty strings.
+    location = location ? location : @"";
     
     if (![ticket.ticketLocation isEqualToString:location]) {
         ticket.ticketLocation = location;

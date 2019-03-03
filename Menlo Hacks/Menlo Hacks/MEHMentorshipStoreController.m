@@ -14,8 +14,15 @@
 #import "MEHHTTPSessionManager.h"
 #import "MEHMentorTicket.h"
 
+@interface MEHMentorshipStoreController()
+
+@property (nonatomic) NSTimer *timer;
+
+@end
 
 @implementation MEHMentorshipStoreController
+
+NSTimeInterval const pollInterval = 60;
 
 
 + (instancetype)sharedMentorshipStoreController {
@@ -27,6 +34,22 @@
     
     return _sharedInstance;
 }
+
+-(instancetype)init {
+    self = [super init];
+    if(self) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:pollInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
+            //Poll for expired tickets
+            [self fetchQueue];
+        }];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [self.timer invalidate];
+}
+
 
 - (BFTask *)fetchQueue {
     return [[[MEHHTTPSessionManager sharedSessionManager]GET:@"mentorship/queue" parameters:nil]

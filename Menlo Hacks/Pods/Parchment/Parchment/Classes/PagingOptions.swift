@@ -2,7 +2,7 @@ import UIKit
 
 public class PagingOptions {
   public var menuItemSize: PagingMenuItemSize
-  public var menuItemClass: PagingCell.Type
+  public var menuItemSource: PagingMenuItemSource
   public var menuItemSpacing: CGFloat
   public var menuInsets: UIEdgeInsets
   public var menuHorizontalAlignment: PagingMenuHorizontalAlignment
@@ -16,6 +16,7 @@ public class PagingOptions {
   public var borderClass: PagingBorderView.Type
   public var includeSafeAreaInsets: Bool
   public var font: UIFont
+  public var selectedFont: UIFont
   public var textColor: UIColor
   public var selectedTextColor: UIColor
   public var backgroundColor: UIColor
@@ -24,16 +25,29 @@ public class PagingOptions {
   public var borderColor: UIColor
   public var indicatorColor: UIColor
   
+  #if swift(>=4.2)
+  public var scrollPosition: UICollectionView.ScrollPosition {
+    switch selectedScrollPosition {
+    case .left:
+      return UICollectionView.ScrollPosition.left
+    case .right:
+      return UICollectionView.ScrollPosition.right
+    case .preferCentered, .center:
+      return UICollectionView.ScrollPosition.centeredHorizontally
+    }
+  }
+  #else
   public var scrollPosition: UICollectionViewScrollPosition {
     switch selectedScrollPosition {
     case .left:
-      return .left
+      return UICollectionViewScrollPosition.left
     case .right:
-      return .right
+      return UICollectionViewScrollPosition.right
     case .preferCentered, .center:
-      return .centeredHorizontally
+      return UICollectionViewScrollPosition.centeredHorizontally
     }
   }
+  #endif
   
   public var menuHeight: CGFloat {
     return menuItemSize.height + menuInsets.top + menuInsets.bottom
@@ -53,7 +67,7 @@ public class PagingOptions {
     menuItemSize = .sizeToFit(minWidth: 150, height: 40)
     menuTransition = .scrollAlongside
     menuInteraction = .scrolling
-    menuItemClass = PagingTitleCell.self
+    menuItemSource = .class(type: PagingTitleCell.self)
     menuInsets = UIEdgeInsets.zero
     menuItemSpacing = 0
     menuHorizontalAlignment = .left
@@ -73,7 +87,14 @@ public class PagingOptions {
         zIndex: Int.max - 1,
         insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
 
+    #if swift(>=4.0)
     font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+    selectedFont = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+    #else
+    font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
+    selectedFont = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
+    #endif
+    
     textColor = UIColor.black
     selectedTextColor = UIColor(red: 3/255, green: 125/255, blue: 233/255, alpha: 1)
     backgroundColor = .clear

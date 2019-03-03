@@ -28,7 +28,7 @@
 		BE3870041C35CD3200020989 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3870031C35CD3200020989 /* UIViewController+Extensions.m */; };
 		BE4215021CA4FEBF00BB7CA9 /* MEHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4215011CA4FEBF00BB7CA9 /* MEHLocation.m */; };
 		BE4215051CA5017200BB7CA9 /* MEHEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4215041CA5017200BB7CA9 /* MEHEventDetailViewController.m */; };
-		BE5387781E649CC700C99C53 /* MEHNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */; };
+		BE492254222B2720008EB8D9 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE492253222B2720008EB8D9 /* NotificationHandler.swift */; };
 		BE5E6D011E67F03600E50B08 /* MEHCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5E6D001E67F03600E50B08 /* MEHCheckInViewController.m */; };
 		BE5F9BC01E60BF43005CED30 /* RLMRealm+MenloHacks.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5F9BBF1E60BF43005CED30 /* RLMRealm+MenloHacks.m */; };
 		BE6D94631E6CA70E00730701 /* MEHMentorshipPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6D94621E6CA70E00730701 /* MEHMentorshipPageViewController.swift */; };
@@ -94,9 +94,7 @@
 		BE4215011CA4FEBF00BB7CA9 /* MEHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHLocation.m; sourceTree = "<group>"; };
 		BE4215031CA5017200BB7CA9 /* MEHEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHEventDetailViewController.h; sourceTree = "<group>"; };
 		BE4215041CA5017200BB7CA9 /* MEHEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHEventDetailViewController.m; sourceTree = "<group>"; };
-		BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHNotificationHandler.h; sourceTree = "<group>"; };
-		BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHNotificationHandler.m; sourceTree = "<group>"; };
-		BE5387791E649D8800C99C53 /* MEHAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHAPIKeys.h; sourceTree = "<group>"; };
+		BE492253222B2720008EB8D9 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		BE5E6CFF1E67F03600E50B08 /* MEHCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHCheckInViewController.h; sourceTree = "<group>"; };
 		BE5E6D001E67F03600E50B08 /* MEHCheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHCheckInViewController.m; sourceTree = "<group>"; };
 		BE5F9BBE1E60BF43005CED30 /* RLMRealm+MenloHacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RLMRealm+MenloHacks.h"; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				BE89E77C1E668DBD00F807DB /* Menlo Hacks.entitlements */,
-				BE5387791E649D8800C99C53 /* MEHAPIKeys.h */,
 				BED5EC741C37045A002B5385 /* Model Classes */,
 				BE88E3391E5FD19500921416 /* Networking */,
 				BE386FEF1C349D7900020989 /* Categories */,
@@ -257,8 +254,7 @@
 				BEC906612048C06900E7983C /* MEHDatabaseMigrationController.h */,
 				BEC906622048C06900E7983C /* MEHDatabaseMigrationController.m */,
 				BE6D94651E6CADB900730701 /* MEHMentorshipStoreController.m */,
-				BE5387761E649CC700C99C53 /* MEHNotificationHandler.h */,
-				BE5387771E649CC700C99C53 /* MEHNotificationHandler.m */,
+				BE492253222B2720008EB8D9 /* NotificationHandler.swift */,
 				BED5EC7B1C3884F0002B5385 /* MEHMapStoreController.h */,
 				BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */,
 				BE386FF01C34A52200020989 /* MEHScheduleStoreController.h */,
@@ -349,7 +345,6 @@
 				BE2619FD1C3321A000BB5920 /* Frameworks */,
 				BE2619FE1C3321A000BB5920 /* Resources */,
 				A7ABCDC9306E29B8831CDEF4 /* [CP] Embed Pods Frameworks */,
-				ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -423,13 +418,17 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CVKHierarchySearcher/CVKHierarchySearcher.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JNKeychain/JNKeychain.framework",
 				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
+				"${BUILT_PRODUCTS_DIR}/PushNotifications/PushNotifications.framework",
+				"${BUILT_PRODUCTS_DIR}/PusherSwift/PusherSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView-Objective-C/SCLAlertView_Objective_C.framework",
-				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/libPusher/Pusher.framework",
+				"${BUILT_PRODUCTS_DIR}/TaskQueue/TaskQueue.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -437,13 +436,17 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVKHierarchySearcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JNKeychain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PushNotifications.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PusherSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView_Objective_C.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pusher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TaskQueue.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -466,21 +469,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ED10A0F366C593F366C50270 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -515,6 +503,7 @@
 				BE386FF81C34BF1700020989 /* InfoTableViewCell.m in Sources */,
 				BE386FE81C336D3300020989 /* NSDate+Utilities.m in Sources */,
 				BE386FD61C33554A00020989 /* UIFontDescriptor+AvenirNext.m in Sources */,
+				BE492254222B2720008EB8D9 /* NotificationHandler.swift in Sources */,
 				BE4215051CA5017200BB7CA9 /* MEHEventDetailViewController.m in Sources */,
 				BE6D94691E6CBC2500730701 /* MEHMentorTicket.m in Sources */,
 				BE386FEE1C349D7200020989 /* UIColor+ColorPalette.m in Sources */,
@@ -526,7 +515,6 @@
 				BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */,
 				BE88E3381E5FD18A00921416 /* MEHHTTPSessionManager.m in Sources */,
 				BE3870011C35C6FE00020989 /* MEHMapViewController.m in Sources */,
-				BE5387781E649CC700C99C53 /* MEHNotificationHandler.m in Sources */,
 				BE386FDB1C33577900020989 /* AutolayoutHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

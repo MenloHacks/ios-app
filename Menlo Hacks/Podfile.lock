@@ -1,20 +1,20 @@
 PODS:
   - AFMInfoBanner (1.2.1):
     - CVKHierarchySearcher (~> 0.2)
-  - AFNetworking (3.2.0):
-    - AFNetworking/NSURLSession (= 3.2.0)
-    - AFNetworking/Reachability (= 3.2.0)
-    - AFNetworking/Security (= 3.2.0)
-    - AFNetworking/Serialization (= 3.2.0)
-    - AFNetworking/UIKit (= 3.2.0)
-  - AFNetworking/NSURLSession (3.2.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.0)
-  - AFNetworking/Security (3.2.0)
-  - AFNetworking/Serialization (3.2.0)
-  - AFNetworking/UIKit (3.2.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -22,18 +22,23 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - CryptoSwift (0.9.0)
   - CVKHierarchySearcher (0.2.0)
   - JNKeychain (0.1.4)
-  - libPusher (1.6.1):
-    - libPusher/Core (= 1.6.1)
-  - libPusher/Core (1.6.1):
-    - SocketRocket (= 0.5.1)
-  - Parchment (1.0.3)
-  - Realm (3.1.1):
-    - Realm/Headers (= 3.1.1)
-  - Realm/Headers (3.1.1)
-  - SCLAlertView-Objective-C (1.1.3)
-  - SocketRocket (0.5.1)
+  - Parchment (1.5.0)
+  - PusherSwift (6.1.0):
+    - CryptoSwift (~> 0.9.0)
+    - ReachabilitySwift (~> 4.1.0)
+    - Starscream (~> 3.0.5)
+    - TaskQueue (~> 1.1.1)
+  - PushNotifications (1.2.1)
+  - ReachabilitySwift (4.1.0)
+  - Realm (3.13.1):
+    - Realm/Headers (= 3.13.1)
+  - Realm/Headers (3.13.1)
+  - SCLAlertView-Objective-C (1.1.6)
+  - Starscream (3.0.6)
+  - TaskQueue (1.1.1)
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
@@ -41,35 +46,48 @@ DEPENDENCIES:
   - AFNetworking
   - Bolts
   - JNKeychain
-  - libPusher (from `https://github.com/pusher/libPusher.git`, branch `push-notifications`)
   - Parchment
+  - PusherSwift
+  - PushNotifications
   - Realm
   - SCLAlertView-Objective-C
   - TTTAttributedLabel
 
-EXTERNAL SOURCES:
-  libPusher:
-    :branch: push-notifications
-    :git: https://github.com/pusher/libPusher.git
-
-CHECKOUT OPTIONS:
-  libPusher:
-    :commit: 46aff21de81003c00fa34155472b91d74a5c6db4
-    :git: https://github.com/pusher/libPusher.git
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFMInfoBanner
+    - AFNetworking
+    - Bolts
+    - CryptoSwift
+    - CVKHierarchySearcher
+    - JNKeychain
+    - Parchment
+    - PusherSwift
+    - PushNotifications
+    - ReachabilitySwift
+    - Realm
+    - SCLAlertView-Objective-C
+    - Starscream
+    - TaskQueue
+    - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
-  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  CryptoSwift: bca8c5b653dcc2d9734409242a070ff53bafac86
   CVKHierarchySearcher: 7be8d3bcbcc6f86ff07f785e6c632b5e40da2553
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
-  libPusher: 1736d345c679c20c1c5315ced3d7a783bc140ee4
-  Parchment: 964ae2fa48431d87148c3bb37f0b9c86c7ceee4b
-  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
-  SCLAlertView-Objective-C: 917836fb2349afa58edc43d592d22d21d46bb2a4
-  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  Parchment: 5a8c9c73549a6d73a7c1b606c27246910d2e5720
+  PusherSwift: 6f2535d616cf0d6867a58bee501999995ad37999
+  PushNotifications: b251b6243148e30039481cbb6e140fe7769d08d4
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
+  SCLAlertView-Objective-C: 2bb9be204bffaf24762a0e33fe6ca9645819b3b7
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  TaskQueue: 53a3cdaf817d9ce3cd50837ff6610aeb7b968997
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 9803b1ede34742cd1a132707ccd6ede2b7f07368
+PODFILE CHECKSUM: 8677e90a69163d2be0cd2ceb511140fde689e47f
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

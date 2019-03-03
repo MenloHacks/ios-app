@@ -138,13 +138,26 @@ func select(index: Int, animated: Bool = false)
 
 ## Reload data
 
-You can reload data for a given `PagingItem`:
+You can reload data using this method:
+
+```Swift
+func reloadData()
+```
+
+This will keep the previously selected item if it's still part of the
+updated data. If not, it will select the first item in the list. It
+will also reload the view controllers displayed in the page view
+controller.
+
+Calling `reloadData()` will not work when using
+`PagingViewControllerInfiniteDataSource`, as we then need to know what
+the initial item should be. In that case you should use this method:
 
 ```Swift
 func reloadData(around: PagingItem)
 ```
 
-This will mark the given paging item as selected and generate new items around it. It will also reload the view controllers displayed in the page view controller.
+This will mark the given paging item as selected and generate new items around it.
 
 ## Delegate
 
@@ -315,6 +328,12 @@ The class type for the indicator view. Override this if you want your use your o
 
 _Default: `PagingIndicatorView.self`_
 
+#### `indicatorColor`
+
+The background color for the indicator view.
+
+_Default: `UIColor(red: 3/255, green: 125/255, blue: 233/255, alpha: 1)`_
+
 #### `borderOptions`
 
 Add a border at the bottom of the menu items. The border will be as wide as all the menu items. Insets only apply horizontally.
@@ -344,6 +363,12 @@ The class type for the border view. Override this if you want your use your own 
 
 _Default: `PagingBorderView.self`_
 
+#### `borderColor`
+
+The background color for the border view.
+
+_Default: `UIColor(white: 0.9, alpha: 1)`_
+
 #### `includeSafeAreaInsets`
 
 Updates the content inset for the menu items based on the `.safeAreaInsets` property.
@@ -353,6 +378,12 @@ _Default: `true`_
 #### `font`
 
 The font used for title label on the menu items.
+
+_Default: `UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)`_
+
+#### `selectedFont`
+
+The font used for title label on the currently selected menu item.
 
 _Default: `UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)`_
 
