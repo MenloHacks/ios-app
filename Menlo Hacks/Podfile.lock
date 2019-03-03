@@ -53,24 +53,6 @@ DEPENDENCIES:
   - SCLAlertView-Objective-C
   - TTTAttributedLabel
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - AFMInfoBanner
-    - AFNetworking
-    - Bolts
-    - CryptoSwift
-    - CVKHierarchySearcher
-    - JNKeychain
-    - Parchment
-    - PusherSwift
-    - PushNotifications
-    - ReachabilitySwift
-    - Realm
-    - SCLAlertView-Objective-C
-    - Starscream
-    - TaskQueue
-    - TTTAttributedLabel
-
 SPEC CHECKSUMS:
   AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -90,4 +72,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8677e90a69163d2be0cd2ceb511140fde689e47f
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0
