@@ -22,7 +22,7 @@
 
 @implementation MEHMentorshipStoreController
 
-NSTimeInterval pollInterval = 60;
+NSTimeInterval const pollInterval = 60;
 
 
 + (instancetype)sharedMentorshipStoreController {
