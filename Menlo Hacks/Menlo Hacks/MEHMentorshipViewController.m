@@ -40,6 +40,9 @@ MEHMentorTicketTableViewCellDelegate, MEHLoginViewControllerDelegate>
 
 @property (nonatomic, strong) MEHLoginViewController *loginVC;
 
+
+@property (nonatomic) BOOL isLoading;
+
 @end
 
 static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.ticket.cell";
@@ -56,7 +59,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
     self.tableView.estimatedRowHeight = 150;
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    self.tableView.backgroundColor = self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.tableView registerClass:[MEHMentorTicketTableViewCell class] forCellReuseIdentifier:kMEHMentorTicketReuseIdentifier];
@@ -126,9 +129,11 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 }
 
 - (void)refresh : (id)sender {
+    self.isLoading = YES;
     [self.fetchFromServer()continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         [self resetTickets];
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.isLoading = NO;
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
                 [self.tableView reloadData];
@@ -144,11 +149,15 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
 
 - (void)refresh {
     _tableView.hidden = YES;
+    self.noTicketsLabel.hidden = true;
+    self.isLoading = YES;
+    
     [_loadingView startAnimating];
     
     [self.fetchFromServer()continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         [self resetTickets];
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.isLoading = NO;
             [_loadingView stopAnimating];
             _tableView.hidden = NO;
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -185,7 +194,7 @@ static NSString * kMEHMentorTicketReuseIdentifier = @"com.menlohacks.mentorship.
     }
     self.nonEmptyTicketIndices = [NSArray arrayWithArray:nonEmptyIndices];
         
-    _noTicketsLabel.hidden = (self.nonEmptyTicketIndices.count > 0);
+    _noTicketsLabel.hidden = self.isLoading || (self.nonEmptyTicketIndices.count > 0);
     return self.nonEmptyTicketIndices.count;
 }
 

@@ -7,6 +7,8 @@
 
 #import <Bolts/Bolts.h>
 
+#import "MEHAnnouncementsStoreController.h"
+#import "MEHScheduleStoreController.h"
 #import "MEHMentorshipViewController.h"
 #import "MEHMentorshipStoreController.h"
 #import "MEHAddMentorTicketViewController.h"

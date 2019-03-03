@@ -15,7 +15,6 @@
 #import "MEHMapViewController.h"
 #import "MEHCheckInViewController.h"
 #import "MEHDatabaseMigrationController.h"
-#import "MEHNotificationHandler.h"
 #import "UIColor+ColorPalette.h"
 #import "Menlo_Hacks-Swift.h"
 
@@ -48,7 +47,7 @@
   
   _tabBarController.viewControllers =  @[vc1, vc2, vc3, vc4, vc5];
     
-  [MEHNotificationHandler sharedNotificationHandler];
+  [[NotificationHandler shared]initialize];
     
   
   UIImage *schedule = [UIImage imageNamed:@"schedule"];
@@ -109,7 +108,8 @@
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[MEHNotificationHandler sharedNotificationHandler]registerDeviceToken:deviceToken];
+    
+    [[NotificationHandler shared]registerWithDeviceToken:deviceToken];
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

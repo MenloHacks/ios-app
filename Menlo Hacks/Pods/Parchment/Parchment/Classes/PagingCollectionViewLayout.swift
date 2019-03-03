@@ -140,6 +140,11 @@ open class PagingCollectionViewLayout<T: PagingItem>:
     invalidationState = .nothing
   }
   
+  open override func invalidateLayout() {
+    super.invalidateLayout()
+    invalidationState = .everything
+  }
+  
   override open func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
     super.invalidateLayout(with: context)
     invalidationState = invalidationState + InvalidationState(context)
@@ -190,8 +195,11 @@ open class PagingCollectionViewLayout<T: PagingItem>:
     return layoutAttributes
   }
   
-  func registerDecorationViews() {
+  func registerIndicatorClass() {
     register(options.indicatorClass, forDecorationViewOfKind: PagingIndicatorKind)
+  }
+  
+  func registerBorderClass() {
     register(options.borderClass, forDecorationViewOfKind: PagingBorderKind)
   }
 
@@ -222,7 +230,7 @@ open class PagingCollectionViewLayout<T: PagingItem>:
           width = tween(from: width, to: selectedWidth, progress: abs(state.progress))
         }
         
-        attributes.frame = CGRect(x: x, y: y, width: width, height: options.menuHeight)
+        attributes.frame = CGRect(x: x, y: y, width: width, height: options.menuItemSize.height)
       } else {
         switch (options.menuItemSize) {
         case let .fixed(width, height):
@@ -310,18 +318,17 @@ open class PagingCollectionViewLayout<T: PagingItem>:
       indicatorLayoutAttributes = PagingIndicatorLayoutAttributes(
         forDecorationViewOfKind: PagingIndicatorKind,
         with: IndexPath(item: 0, section: 0))
-      indicatorLayoutAttributes?.configure(options)
     }
     
     if case .visible = options.borderOptions {
       borderLayoutAttributes = PagingBorderLayoutAttributes(
         forDecorationViewOfKind: PagingBorderKind,
         with: IndexPath(item: 1, section: 0))
-      borderLayoutAttributes?.configure(options)
     }
   }
   
   private func updateBorderLayoutAttributes() {
+    borderLayoutAttributes?.configure(options)
     borderLayoutAttributes?.update(
       contentSize: collectionViewContentSize,
       bounds: collectionView?.bounds ?? .zero,
@@ -330,12 +337,13 @@ open class PagingCollectionViewLayout<T: PagingItem>:
   
   private func updateIndicatorLayoutAttributes() {
     guard let currentPagingItem = state.currentPagingItem else { return }
+    indicatorLayoutAttributes?.configure(options)
     
     let currentIndexPath = visibleItems.indexPath(for: currentPagingItem)
     let upcomingIndexPath = upcomingIndexPathForIndexPath(currentIndexPath)
     
     if let upcomingIndexPath = upcomingIndexPath {
-      let progress = fabs(state.progress)
+      let progress = abs(state.progress)
       let to = PagingIndicatorMetric(
         frame: indicatorFrameForIndex(upcomingIndexPath.item),
         insets: indicatorInsetsForIndex(upcomingIndexPath.item),
@@ -393,13 +401,13 @@ open class PagingCollectionViewLayout<T: PagingItem>:
     
     if let currentIndexPath = currentIndexPath {
       if indexPath.item == currentIndexPath.item {
-        return 1 - fabs(state.progress)
+        return 1 - abs(state.progress)
       }
     }
     
     if let upcomingIndexPath = upcomingIndexPathForIndexPath(currentIndexPath) {
       if indexPath.item == upcomingIndexPath.item {
-        return fabs(state.progress)
+        return abs(state.progress)
       }
     }
     
