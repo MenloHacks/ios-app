@@ -25,7 +25,7 @@ PODS:
   - CryptoSwift (0.9.0)
   - CVKHierarchySearcher (0.2.0)
   - JNKeychain (0.1.4)
-  - Parchment (1.5.0)
+  - Parchment (1.6.0)
   - PusherSwift (6.1.0):
     - CryptoSwift (~> 0.9.0)
     - ReachabilitySwift (~> 4.1.0)
@@ -53,6 +53,24 @@ DEPENDENCIES:
   - SCLAlertView-Objective-C
   - TTTAttributedLabel
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFMInfoBanner
+    - AFNetworking
+    - Bolts
+    - CryptoSwift
+    - CVKHierarchySearcher
+    - JNKeychain
+    - Parchment
+    - PusherSwift
+    - PushNotifications
+    - ReachabilitySwift
+    - Realm
+    - SCLAlertView-Objective-C
+    - Starscream
+    - TaskQueue
+    - TTTAttributedLabel
+
 SPEC CHECKSUMS:
   AFMInfoBanner: a7bcfd409faa624f043e604ae4fb789c84b22815
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -60,7 +78,7 @@ SPEC CHECKSUMS:
   CryptoSwift: bca8c5b653dcc2d9734409242a070ff53bafac86
   CVKHierarchySearcher: 7be8d3bcbcc6f86ff07f785e6c632b5e40da2553
   JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
-  Parchment: 5a8c9c73549a6d73a7c1b606c27246910d2e5720
+  Parchment: d3a7b367c529fa6ef51aa43f5717a7ff36d4b1f5
   PusherSwift: 6f2535d616cf0d6867a58bee501999995ad37999
   PushNotifications: b251b6243148e30039481cbb6e140fe7769d08d4
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
@@ -72,4 +90,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8677e90a69163d2be0cd2ceb511140fde689e47f
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

@@ -86,7 +86,7 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   [AutolayoutHelper configureView:self.view subViews:VarBindings(_loadingView)
                       constraints: @[@"X:_loadingView.centerX == superview.centerX",
                                      @"X:_loadingView.centerY == superview.centerY"]];
-  [self forceRefresh];
+    [self forceRefresh: YES];
     
   self.parentViewController.navigationItem.rightBarButtonItems = @[];
   
@@ -95,12 +95,15 @@ static NSString *reuseIdentifier = @"com.menlohacks.announcement";
   [super viewWillAppear:animated];
   self.parentViewController.navigationItem.rightBarButtonItems = @[];
   _noAnnouncementsLabel.text = @"";
-  [self forceRefresh];
+  [self forceRefresh: NO];
 }
 
-- (void)forceRefresh {
-    [_loadingView startAnimating];
-    _tableView.hidden = YES;
+- (void)forceRefresh: (BOOL)showAnimation {
+    if(showAnimation) {
+        [_loadingView startAnimating];
+        _tableView.hidden = YES;
+    }
+
     [[[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]fetchAnnouncements]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
         
         self.announcements = [[MEHAnnouncementsStoreController sharedAnnouncementsStoreController]announcements];

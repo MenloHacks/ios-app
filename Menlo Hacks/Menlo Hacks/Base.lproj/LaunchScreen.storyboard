@@ -70,6 +70,6 @@
     </scenes>
     <resources>
         <image name="large_logo" width="864" height="390"/>
-        <image name="launch_background" width="119" height="213"/>
+        <image name="launch_background" width="71.699996948242188" height="127.80000305175781"/>
     </resources>
 </document>
