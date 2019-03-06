@@ -87,7 +87,7 @@
             
             for (int i = 0; i < numberOfDays; i++) {
                 NSDate *tomorrow = [currentDate add24Hours];
-                RLMResults *results = [[MEHEvent objectsWhere:@"startTime > %@ AND startTime < %@", currentDate, tomorrow]sortedResultsUsingKeyPath:@"startTime" ascending:YES];
+                RLMResults *results = [[MEHEvent objectsWhere:@"startTime >= %@ AND startTime < %@", currentDate, tomorrow]sortedResultsUsingKeyPath:@"startTime" ascending:YES];
                 if(results.count > 0) {
                     [eventsArray addObject:results];
                 }

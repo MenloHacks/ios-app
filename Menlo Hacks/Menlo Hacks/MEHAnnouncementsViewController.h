@@ -10,6 +10,4 @@
 
 @interface MEHAnnouncementsViewController : UIViewController
 
-- (void)forceRefresh;
-
 @end
