@@ -414,7 +414,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFMInfoBanner/AFMInfoBanner.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -451,7 +451,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AA6F681BD0C4B9A745FEEE81 /* [CP] Check Pods Manifest.lock */ = {
