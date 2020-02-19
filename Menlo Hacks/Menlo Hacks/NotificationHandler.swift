@@ -17,7 +17,7 @@ import PushNotifications
     private let pusher: Pusher
     
     private override init() {
-        let options = PusherClientOptions(host: .cluster("us2"), encrypted: true)
+        let options = PusherClientOptions(host: .cluster("us3"), encrypted: true)
         self.pusher = Pusher(key: Constants.apiKey, options: options)
         super.init()
         
@@ -96,14 +96,14 @@ extension NotificationHandler {
 extension NotificationHandler {
     
     struct Constants {
-        static let notificationTopic = "com.vivereiv.all_devices"
-        static let announcementUpdate = "com.vivereiv.announcement.update"
-        static let mentorUpdate = "com.vivereiv.mentor.update"
-        static let eventUpdate = "com.vivereiv.event.update"
+        static let notificationTopic = "com.viverev.all_devices"
+        static let announcementUpdate = "com.viverev.announcement.update"
+        static let mentorUpdate = "com.viverev.mentor.update"
+        static let eventUpdate = "com.viverev.event.update"
         static let channelAction = "save"
         static let expireAction = "expire"
         
         static let instanceId = "a2e1cdbd-46f7-4c9f-b730-aeb5695226ef"
-        static let apiKey = "252afc960056ea4d05ea"
+        static let apiKey = "7af4db3ba77255e243af"
     }
 }
