@@ -103,7 +103,7 @@ extension NotificationHandler {
         static let channelAction = "save"
         static let expireAction = "expire"
         
-        static let instanceId = "a2e1cdbd-46f7-4c9f-b730-aeb5695226ef"
+        static let instanceId = "e0e9825b-d7f9-4810-b92a-e1c29c9f5953"
         static let apiKey = "7af4db3ba77255e243af"
     }
 }
