@@ -1,4 +1,3 @@
-platform :ios, '13.3'
 target 'Menlo Hacks' do
     use_frameworks!
     pod 'Bolts'
