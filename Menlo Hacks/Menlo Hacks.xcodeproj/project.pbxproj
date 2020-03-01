@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */; };
 		BE261A051C3321A000BB5920 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A041C3321A000BB5920 /* main.m */; };
 		BE261A081C3321A000BB5920 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A071C3321A000BB5920 /* AppDelegate.m */; };
 		BE261A0B1C3321A000BB5920 /* MEHScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE261A0A1C3321A000BB5920 /* MEHScheduleViewController.m */; };
@@ -48,12 +47,11 @@
 		BED5EC7D1C3884F0002B5385 /* MEHMapStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC7C1C3884F0002B5385 /* MEHMapStoreController.m */; };
 		BED5EC831C39AE56002B5385 /* SingleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BED5EC821C39AE56002B5385 /* SingleMapViewController.m */; };
 		BEE318271E6A5BC700F80A45 /* MEHUserStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */; };
+		F98E31831F1471289E2E9C49 /* Pods_Menlo_Hacks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2F283DB572D1B03B40F640 /* Pods_Menlo_Hacks.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
-		3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.debug.xcconfig"; sourceTree = "<group>"; };
+		5C2F283DB572D1B03B40F640 /* Pods_Menlo_Hacks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menlo_Hacks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A001C3321A000BB5920 /* Menlo Hacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menlo Hacks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE261A041C3321A000BB5920 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE261A061C3321A000BB5920 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,6 +132,8 @@
 		BED80D1C1E6FE74900997E49 /* MEHErrorCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHErrorCodes.h; sourceTree = "<group>"; };
 		BEE318251E6A5BC700F80A45 /* MEHUserStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEHUserStoreController.h; sourceTree = "<group>"; };
 		BEE318261E6A5BC700F80A45 /* MEHUserStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEHUserStoreController.m; sourceTree = "<group>"; };
+		E83BE8D8342384A66E70E42B /* Pods-Menlo Hacks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.debug.xcconfig"; path = "Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.debug.xcconfig"; sourceTree = "<group>"; };
+		EF7A55E28685EAAE585D020F /* Pods-Menlo Hacks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menlo Hacks.release.xcconfig"; path = "Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,19 +141,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8F8B2A116C7FF1558DE13E /* Pods_Menlo_Hacks.framework in Frameworks */,
+				F98E31831F1471289E2E9C49 /* Pods_Menlo_Hacks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		806F197E3C26ED6CB27DA003 /* Frameworks */ = {
+		4B2AE69626C1AB08B050C319 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0EEB85520E423DA67DC0B8D4 /* Pods_Menlo_Hacks.framework */,
+				E83BE8D8342384A66E70E42B /* Pods-Menlo Hacks.debug.xcconfig */,
+				EF7A55E28685EAAE585D020F /* Pods-Menlo Hacks.release.xcconfig */,
 			);
-			name = Frameworks;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		BE2619F71C3321A000BB5920 = {
@@ -161,8 +162,8 @@
 			children = (
 				BE261A021C3321A000BB5920 /* Menlo Hacks */,
 				BE261A011C3321A000BB5920 /* Products */,
-				BFBED57A819B4387EC4952CF /* Pods */,
-				806F197E3C26ED6CB27DA003 /* Frameworks */,
+				4B2AE69626C1AB08B050C319 /* Pods */,
+				BFABFC8510394AE5206AFCC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -324,13 +325,12 @@
 			name = "Model Classes";
 			sourceTree = "<group>";
 		};
-		BFBED57A819B4387EC4952CF /* Pods */ = {
+		BFABFC8510394AE5206AFCC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */,
-				1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */,
+				5C2F283DB572D1B03B40F640 /* Pods_Menlo_Hacks.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,11 +340,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE261A171C3321A000BB5920 /* Build configuration list for PBXNativeTarget "Menlo Hacks" */;
 			buildPhases = (
-				AA6F681BD0C4B9A745FEEE81 /* [CP] Check Pods Manifest.lock */,
+				5852610FCBA5EE744295BA81 /* [CP] Check Pods Manifest.lock */,
 				BE2619FC1C3321A000BB5920 /* Sources */,
 				BE2619FD1C3321A000BB5920 /* Frameworks */,
 				BE2619FE1C3321A000BB5920 /* Resources */,
-				A7ABCDC9306E29B8831CDEF4 /* [CP] Embed Pods Frameworks */,
+				124739C97F500FE269FA3633 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -409,13 +409,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A7ABCDC9306E29B8831CDEF4 /* [CP] Embed Pods Frameworks */ = {
+		124739C97F500FE269FA3633 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFMInfoBanner/AFMInfoBanner.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -452,19 +452,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Menlo Hacks/Pods-Menlo Hacks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AA6F681BD0C4B9A745FEEE81 /* [CP] Check Pods Manifest.lock */ = {
+		5852610FCBA5EE744295BA81 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Menlo Hacks-checkManifestLockResult.txt",
 			);
@@ -623,7 +627,7 @@
 		};
 		BE261A181C3321A000BB5920 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BE86ADBB518EEDC2F3FBA2F /* Pods-Menlo Hacks.debug.xcconfig */;
+			baseConfigurationReference = E83BE8D8342384A66E70E42B /* Pods-Menlo Hacks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -631,12 +635,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -651,7 +657,7 @@
 		};
 		BE261A191C3321A000BB5920 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CFADA17A77A687A12C0C8A6 /* Pods-Menlo Hacks.release.xcconfig */;
+			baseConfigurationReference = EF7A55E28685EAAE585D020F /* Pods-Menlo Hacks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -659,12 +665,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YWVU2284UC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Menlo Hacks/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.menlohacks.menlohacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

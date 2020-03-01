@@ -54,7 +54,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFMInfoBanner
     - AFNetworking
     - Bolts
@@ -90,4 +90,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8677e90a69163d2be0cd2ceb511140fde689e47f
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
