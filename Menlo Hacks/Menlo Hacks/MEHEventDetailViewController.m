@@ -197,12 +197,14 @@
       event.endDate = localEvent.endTime;
       
       [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-      
-      EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
-      eventViewController.event = event;
-      eventViewController.eventStore = eventStore;
-      eventViewController.editViewDelegate = self;
-      [self presentViewController:eventViewController animated:YES completion:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
+              eventViewController.event = event;
+              eventViewController.eventStore = eventStore;
+              eventViewController.editViewDelegate = self;
+              [self presentViewController:eventViewController animated:YES completion:nil];
+        });
     }
     else {
       
